@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Management Dashboard</title>
+<style>
+  :root{
+    --bg:#f4f5f7; --card:#ffffff; --ink:#111827; --muted:#8a94a6;
+    --blue:#2f6fed; --green:#16a34a; --red:#dc2626; --orange:#f59e0b;
+    --pink:#ec4899; --teal:#0ea5e9; --line:#eceef2;
+  }
+  *{box-sizing:border-box; margin:0; padding:0; font-family:'Segoe UI',Inter,Roboto,Arial,sans-serif;}
+  body{background:var(--bg); color:var(--ink); padding:22px 26px 40px;}
+  .wrap{max-width:1560px; margin:0 auto;}
+  .topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
+  h1{font-size:22px; font-weight:700;}
+  .btn-reset{border:1px solid #d7dce4; background:#fff; border-radius:999px; padding:7px 16px; font-size:13px; cursor:pointer; box-shadow:0 1px 2px rgba(16,24,40,.04);}
+  .btn-reset:hover{background:#f8fafc;}
+  .filters{display:flex; flex-wrap:wrap; gap:10px; align-items:center; background:var(--card); border-radius:14px; padding:12px 16px; margin-bottom:16px; box-shadow:0 1px 3px rgba(16,24,40,.05);}
+  .filters label{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.4px; margin-right:4px;}
+  .filters input[type=date]{border:1px solid #d7dce4; border-radius:8px; padding:6px 8px; font-size:13px; color:var(--ink);}
+  .adv-drop{position:relative;}
+  .adv-drop>button{border:1px solid #d7dce4; background:#fff; border-radius:8px; padding:7px 12px; font-size:13px; cursor:pointer;}
+  .adv-panel{display:none; position:absolute; top:110%; left:0; z-index:50; background:#fff; border:1px solid #e2e6ec; border-radius:10px; box-shadow:0 8px 24px rgba(16,24,40,.12); padding:10px; width:240px; max-height:280px; overflow:auto;}
+  .adv-panel.open{display:block;}
+  .adv-panel label{display:flex; gap:8px; align-items:center; font-size:13px; text-transform:none; color:var(--ink); padding:4px 2px; margin:0; cursor:pointer;}
+  .cards{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:16px;}
+  .card{background:var(--card); border-radius:14px; padding:18px 18px 14px; box-shadow:0 1px 3px rgba(16,24,40,.05); min-height:118px; display:flex; flex-direction:column;}
+  .card .lbl{font-size:11px; letter-spacing:.6px; color:var(--muted); text-transform:uppercase; font-weight:600;}
+  .card .val{font-size:30px; font-weight:750; margin-top:8px; color:var(--ink);}
+  .card .accent{height:3px; width:52px; border-radius:2px; margin-top:10px;}
+  .card .sub{margin-top:auto; padding-top:10px; display:flex; justify-content:space-between; font-size:11px; color:var(--muted);}
+  .card .sub b{color:var(--ink); font-weight:600;}
+  .card .sub b.green{color:var(--green);} .card .sub b.red{color:var(--red);}
+  .panel{background:var(--card); border-radius:14px; padding:18px; box-shadow:0 1px 3px rgba(16,24,40,.05); margin-bottom:16px;}
+  .panel h3{font-size:15px; font-weight:700; margin-bottom:2px;}
+  .panel .hint{font-size:12px; color:var(--muted); margin-bottom:12px;}
+  .panel-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+  .toggle{display:inline-flex; border:1px solid #d7dce4; border-radius:999px; overflow:hidden;}
+  .toggle button{border:0; background:#fff; padding:5px 14px; font-size:12px; cursor:pointer; color:var(--ink);}
+  .toggle button.active{background:#0f172a; color:#fff;}
+  table{width:100%; border-collapse:collapse; font-size:13px;}
+  th,td{padding:8px 10px; text-align:right; white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  .grp-blue{background:var(--blue); color:#fff;}
+  .grp-green{background:#1f9d55; color:#fff;}
+  .grp-orange{background:#b26a00; color:#fff;}
+  .grp-roi{background:#fff;}
+  thead .sub th{color:var(--muted); font-size:10px; text-transform:uppercase; letter-spacing:.4px; font-weight:600; border-bottom:1px solid var(--line);}
+  tbody td{border-bottom:1px solid var(--line);}
+  tbody tr:last-child td{border-bottom:0;}
+  .pos{color:var(--green); font-weight:600;} .neg{color:var(--red); font-weight:600;}
+  .pill{display:inline-block; padding:3px 12px; border-radius:999px; font-size:11px; font-weight:700; letter-spacing:.4px;}
+  .pill.email{background:#e3ecff; color:var(--blue);}
+  .pill.media{background:#fff3d6; color:#b45309;}
+  .pill.social{background:#ffe3f1; color:#db2777;}
+  .pill.total{background:#f1f2f4; color:#374151;}
+  tr.total-row td{font-weight:700; background:#fafbfc;}
+  .num{font-variant-numeric:tabular-nums;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;}
+  .bar-wrap{position:relative; height:270px;}
+  @media (max-width:1100px){ .cards{grid-template-columns:repeat(2,1fr);} .grid2{grid-template-columns:1fr;} }
+</style>
+<!-- Chart.js v4.4.3 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <h1>Management Dashboard - September 1-3</h1>
+    <button class="btn-reset" id="btnReset">Reset filters</button>
+  </div>
+
+  <div class="filters">
+    <div><label>From</label><input type="date" id="dateFrom" min="2026-09-01" max="2026-09-30" value="2026-09-01"></div>
+    <div><label>To</label><input type="date" id="dateTo" min="2026-09-01" max="2026-09-30" value="2026-09-03"></div>
+    <div class="adv-drop">
+      <label>Advertisers</label>
+      <button id="advBtn">All advertisers ▾</button>
+      <div class="adv-panel" id="advPanel"></div>
+    </div>
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="panel">
+    <h3>Team Performance</h3>
+    <table id="teamTable">
+      <thead>
+        <tr>
+          <th style="text-align:left">TEAM</th>
+          <th colspan="5" class="grp-blue">KPIS</th>
+          <th colspan="5" class="grp-green">MTD - SEP 2026</th>
+          <th colspan="5" class="grp-orange">RR - RUN-RATE TO SEP 30</th>
+          <th class="grp-roi"></th>
+        </tr>
+        <tr class="sub">
+          <th></th>
+          <th>Budget</th><th>Signups</th><th>Users</th><th>Revenue</th><th>Profit</th>
+          <th>Budget</th><th>Signups</th><th>Users</th><th>Revenue</th><th>Profit</th>
+          <th>Budget</th><th>Signups</th><th>Users</th><th>Revenue</th><th>Profit</th>
+          <th>ROI</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h3>Daily Performance</h3>
+    <div class="hint">Registrations, FTD and revenue by day.</div>
+    <div style="height:340px"><canvas id="chDaily"></canvas></div>
+  </div>
+
+  <!-- Redesigned Team Performance Breakdown Section -->
+  <div class="grid2">
+    <!-- Panel 1: Financial Comparison Bar Chart -->
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h3>Team Financial Performance</h3>
+          <div class="hint" id="teamFinHint">Budget, revenue and profit comparison across teams.</div>
+        </div>
+        <div class="toggle" id="teamFinToggle">
+          <button data-m="mtd" class="active">MTD</button>
+          <button data-m="rr">Run-Rate</button>
+        </div>
+      </div>
+      <div class="bar-wrap"><canvas id="chTeamFin"></canvas></div>
+    </div>
+
+    <!-- Panel 2: Team Share & Distribution Doughnut Chart -->
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h3>Team Contribution Share</h3>
+          <div class="hint" id="teamShareHint">Distribution of total revenue across teams.</div>
+        </div>
+        <div class="toggle" id="teamShareToggle">
+          <button data-m="revenue" class="active">Revenue</button>
+          <button data-m="signups">Signups</button>
+          <button data-m="users">Users</button>
+        </div>
+      </div>
+      <div class="bar-wrap"><canvas id="chTeamShare"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = {
+  "daysElapsed": 3,
+  "daysInMonth": 30,
+  "dateMin": "2026-09-01",
+  "dateMax": "2026-09-03",
+  "advertisers": [
+    "ACEBET", "AFF 66", "ALL IN AFFILIATES", "BASHER AGENCY",
+    "CHANCED", "COINSROYALE", "EPC", "GAMETIME DIGITAL", "IMPACT", "SPLASH"
+  ],
+  "teams": [
+    {
+      "name": "EMAIL", "cls": "email",
+      "kpi": {"budget": 1100, "signups": 250, "users": 20, "revenue": 3300, "profit": 2200},
+      "mtd": {"budget": 934, "signups": 97, "users": 4, "revenue": 620, "profit": -314}
+    },
+    {
+      "name": "MEDIA", "cls": "media",
+      "kpi": {"budget": 5500, "signups": 1000, "users": 300, "revenue": 16500, "profit": 11000},
+      "mtd": {"budget": 21, "signups": 41, "users": 1, "revenue": 150, "profit": 129}
+    },
+    {
+      "name": "SOCIAL", "cls": "social",
+      "kpi": {"budget": 1100, "signups": 250, "users": 20, "revenue": 3300, "profit": 2200},
+      "mtd": {"budget": 0, "signups": 0, "users": 0, "revenue": 0, "profit": 0}
+    },
+    {
+      "name": "Grand total", "cls": "total",
+      "kpi": {"budget": 7700, "signups": 1500, "users": 340, "revenue": 23100, "profit": 15400},
+      "mtd": {"budget": 955, "signups": 138, "users": 5, "revenue": 770, "profit": -185}
+    }
+  ],
+  "daily": {
+    "AFF 66": {"2026-09-01": [4, 0, 0], "2026-09-02": [3, 0, 0], "2026-09-03": [4, 0, 0]},
+    "ALL IN AFFILIATES": {"2026-09-01": [1, 0, 0], "2026-09-02": [1, 0, 0], "2026-09-03": [1, 0, 0]},
+    "CHANCED": {"2026-09-01": [6, 0, 0], "2026-09-02": [5, 0, 0], "2026-09-03": [6, 0, 0]},
+    "SPLASH": {"2026-09-01": [2, 0, 0], "2026-09-02": [2, 0, 0], "2026-09-03": [2, 0, 0]},
+    "BASHER AGENCY": {"2026-09-01": [5, 0, 0], "2026-09-02": [4, 0, 0], "2026-09-03": [5, 0, 0]},
+    "GAMETIME DIGITAL": {"2026-09-01": [26, 2, 250], "2026-09-02": [28, 1, 260], "2026-09-03": [27, 2, 260]},
+    "COINSROYALE": {"2026-09-01": [0, 0, 0], "2026-09-02": [0, 0, 0], "2026-09-03": [0, 0, 0]},
+    "EPC": {"2026-09-01": [1, 0, 0], "2026-09-02": [1, 0, 0], "2026-09-03": [1, 0, 0]},
+    "ACEBET": {"2026-09-01": [1, 0, 0], "2026-09-02": [1, 0, 0], "2026-09-03": [1, 0, 0]}
+  }
+};
+
+/* Calcular automáticamente Run Rate (RR) a fin de mes */
+const factor = DATA.daysInMonth / DATA.daysElapsed;
+DATA.teams.forEach(t => {
+  const m = t.mtd;
+  t.rr = {
+    budget: Math.round(m.budget * factor),
+    signups: Math.round(m.signups * factor),
+    users: Math.round(m.users * factor),
+    revenue: Math.round(m.revenue * factor),
+    profit: Math.round(m.revenue * factor) - Math.round(m.budget * factor)
+  };
+  t.roi = m.budget > 0 ? '1:' + (m.revenue / m.budget).toFixed(1) : '—';
+});
+
+const gt = DATA.teams.find(t => t.cls === 'total');
+DATA.cards = {
+  registrations: { mtd: gt.mtd.signups, kpi: gt.kpi.signups, rr: gt.rr.signups },
+  ftd: { mtd: gt.mtd.users, kpi: gt.kpi.users, rr: gt.rr.users },
+  revenue: { mtd: gt.mtd.revenue, kpi: gt.kpi.revenue, rr: gt.rr.revenue },
+  profit: { mtd: gt.mtd.profit, kpi: gt.kpi.profit, rr: gt.rr.profit }
+};
+
+const fmtInt = v => Math.round(v).toLocaleString('en-US');
+const fmtMoney = v => (v < 0 ? '-$' : '$') + fmtInt(Math.abs(v));
+const moneyCls = v => v < 0 ? 'neg' : (v > 0 ? 'pos' : '');
+const kpiCls = (v, kpi, invert) => {
+  if (v < 0) return 'neg';
+  const ok = invert ? v <= kpi : v >= kpi;
+  return ok ? 'pos' : 'neg';
+};
+
+const state = {
+  from: DATA.dateMin, to: DATA.dateMax,
+  advs: new Set(DATA.advertisers),
+  teamFinMode: 'mtd',
+  teamShareMetric: 'revenue'
+};
+
+/* ---------- Top cards ---------- */
+function renderCards(){
+  const c = DATA.cards;
+  const defs = [
+    {lbl:'REGISTRATIONS', val: fmtInt(c.registrations.mtd), accent:'var(--pink)', sub:{kpi:fmtInt(c.registrations.kpi), rr:fmtInt(c.registrations.rr), rrCls: c.registrations.rr >= c.registrations.kpi ? 'green':'red'}},
+    {lbl:'FTD', val: fmtInt(c.ftd.mtd), accent:'var(--pink)', sub:{kpi:fmtInt(c.ftd.kpi), rr:fmtInt(c.ftd.rr), rrCls: c.ftd.rr >= c.ftd.kpi ? 'green':'red'}},
+    {lbl:'REVENUE', val: fmtMoney(c.revenue.mtd), accent:'var(--orange)', sub:{kpi:fmtMoney(c.revenue.kpi), rr:fmtMoney(c.revenue.rr), rrCls: c.revenue.rr >= c.revenue.kpi ? 'green':'red'}},
+    {lbl:'PROFIT', val: fmtMoney(c.profit.mtd), accent:'var(--pink)', sub:{kpi:fmtMoney(c.profit.kpi), rr:fmtMoney(c.profit.rr), rrCls: c.profit.rr >= c.profit.kpi ? 'green':'red'}}
+  ];
+  document.getElementById('cards').innerHTML = defs.map(d => `
+    <div class="card">
+      <div class="lbl">${d.lbl}</div>
+      <div class="val">${d.val}</div>
+      <div class="accent" style="background:${d.accent}"></div>
+      ${d.sub ? `<div class="sub"><span>KPI<br>Run rate</span><span style="text-align:right"><b>${d.sub.kpi}</b><br><b class="${d.sub.rrCls}">${d.sub.rr}</b></span></div>` : ''}
+    </div>`).join('');
+}
+
+/* ---------- Team table ---------- */
+function teamCells(row, section){
+  const k = row.kpi, v = row[section];
+  const cells = [
+    {val: fmtMoney(v.budget), cls: kpiCls(v.budget, k.budget, true)},
+    {val: fmtInt(v.signups), cls: kpiCls(v.signups, k.signups, false)},
+    {val: fmtInt(v.users), cls: kpiCls(v.users, k.users, false)},
+    {val: fmtMoney(v.revenue), cls: kpiCls(v.revenue, k.revenue, false)},
+    {val: fmtMoney(v.profit), cls: kpiCls(v.profit, k.profit, false)}
+  ];
+  if (section !== 'rr') cells.forEach(c => c.cls = '');
+  return cells.map(c => `<td class="num ${c.cls}">${c.val}</td>`).join('');
+}
+function renderTeams(){
+  const tb = document.querySelector('#teamTable tbody');
+  tb.innerHTML = DATA.teams.map(t => `
+    <tr class="${t.cls === 'total' ? 'total-row' : ''}">
+      <td><span class="pill ${t.cls}">${t.name}</span></td>
+      ${teamCells(t,'kpi')}${teamCells(t,'mtd')}${teamCells(t,'rr')}
+      <td class="num">${t.roi}</td>
+    </tr>`).join('');
+}
+
+/* ---------- Daily chart ---------- */
+let chDailyInstance = null;
+function dateRange(){
+  const out = [];
+  let [y, m, d] = state.from.split('-').map(Number);
+  const end = state.to;
+  const pad = n => String(n).padStart(2,'0');
+  while (true){
+    const s = y + '-' + pad(m) + '-' + pad(d);
+    if (s > end) break;
+    out.push(s);
+    d++;
+    const dim = new Date(y, m, 0).getDate();
+    if (d > dim){ d = 1; m++; if (m > 12){ m = 1; y++; } }
+  }
+  return out;
+}
+function renderDaily(){
+  const days = dateRange();
+  const reg = [], ftd = [], rev = [];
+  days.forEach(day => {
+    let r=0, f=0, v=0;
+    for (const adv of state.advs){
+      const rec = DATA.daily[adv] && DATA.daily[adv][day];
+      if (rec){ r += rec[0]; f += rec[1]; v += rec[2]; }
+    }
+    reg.push(r); ftd.push(f); rev.push(v);
+  });
+  const n = days.length || 1;
+  const avg = arr => arr.reduce((a,b) => a+b, 0) / n;
+  const f1 = v => (Math.round(v*10)/10).toLocaleString('en-US');
+  const dashed = (label, color, val) => ({label, data: days.map(() => Math.round(val*10)/10),
+    borderColor: color, borderDash:[6,5], borderWidth:2, pointRadius:0, fill:false, tension:0});
+  const solid = (label, color, data) => ({label, data, borderColor: color, backgroundColor: color,
+    borderWidth:2, pointRadius:5, pointHoverRadius:6, fill:false, tension:0});
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const labels = days.map(d => { const [y,m,dd] = d.split('-'); return months[+m - 1] + ' ' + (+dd); });
+
+  if (chDailyInstance) chDailyInstance.destroy();
+  chDailyInstance = new Chart(document.getElementById('chDaily'), {
+    type:'line',
+    data:{labels, datasets:[
+      solid('Registrations (Avg: ' + fmtInt(avg(reg)) + '/day)', '#2f6fed', reg),
+      solid('FTD (Avg: ' + f1(avg(ftd)) + '/day)', '#ec4899', ftd),
+      solid('Revenue (Avg: $' + fmtInt(avg(rev)) + '/day)', '#eab308', rev),
+      dashed('KPI SIGNUPS (' + f1(gt.kpi.signups / DATA.daysInMonth) + '/day)', '#2f6fed', gt.kpi.signups / DATA.daysInMonth),
+      dashed('KPI FTD (' + f1(gt.kpi.users / DATA.daysInMonth) + '/day)', '#ec4899', gt.kpi.users / DATA.daysInMonth),
+      dashed('KPI REVENUE ($' + fmtInt(gt.kpi.revenue / DATA.daysInMonth) + '/day)', '#eab308', gt.kpi.revenue / DATA.daysInMonth)
+    ]},
+    options:{responsive:true, maintainAspectRatio:false, interaction:{mode:'index', intersect:false},
+      plugins:{legend:{position:'top', align:'center', labels:{boxWidth:10, usePointStyle:true, pointStyle:'circle', padding:14, font:{size:11}}}},
+      scales:{ y:{title:{display:true, text:'Count'}, grid:{color:'#f0f1f4'}, beginAtZero:true},
+               y1:{position:'right', title:{display:true, text:'Revenue $'}, grid:{drawOnChartArea:false}, beginAtZero:true, ticks:{callback:v=>'$'+fmtInt(v)}},
+               x:{grid:{display:false}} }}
+  });
+  chDailyInstance.data.datasets[2].yAxisID = 'y1';
+  chDailyInstance.data.datasets[5].yAxisID = 'y1';
+  chDailyInstance.update();
+}
+
+/* ---------- New Visual: Team Financial Performance Bar Chart ---------- */
+let chTeamFinInstance = null;
+function renderTeamFinChart(){
+  const mode = state.teamFinMode;
+  const teams = DATA.teams.filter(t => t.cls !== 'total');
+  const labels = teams.map(t => t.name);
+
+  const budgetData = teams.map(t => t[mode].budget);
+  const revenueData = teams.map(t => t[mode].revenue);
+  const profitData = teams.map(t => t[mode].profit);
+
+  document.getElementById('teamFinHint').textContent =
+    `Budget, revenue and net profit comparison across teams (${mode.toUpperCase()}).`;
+
+  if (chTeamFinInstance) chTeamFinInstance.destroy();
+  const ctx = document.getElementById('chTeamFin');
+  if (!ctx) return;
+
+  chTeamFinInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Budget',
+          data: budgetData,
+          backgroundColor: '#94a3b8',
+          borderRadius: 4
+        },
+        {
+          label: 'Revenue',
+          data: revenueData,
+          backgroundColor: '#2f6fed',
+          borderRadius: 4
+        },
+        {
+          label: 'Net Profit',
+          data: profitData,
+          backgroundColor: profitData.map(v => v >= 0 ? '#16a34a' : '#dc2626'),
+          borderRadius: 4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: { boxWidth: 10, usePointStyle: true, pointStyle: 'circle', font: { size: 11 } }
+        },
+        tooltip: {
+          callbacks: {
+            label: (c) => ` ${c.dataset.label}: ` + fmtMoney(c.parsed.y)
+          }
+        }
+      },
+      scales: {
+        x: { grid: { display: false } },
+        y: {
+          grid: { color: '#f0f1f4' },
+          ticks: { callback: (v) => fmtMoney(v) }
+        }
+      }
+    }
+  });
+}
+
+/* ---------- New Visual: Team Contribution Share Doughnut Chart ---------- */
+let chTeamShareInstance = null;
+function renderTeamShareChart(){
+  const metric = state.teamShareMetric;
+  const teams = DATA.teams.filter(t => t.cls !== 'total');
+  const labels = teams.map(t => t.name);
+  const data = teams.map(t => t.mtd[metric]);
+  const total = data.reduce((a, b) => a + b, 0);
+
+  const colors = ['#2f6fed', '#f59e0b', '#ec4899'];
+
+  document.getElementById('teamShareHint').textContent =
+    `Distribution of total ${metric} across teams (Total: ` + (metric === 'revenue' ? fmtMoney(total) : fmtInt(total)) + `).`;
+
+  if (chTeamShareInstance) chTeamShareInstance.destroy();
+  const ctx = document.getElementById('chTeamShare');
+  if (!ctx) return;
+
+  chTeamShareInstance = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          data: data,
+          backgroundColor: colors,
+          borderWidth: 2,
+          borderColor: '#ffffff',
+          hoverOffset: 6
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '65%',
+      plugins: {
+        legend: {
+          position: 'right',
+          labels: {
+            boxWidth: 12,
+            usePointStyle: true,
+            pointStyle: 'circle',
+            font: { size: 12 },
+            generateLabels: (chart) => {
+              const d = chart.data;
+              return d.labels.map((lbl, i) => {
+                const val = d.datasets[0].data[i];
+                const pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
+                const formatted = metric === 'revenue' ? fmtMoney(val) : fmtInt(val);
+                return {
+                  text: `${lbl}: ${formatted} (${pct}%)`,
+                  fillStyle: d.datasets[0].backgroundColor[i],
+                  strokeStyle: d.datasets[0].backgroundColor[i],
+                  index: i
+                };
+              });
+            }
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: (c) => {
+              const val = c.parsed;
+              const pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
+              const formatted = metric === 'revenue' ? fmtMoney(val) : fmtInt(val);
+              return ` ${c.label}: ${formatted} (${pct}%)`;
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function initTeamChartToggles(){
+  const finToggle = document.getElementById('teamFinToggle');
+  if (finToggle) {
+    finToggle.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.teamFinMode = btn.dataset.m;
+        finToggle.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+        renderTeamFinChart();
+      });
+    });
+  }
+
+  const shareToggle = document.getElementById('teamShareToggle');
+  if (shareToggle) {
+    shareToggle.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.teamShareMetric = btn.dataset.m;
+        shareToggle.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+        renderTeamShareChart();
+      });
+    });
+  }
+}
+
+function renderTeamCharts(){
+  renderTeamFinChart();
+  renderTeamShareChart();
+}
+
+/* ---------- Filters ---------- */
+function renderAdvPanel(){
+  const p = document.getElementById('advPanel');
+  p.innerHTML = DATA.advertisers.map(adv => `
+    <label><input type="checkbox" value="${adv}" ${state.advs.has(adv)?'checked':''}> ${adv}</label>`).join('');
+  p.querySelectorAll('input').forEach(cb => cb.addEventListener('change', () => {
+    cb.checked ? state.advs.add(cb.value) : state.advs.delete(cb.value);
+    updateAdvBtn(); renderDaily();
+  }));
+}
+function updateAdvBtn(){
+  document.getElementById('advBtn').textContent =
+    state.advs.size === DATA.advertisers.length ? 'All advertisers ▾' : state.advs.size + ' advertisers ▾';
+}
+
+document.getElementById('advBtn').addEventListener('click', e => { e.stopPropagation(); document.getElementById('advPanel').classList.toggle('open'); });
+document.addEventListener('click', e => { if (!e.target.closest('.adv-drop')) document.getElementById('advPanel').classList.remove('open'); });
+document.getElementById('dateFrom').addEventListener('change', e => { state.from = e.target.value || DATA.dateMin; if (state.from > state.to){ state.to = state.from; document.getElementById('dateTo').value = state.to; } renderDaily(); });
+document.getElementById('dateTo').addEventListener('change', e => { state.to = e.target.value || DATA.dateMax; if (state.to < state.from){ state.from = state.to; document.getElementById('dateFrom').value = state.from; } renderDaily(); });
+document.getElementById('btnReset').addEventListener('click', () => {
+  state.from = DATA.dateMin; state.to = DATA.dateMax;
+  document.getElementById('dateFrom').value = DATA.dateMin; document.getElementById('dateTo').value = DATA.dateMax;
+  state.advs = new Set(DATA.advertisers);
+  state.teamFinMode = 'mtd';
+  state.teamShareMetric = 'revenue';
+  document.querySelectorAll('#teamFinToggle button').forEach(b => b.classList.toggle('active', b.dataset.m === 'mtd'));
+  document.querySelectorAll('#teamShareToggle button').forEach(b => b.classList.toggle('active', b.dataset.m === 'revenue'));
+  renderAdvPanel(); updateAdvBtn(); renderDaily(); renderTeamCharts();
+});
+
+renderCards(); renderTeams(); renderAdvPanel(); updateAdvBtn(); renderDaily(); renderTeamCharts(); initTeamChartToggles();
+</script>
+</body>
+</html>
