@@ -58,9 +58,9 @@
   .pill.total{background:#f1f2f4; color:#374151;}
   tr.total-row td{font-weight:700; background:#fafbfc;}
   .num{font-variant-numeric:tabular-nums;}
-  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;}
-  .bar-wrap{position:relative; height:270px;}
-  @media (max-width:1100px){ .cards{grid-template-columns:repeat(2,1fr);} .grid2{grid-template-columns:1fr;} }
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:16px;}
+  .bar-wrap{position:relative; height:260px;}
+  @media (max-width:1100px){ .cards{grid-template-columns:repeat(2,1fr);} .grid3{grid-template-columns:1fr;} }
 </style>
 <!-- Chart.js v4.4.3 -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
@@ -113,37 +113,51 @@
     <div style="height:340px"><canvas id="chDaily"></canvas></div>
   </div>
 
-  <!-- Redesigned Team Performance Breakdown Section -->
-  <div class="grid2">
-    <!-- Panel 1: Financial Comparison Bar Chart -->
+  <!-- 3 Team Contribution Doughnut Charts Section -->
+  <div class="grid3">
+    <!-- Chart 1: Revenue Contribution Share -->
     <div class="panel">
       <div class="panel-head">
         <div>
-          <h3>Team Financial Performance</h3>
-          <div class="hint" id="teamFinHint">Budget, revenue and profit comparison across teams.</div>
+          <h3>Revenue Share</h3>
+          <div class="hint" id="hintRevShare">Distribution of total revenue across teams.</div>
         </div>
-        <div class="toggle" id="teamFinToggle">
+        <div class="toggle" id="toggleRevShare">
           <button data-m="mtd" class="active">MTD</button>
           <button data-m="rr">Run-Rate</button>
         </div>
       </div>
-      <div class="bar-wrap"><canvas id="chTeamFin"></canvas></div>
+      <div class="bar-wrap"><canvas id="chRevShare"></canvas></div>
     </div>
 
-    <!-- Panel 2: Team Share & Distribution Doughnut Chart -->
+    <!-- Chart 2: Users (FTD) Share -->
     <div class="panel">
       <div class="panel-head">
         <div>
-          <h3>Team Contribution Share</h3>
-          <div class="hint" id="teamShareHint">Distribution of total revenue across teams.</div>
+          <h3>Users Share</h3>
+          <div class="hint" id="hintUsersShare">Distribution of total users (FTD) across teams.</div>
         </div>
-        <div class="toggle" id="teamShareToggle">
-          <button data-m="revenue" class="active">Revenue</button>
-          <button data-m="signups">Signups</button>
-          <button data-m="users">Users</button>
+        <div class="toggle" id="toggleUsersShare">
+          <button data-m="mtd" class="active">MTD</button>
+          <button data-m="rr">Run-Rate</button>
         </div>
       </div>
-      <div class="bar-wrap"><canvas id="chTeamShare"></canvas></div>
+      <div class="bar-wrap"><canvas id="chUsersShare"></canvas></div>
+    </div>
+
+    <!-- Chart 3: Budget Investment Share -->
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h3>Budget Share</h3>
+          <div class="hint" id="hintBudShare">Distribution of marketing budget across teams.</div>
+        </div>
+        <div class="toggle" id="toggleBudShare">
+          <button data-m="mtd" class="active">MTD</button>
+          <button data-m="rr">Run-Rate</button>
+        </div>
+      </div>
+      <div class="bar-wrap"><canvas id="chBudShare"></canvas></div>
     </div>
   </div>
 </div>
@@ -227,8 +241,9 @@ const kpiCls = (v, kpi, invert) => {
 const state = {
   from: DATA.dateMin, to: DATA.dateMax,
   advs: new Set(DATA.advertisers),
-  teamFinMode: 'mtd',
-  teamShareMetric: 'revenue'
+  revShareMode: 'mtd',
+  usersShareMode: 'mtd',
+  budShareMode: 'mtd'
 };
 
 /* ---------- Top cards ---------- */
@@ -332,106 +347,25 @@ function renderDaily(){
   chDailyInstance.update();
 }
 
-/* ---------- New Visual: Team Financial Performance Bar Chart ---------- */
-let chTeamFinInstance = null;
-function renderTeamFinChart(){
-  const mode = state.teamFinMode;
-  const teams = DATA.teams.filter(t => t.cls !== 'total');
-  const labels = teams.map(t => t.name);
+/* ---------- 3 Executive Doughnut Charts ---------- */
+const teamColors = ['#2f6fed', '#f59e0b', '#ec4899'];
+let chInstances = { rev: null, users: null, bud: null };
 
-  const budgetData = teams.map(t => t[mode].budget);
-  const revenueData = teams.map(t => t[mode].revenue);
-  const profitData = teams.map(t => t[mode].profit);
+function createTeamDoughnut(canvasId, teams, dataValues, total, isCurrency) {
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return null;
 
-  document.getElementById('teamFinHint').textContent =
-    `Budget, revenue and net profit comparison across teams (${mode.toUpperCase()}).`;
-
-  if (chTeamFinInstance) chTeamFinInstance.destroy();
-  const ctx = document.getElementById('chTeamFin');
-  if (!ctx) return;
-
-  chTeamFinInstance = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: 'Budget',
-          data: budgetData,
-          backgroundColor: '#94a3b8',
-          borderRadius: 4
-        },
-        {
-          label: 'Revenue',
-          data: revenueData,
-          backgroundColor: '#2f6fed',
-          borderRadius: 4
-        },
-        {
-          label: 'Net Profit',
-          data: profitData,
-          backgroundColor: profitData.map(v => v >= 0 ? '#16a34a' : '#dc2626'),
-          borderRadius: 4
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: {
-          position: 'top',
-          labels: { boxWidth: 10, usePointStyle: true, pointStyle: 'circle', font: { size: 11 } }
-        },
-        tooltip: {
-          callbacks: {
-            label: (c) => ` ${c.dataset.label}: ` + fmtMoney(c.parsed.y)
-          }
-        }
-      },
-      scales: {
-        x: { grid: { display: false } },
-        y: {
-          grid: { color: '#f0f1f4' },
-          ticks: { callback: (v) => fmtMoney(v) }
-        }
-      }
-    }
-  });
-}
-
-/* ---------- New Visual: Team Contribution Share Doughnut Chart ---------- */
-let chTeamShareInstance = null;
-function renderTeamShareChart(){
-  const metric = state.teamShareMetric;
-  const teams = DATA.teams.filter(t => t.cls !== 'total');
-  const labels = teams.map(t => t.name);
-  const data = teams.map(t => t.mtd[metric]);
-  const total = data.reduce((a, b) => a + b, 0);
-
-  const colors = ['#2f6fed', '#f59e0b', '#ec4899'];
-
-  document.getElementById('teamShareHint').textContent =
-    `Distribution of total ${metric} across teams (Total: ` + (metric === 'revenue' ? fmtMoney(total) : fmtInt(total)) + `).`;
-
-  if (chTeamShareInstance) chTeamShareInstance.destroy();
-  const ctx = document.getElementById('chTeamShare');
-  if (!ctx) return;
-
-  chTeamShareInstance = new Chart(ctx, {
+  return new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: labels,
-      datasets: [
-        {
-          data: data,
-          backgroundColor: colors,
-          borderWidth: 2,
-          borderColor: '#ffffff',
-          hoverOffset: 6
-        }
-      ]
+      labels: teams.map(t => t.name),
+      datasets: [{
+        data: dataValues,
+        backgroundColor: teamColors,
+        borderWidth: 2,
+        borderColor: '#ffffff',
+        hoverOffset: 6
+      }]
     },
     options: {
       responsive: true,
@@ -441,16 +375,16 @@ function renderTeamShareChart(){
         legend: {
           position: 'right',
           labels: {
-            boxWidth: 12,
+            boxWidth: 10,
             usePointStyle: true,
             pointStyle: 'circle',
-            font: { size: 12 },
+            font: { size: 11 },
             generateLabels: (chart) => {
               const d = chart.data;
               return d.labels.map((lbl, i) => {
                 const val = d.datasets[0].data[i];
                 const pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
-                const formatted = metric === 'revenue' ? fmtMoney(val) : fmtInt(val);
+                const formatted = isCurrency ? fmtMoney(val) : fmtInt(val);
                 return {
                   text: `${lbl}: ${formatted} (${pct}%)`,
                   fillStyle: d.datasets[0].backgroundColor[i],
@@ -466,7 +400,7 @@ function renderTeamShareChart(){
             label: (c) => {
               const val = c.parsed;
               const pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
-              const formatted = metric === 'revenue' ? fmtMoney(val) : fmtInt(val);
+              const formatted = isCurrency ? fmtMoney(val) : fmtInt(val);
               return ` ${c.label}: ${formatted} (${pct}%)`;
             }
           }
@@ -476,33 +410,84 @@ function renderTeamShareChart(){
   });
 }
 
-function initTeamChartToggles(){
-  const finToggle = document.getElementById('teamFinToggle');
-  if (finToggle) {
-    finToggle.querySelectorAll('button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.teamFinMode = btn.dataset.m;
-        finToggle.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
-        renderTeamFinChart();
-      });
-    });
-  }
+function renderRevShareChart() {
+  const mode = state.revShareMode;
+  const teams = DATA.teams.filter(t => t.cls !== 'total');
+  const values = teams.map(t => t[mode].revenue);
+  const total = values.reduce((a, b) => a + b, 0);
 
-  const shareToggle = document.getElementById('teamShareToggle');
-  if (shareToggle) {
-    shareToggle.querySelectorAll('button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.teamShareMetric = btn.dataset.m;
-        shareToggle.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
-        renderTeamShareChart();
-      });
-    });
-  }
+  document.getElementById('hintRevShare').textContent =
+    `Distribution of total revenue across teams (Total: ${fmtMoney(total)}).`;
+
+  if (chInstances.rev) chInstances.rev.destroy();
+  chInstances.rev = createTeamDoughnut('chRevShare', teams, values, total, true);
 }
 
-function renderTeamCharts(){
-  renderTeamFinChart();
-  renderTeamShareChart();
+function renderUsersShareChart() {
+  const mode = state.usersShareMode;
+  const teams = DATA.teams.filter(t => t.cls !== 'total');
+  const values = teams.map(t => t[mode].users);
+  const total = values.reduce((a, b) => a + b, 0);
+
+  document.getElementById('hintUsersShare').textContent =
+    `Distribution of total users (FTD) across teams (Total: ${fmtInt(total)}).`;
+
+  if (chInstances.users) chInstances.users.destroy();
+  chInstances.users = createTeamDoughnut('chUsersShare', teams, values, total, false);
+}
+
+function renderBudShareChart() {
+  const mode = state.budShareMode;
+  const teams = DATA.teams.filter(t => t.cls !== 'total');
+  const values = teams.map(t => t[mode].budget);
+  const total = values.reduce((a, b) => a + b, 0);
+
+  document.getElementById('hintBudShare').textContent =
+    `Distribution of total budget across teams (Total: ${fmtMoney(total)}).`;
+
+  if (chInstances.bud) chInstances.bud.destroy();
+  chInstances.bud = createTeamDoughnut('chBudShare', teams, values, total, true);
+}
+
+function renderAllDoughnuts() {
+  renderRevShareChart();
+  renderUsersShareChart();
+  renderBudShareChart();
+}
+
+function initDoughnutToggles() {
+  const tRev = document.getElementById('toggleRevShare');
+  if (tRev) {
+    tRev.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.revShareMode = btn.dataset.m;
+        tRev.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+        renderRevShareChart();
+      });
+    });
+  }
+
+  const tUsers = document.getElementById('toggleUsersShare');
+  if (tUsers) {
+    tUsers.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.usersShareMode = btn.dataset.m;
+        tUsers.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+        renderUsersShareChart();
+      });
+    });
+  }
+
+  const tBud = document.getElementById('toggleBudShare');
+  if (tBud) {
+    tBud.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.budShareMode = btn.dataset.m;
+        tBud.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+        renderBudShareChart();
+      });
+    });
+  }
 }
 
 /* ---------- Filters ---------- */
@@ -528,14 +513,16 @@ document.getElementById('btnReset').addEventListener('click', () => {
   state.from = DATA.dateMin; state.to = DATA.dateMax;
   document.getElementById('dateFrom').value = DATA.dateMin; document.getElementById('dateTo').value = DATA.dateMax;
   state.advs = new Set(DATA.advertisers);
-  state.teamFinMode = 'mtd';
-  state.teamShareMetric = 'revenue';
-  document.querySelectorAll('#teamFinToggle button').forEach(b => b.classList.toggle('active', b.dataset.m === 'mtd'));
-  document.querySelectorAll('#teamShareToggle button').forEach(b => b.classList.toggle('active', b.dataset.m === 'revenue'));
-  renderAdvPanel(); updateAdvBtn(); renderDaily(); renderTeamCharts();
+  state.revShareMode = 'mtd';
+  state.usersShareMode = 'mtd';
+  state.budShareMode = 'mtd';
+  document.querySelectorAll('#toggleRevShare button').forEach(b => b.classList.toggle('active', b.dataset.m === 'mtd'));
+  document.querySelectorAll('#toggleUsersShare button').forEach(b => b.classList.toggle('active', b.dataset.m === 'mtd'));
+  document.querySelectorAll('#toggleBudShare button').forEach(b => b.classList.toggle('active', b.dataset.m === 'mtd'));
+  renderAdvPanel(); updateAdvBtn(); renderDaily(); renderAllDoughnuts();
 });
 
-renderCards(); renderTeams(); renderAdvPanel(); updateAdvBtn(); renderDaily(); renderTeamCharts(); initTeamChartToggles();
+renderCards(); renderTeams(); renderAdvPanel(); updateAdvBtn(); renderDaily(); renderAllDoughnuts(); initDoughnutToggles();
 </script>
 </body>
 </html>
