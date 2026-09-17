@@ -7,7 +7,7 @@
 <style>
   :root{
     --bg:#f4f5f7; --card:#ffffff; --ink:#111827; --muted:#8a94a6;
-    --blue:#2f6fed; --green:#16a34a; --red:#dc2626; --orange:#f59e0b;
+    --blue:#2f6fed; --green:#16a34a; --emerald:#10b981; --red:#dc2626; --orange:#f59e0b;
     --pink:#ec4899; --teal:#0ea5e9; --line:#eceef2;
   }
   *{box-sizing:border-box; margin:0; padding:0; font-family:'Segoe UI',Inter,Roboto,Arial,sans-serif;}
@@ -34,14 +34,26 @@
   .card .sub b{color:var(--ink); font-weight:600;}
   .card .sub b.green{color:var(--green);} .card .sub b.red{color:var(--red);}
   .panel{background:var(--card); border-radius:14px; padding:18px; box-shadow:0 1px 3px rgba(16,24,40,.05); margin-bottom:16px;}
-  .panel h3{font-size:15px; font-weight:700; margin-bottom:2px;}
+  .panel h3{font-size:16px; font-weight:700; margin-bottom:2px;}
   .panel .hint{font-size:12px; color:var(--muted); margin-bottom:12px;}
-  .panel-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+  .panel-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;}
+  
+  /* Botones de ordenamiento y toggles */
+  .sort-btns{display:flex; gap:6px; align-items:center; flex-wrap:wrap;}
+  .sort-btns button{
+    border:1px solid #d7dce4; background:#fff; border-radius:6px;
+    padding:5px 12px; font-size:12px; cursor:pointer; color:var(--ink);
+    font-weight:500; transition:all .15s ease;
+  }
+  .sort-btns button:hover{background:#f8fafc;}
+  .sort-btns button.active{background:#0b1329; color:#fff; border-color:#0b1329;}
+
   .toggle{display:inline-flex; border:1px solid #d7dce4; border-radius:999px; overflow:hidden;}
   .toggle button{border:0; background:#fff; padding:5px 14px; font-size:12px; cursor:pointer; color:var(--ink);}
-  .toggle button.active{background:#0f172a; color:#fff;}
+  .toggle button.active{background:#0b1329; color:#fff;}
+
   table{width:100%; border-collapse:collapse; font-size:13px;}
-  th,td{padding:8px 10px; text-align:right; white-space:nowrap;}
+  th,td{padding:10px 12px; text-align:right; white-space:nowrap;}
   th:first-child,td:first-child{text-align:left;}
   .grp-blue{background:var(--blue); color:#fff;}
   .grp-green{background:#1f9d55; color:#fff;}
@@ -56,11 +68,26 @@
   .pill.media{background:#fff3d6; color:#b45309;}
   .pill.social{background:#ffe3f1; color:#db2777;}
   .pill.total{background:#f1f2f4; color:#374151;}
-  tr.total-row td{font-weight:700; background:#fafbfc;}
+  tr.total-row td{font-weight:700; background:#fafbfc; border-top:1px solid #e2e8f0;}
   .num{font-variant-numeric:tabular-nums;}
-  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:16px;}
-  .bar-wrap{position:relative; height:260px;}
-  @media (max-width:1100px){ .cards{grid-template-columns:repeat(2,1fr);} .grid3{grid-template-columns:1fr;} }
+
+  /* Tablas de reportes */
+  .report-table thead th{
+    color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.5px;
+    font-weight:700; border-bottom:1px solid var(--line); cursor:pointer; user-select:none;
+  }
+  .report-table thead th.active-col{color:var(--blue);}
+  .report-table tbody td{font-size:13px;}
+  .report-table tbody tr:hover{background:#fbfcfd;}
+
+  /* Cuadrícula 2x2 para las gráficas */
+  .charts-2x2{display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-bottom:16px;}
+  .chart-box{position:relative; height:360px;}
+
+  @media (max-width:1100px){
+    .cards{grid-template-columns:repeat(2,1fr);}
+    .charts-2x2{grid-template-columns:1fr;}
+  }
 </style>
 <!-- Chart.js v4.4.3 -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
@@ -113,52 +140,187 @@
     <div style="height:340px"><canvas id="chDaily"></canvas></div>
   </div>
 
-  <!-- 3 Team Contribution Doughnut Charts Section -->
-  <div class="grid3">
-    <!-- Chart 1: Revenue Contribution Share -->
+  <!-- TABLA 1: ADVERTISER REPORT -->
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <h3>Advertiser Report</h3>
+        <div class="hint">Haz clic en los encabezados o usa los botones para ordenar.</div>
+      </div>
+      <div class="sort-btns" id="advSortBtns">
+        <button data-sort="revenue" class="active">Revenue ▾</button>
+        <button data-sort="signups">Signups</button>
+        <button data-sort="ftd">Ftd</button>
+        <button data-sort="budget">Budget</button>
+        <button data-sort="profit">Profit</button>
+      </div>
+    </div>
+    <table class="report-table" id="advTable">
+      <thead>
+        <tr>
+          <th data-sort="name" style="text-align:left;">ADVERTISER <span class="arr"></span></th>
+          <th data-sort="signups">SIGNUPS <span class="arr"></span></th>
+          <th data-sort="ftd">FTD <span class="arr"></span></th>
+          <th data-sort="revenue" class="active-col">REVENUE <span class="arr">▾</span></th>
+          <th data-sort="budget">BUDGET <span class="arr"></span></th>
+          <th data-sort="profit">PROFIT <span class="arr"></span></th>
+          <th style="cursor:default;">S2P</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      <tfoot>
+        <tr class="total-row">
+          <td>Grand total</td>
+          <td class="num">662</td>
+          <td class="num">31</td>
+          <td class="num pos">$3,630</td>
+          <td class="num pos">$1,050</td>
+          <td class="num pos">$2,580</td>
+          <td class="num">1:21</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- TABLA 2: PERFORMANCE PER BRAND -->
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <h3>Performance per brand</h3>
+        <div class="hint">Ordena las marcas por métrica o mantén el orden de anunciantes.</div>
+      </div>
+      <div class="sort-btns" id="brandSortBtns">
+        <button data-sort="adv_order" class="active">Advertiser Order ▲</button>
+        <button data-sort="revenue">Revenue</button>
+        <button data-sort="signups">Signups</button>
+        <button data-sort="ftd">Ftd</button>
+        <button data-sort="budget">Budget</button>
+        <button data-sort="profit">Profit</button>
+      </div>
+    </div>
+    <table class="report-table" id="brandTable">
+      <thead>
+        <tr>
+          <th data-sort="advertiser" style="text-align:left;" class="active-col">ADVERTISER <span class="arr">▲</span></th>
+          <th data-sort="brand" style="text-align:left;">BRAND <span class="arr"></span></th>
+          <th data-sort="signups">SIGNUPS <span class="arr"></span></th>
+          <th data-sort="ftd">FTD <span class="arr"></span></th>
+          <th data-sort="revenue">REVENUE <span class="arr"></span></th>
+          <th data-sort="budget">BUDGET <span class="arr"></span></th>
+          <th data-sort="profit">PROFIT <span class="arr"></span></th>
+          <th style="cursor:default;">S2P</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      <tfoot>
+        <tr class="total-row">
+          <td colspan="2">Grand total</td>
+          <td class="num">662</td>
+          <td class="num">31</td>
+          <td class="num pos">$3,630</td>
+          <td class="num pos">$1,050</td>
+          <td class="num pos">$2,580</td>
+          <td class="num">1:21</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- SECCIÓN DE 4 GRÁFICAS (2x2) -->
+  <div class="charts-2x2">
+    <!-- Gráfica 1: Advertiser Performance -->
     <div class="panel">
       <div class="panel-head">
         <div>
-          <h3>Revenue Share</h3>
-          <div class="hint" id="hintRevShare">Distribution of total revenue across teams.</div>
+          <h3>Advertiser Performance</h3>
+          <div class="hint">High-level advertiser leaderboard.</div>
         </div>
-        <div class="toggle" id="toggleRevShare">
-          <button data-m="mtd" class="active">MTD</button>
-          <button data-m="rr">Run-Rate</button>
+        <div class="toggle" id="toggleAdvPerf">
+          <button data-m="signups" class="active">Reg</button>
+          <button data-m="ftd">FTD</button>
+          <button data-m="revenue">Revenue</button>
         </div>
       </div>
-      <div class="bar-wrap"><canvas id="chRevShare"></canvas></div>
+      <div class="chart-box"><canvas id="chAdvPerf"></canvas></div>
     </div>
 
-    <!-- Chart 2: Users (FTD) Share -->
+    <!-- Gráfica 2: Profit by Advertiser -->
     <div class="panel">
       <div class="panel-head">
         <div>
-          <h3>Users Share</h3>
-          <div class="hint" id="hintUsersShare">Distribution of total users (FTD) across teams.</div>
-        </div>
-        <div class="toggle" id="toggleUsersShare">
-          <button data-m="mtd" class="active">MTD</button>
-          <button data-m="rr">Run-Rate</button>
+          <h3>Profit by Advertiser</h3>
+          <div class="hint">Profit per advertiser in the selected period.</div>
         </div>
       </div>
-      <div class="bar-wrap"><canvas id="chUsersShare"></canvas></div>
+      <div class="chart-box"><canvas id="chAdvProfit"></canvas></div>
     </div>
 
-    <!-- Chart 3: Budget Investment Share -->
+    <!-- Gráfica 3: Brand Performance -->
     <div class="panel">
       <div class="panel-head">
         <div>
-          <h3>Budget Share</h3>
-          <div class="hint" id="hintBudShare">Distribution of marketing budget across teams.</div>
+          <h3>Brand Performance</h3>
+          <div class="hint" id="brandPerfHint">Top active brands by signups.</div>
         </div>
-        <div class="toggle" id="toggleBudShare">
-          <button data-m="mtd" class="active">MTD</button>
-          <button data-m="rr">Run-Rate</button>
+        <div class="toggle" id="toggleBrandPerf">
+          <button data-m="signups" class="active">Signups</button>
+          <button data-m="ftd">FTD</button>
+          <button data-m="revenue">Revenue</button>
         </div>
       </div>
-      <div class="bar-wrap"><canvas id="chBudShare"></canvas></div>
+      <div class="chart-box"><canvas id="chBrandPerf"></canvas></div>
     </div>
+
+    <!-- Gráfica 4: Profit by Brand -->
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h3>Profit by Brand</h3>
+          <div class="hint">Net profit / loss per brand in the selected period.</div>
+        </div>
+      </div>
+      <div class="chart-box"><canvas id="chBrandProfit"></canvas></div>
+    </div>
+  </div>
+
+  <!-- TABLA 3: INHOUSE BRANDS (IN CONSTRUCTION) -->
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <h3>Inhouse Brands (IN CONSTRUCTION)</h3>
+        <div class="hint">Tracking for internal sweeps landing pages & in-development brands.</div>
+      </div>
+      <div class="sort-btns" id="inhouseSortBtns">
+        <button data-sort="budget" class="active">Budget ▾</button>
+        <button data-sort="profit">Profit</button>
+        <button data-sort="brand">Brand</button>
+      </div>
+    </div>
+    <table class="report-table" id="inhouseTable">
+      <thead>
+        <tr>
+          <th data-sort="brand" style="text-align:left;">BRAND <span class="arr"></span></th>
+          <th data-sort="signups">SIGNUPS <span class="arr"></span></th>
+          <th data-sort="ftd">FTD <span class="arr"></span></th>
+          <th data-sort="revenue">REVENUE <span class="arr"></span></th>
+          <th data-sort="budget" class="active-col">BUDGET <span class="arr">▾</span></th>
+          <th data-sort="profit">PROFIT <span class="arr"></span></th>
+          <th style="cursor:default;">S2P</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      <tfoot>
+        <tr class="total-row">
+          <td>Grand total</td>
+          <td class="num">0</td>
+          <td class="num">0</td>
+          <td class="num">$0</td>
+          <td class="num pos">$321</td>
+          <td class="num neg">-$321</td>
+          <td class="num">—</td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
 </div>
 
@@ -270,6 +432,74 @@ const DATA = {
   }
 };
 
+/* DATOS ADVERTISER REPORT */
+const ADVERTISER_DATA = [
+  { name: "GAMETIME DIGITAL", signups: 435, ftd: 18, revenue: 2640, budget: 0, profit: 2640 },
+  { name: "ALL IN AFFILIATES", signups: 35, ftd: 2, revenue: 440, budget: 0, profit: 440 },
+  { name: "BASHER AGENCY", signups: 26, ftd: 3, revenue: 400, budget: 0, profit: 400 },
+  { name: "AFF 66", signups: 9, ftd: 1, revenue: 150, budget: 0, profit: 150 },
+  { name: "COINSROYALE", signups: 104, ftd: 7, revenue: 0, budget: 1050, profit: -1050 },
+  { name: "CHANCED", signups: 52, ftd: 0, revenue: 0, budget: 0, profit: 0 },
+  { name: "SPLASH", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0 },
+  { name: "ACEBET", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
+  { name: "EPC", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
+  { name: "IMPACT", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 }
+];
+
+/* DATOS PERFORMANCE PER BRAND */
+const BRAND_DATA = [
+  { advertiser: "GAMETIME DIGITAL", brand: "LavishLuck", signups: 155, ftd: 4, revenue: 720, budget: 0, profit: 720, origIdx: 0 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Baba", signups: 6, ftd: 3, revenue: 450, budget: 0, profit: 450, origIdx: 1 },
+  { advertiser: "GAMETIME DIGITAL", brand: "WiseSpin", signups: 20, ftd: 3, revenue: 420, budget: 0, profit: 420, origIdx: 2 },
+  { advertiser: "GAMETIME DIGITAL", brand: "LuckyBunny", signups: 17, ftd: 3, revenue: 360, budget: 0, profit: 360, origIdx: 3 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Jackpotgo", signups: 113, ftd: 1, revenue: 170, budget: 0, profit: 170, origIdx: 4 },
+  { advertiser: "GAMETIME DIGITAL", brand: "The Boss", signups: 12, ftd: 1, revenue: 170, budget: 0, profit: 170, origIdx: 5 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Sweet Sweep", signups: 3, ftd: 1, revenue: 150, budget: 0, profit: 150, origIdx: 6 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Rolla", signups: 13, ftd: 1, revenue: 125, budget: 0, profit: 125, origIdx: 7 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Spinjo CA", signups: 3, ftd: 1, revenue: 75, budget: 0, profit: 75, origIdx: 8 },
+  { advertiser: "GAMETIME DIGITAL", brand: "CardCrush", signups: 58, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 9 },
+  { advertiser: "GAMETIME DIGITAL", brand: "High5Casino", signups: 15, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 10 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Spinblitz SEO", signups: 8, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 11 },
+  { advertiser: "GAMETIME DIGITAL", brand: "CoinsBack", signups: 3, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 12 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Dorados", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 13 },
+  { advertiser: "GAMETIME DIGITAL", brand: "LuckyZino", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 14 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Go Go Gold Win", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 15 },
+  { advertiser: "GAMETIME DIGITAL", brand: "ChipNWin", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 16 },
+  { advertiser: "GAMETIME DIGITAL", brand: "McLuck", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 17 },
+  { advertiser: "GAMETIME DIGITAL", brand: "PlayFame SEO", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 18 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Zunado", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 19 },
+  { advertiser: "ALL IN AFFILIATES", brand: "FS Casino", signups: 16, ftd: 2, revenue: 440, budget: 0, profit: 440, origIdx: 20 },
+  { advertiser: "ALL IN AFFILIATES", brand: "7Bit Casino", signups: 14, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 21 },
+  { advertiser: "ALL IN AFFILIATES", brand: "Ice Casino", signups: 5, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 22 },
+  { advertiser: "ALL IN AFFILIATES", brand: "Betnjet", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 23 },
+  { advertiser: "ALL IN AFFILIATES", brand: "Casino Smartlink", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 24 },
+  { advertiser: "ALL IN AFFILIATES", brand: "Lussurio", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 25 },
+  { advertiser: "ALL IN AFFILIATES", brand: "Smash Casino", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 26 },
+  { advertiser: "BASHER AGENCY", brand: "LavishLuck Sweepstakes Casino", signups: 7, ftd: 2, revenue: 280, budget: 0, profit: 280, origIdx: 27 },
+  { advertiser: "BASHER AGENCY", brand: "LuckyZino Sweepstakes Casino", signups: 6, ftd: 1, revenue: 120, budget: 0, profit: 120, origIdx: 28 },
+  { advertiser: "BASHER AGENCY", brand: "Luckyvibe", signups: 11, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 29 },
+  { advertiser: "BASHER AGENCY", brand: "WiseSpin Sweeps Casino", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 30 },
+  { advertiser: "AFF 66", brand: "SweepJungle", signups: 7, ftd: 1, revenue: 150, budget: 0, profit: 150, origIdx: 31 },
+  { advertiser: "AFF 66", brand: "Sixty6", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 32 },
+  { advertiser: "COINSROYALE", brand: "CoinsRoyale", signups: 104, ftd: 7, revenue: 0, budget: 1050, profit: -1050, origIdx: 33 },
+  { advertiser: "CHANCED", brand: "Chanced Punt", signups: 52, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 34 },
+  { advertiser: "SPLASH", brand: "splashcoins", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 35 },
+  { advertiser: "ACEBET", brand: "Acebet", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 36 }
+];
+
+/* DATOS INHOUSE BRANDS (IN CONSTRUCTION) */
+const INHOUSE_DATA = [
+  { brand: "SuperSlotz sweeps", signups: 0, ftd: 0, revenue: 0, budget: 168, profit: -168 },
+  { brand: "Pirates LP", signups: 0, ftd: 0, revenue: 0, budget: 120, profit: -120 },
+  { brand: "Spin2Win sweeps LP", signups: 0, ftd: 0, revenue: 0, budget: 30, profit: -30 },
+  { brand: "PrizeFlow sweeps LP", signups: 0, ftd: 0, revenue: 0, budget: 3, profit: -3 },
+  { brand: "WinningEmpire CA/NZ", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
+  { brand: "Bonusclubs", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
+  { brand: "WinningEmpire US", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
+  { brand: "Winning4Fun", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
+  { brand: "Wannnasee USA LP", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 }
+];
+
 /* Proyección Run-Rate (RR) exacta a 30 días calculada con factor (30 / 17) */
 const factor = DATA.daysInMonth / DATA.daysElapsed;
 DATA.teams.forEach(t => {
@@ -304,9 +534,14 @@ const kpiCls = (v, kpi, invert) => {
 const state = {
   from: DATA.dateMin, to: DATA.dateMax,
   advs: new Set(DATA.advertisers),
-  revShareMode: 'mtd',
-  usersShareMode: 'mtd',
-  budShareMode: 'mtd'
+  advSortKey: 'revenue',
+  advSortAsc: false,
+  brandSortKey: 'adv_order',
+  brandSortAsc: true,
+  advPerfMetric: 'signups',
+  brandPerfMetric: 'signups',
+  inhouseSortKey: 'budget',
+  inhouseSortAsc: false
 };
 
 /* ---------- Top cards (Números principales en negro) ---------- */
@@ -410,147 +645,498 @@ function renderDaily(){
   chDailyInstance.update();
 }
 
-/* ---------- 3 Executive Doughnut Charts ---------- */
-const teamColors = ['#2f6fed', '#f59e0b', '#ec4899'];
-let chInstances = { rev: null, users: null, bud: null };
+/* ---------- TABLA 1: ADVERTISER REPORT LOGIC ---------- */
+function renderAdvTable() {
+  const tbody = document.querySelector('#advTable tbody');
+  const key = state.advSortKey;
+  const asc = state.advSortAsc;
 
-function createTeamDoughnut(canvasId, teams, dataValues, total, isCurrency) {
-  const ctx = document.getElementById(canvasId);
-  if (!ctx) return null;
+  const sorted = [...ADVERTISER_DATA].sort((a, b) => {
+    let va = a[key], vb = b[key];
+    if (typeof va === 'string') {
+      return asc ? va.localeCompare(vb) : vb.localeCompare(va);
+    }
+    return asc ? va - vb : vb - va;
+  });
 
-  return new Chart(ctx, {
-    type: 'doughnut',
+  tbody.innerHTML = sorted.map(row => {
+    const s2p = row.ftd > 0 ? '1:' + Math.round(row.signups / row.ftd) : '—';
+    const revCls = row.revenue > 0 ? 'pos' : '';
+    const budCls = row.budget > 0 ? 'pos' : '';
+    const profCls = row.profit > 0 ? 'pos' : (row.profit < 0 ? 'neg' : '');
+
+    return `
+      <tr>
+        <td>${row.name}</td>
+        <td class="num">${row.signups.toLocaleString('en-US')}</td>
+        <td class="num">${row.ftd.toLocaleString('en-US')}</td>
+        <td class="num ${revCls}">${fmtMoney(row.revenue)}</td>
+        <td class="num ${budCls}">${fmtMoney(row.budget)}</td>
+        <td class="num ${profCls}">${fmtMoney(row.profit)}</td>
+        <td class="num">${s2p}</td>
+      </tr>
+    `;
+  }).join('');
+
+  document.querySelectorAll('#advTable thead th').forEach(th => {
+    const sortField = th.dataset.sort;
+    const arrSpan = th.querySelector('.arr');
+    if (sortField) {
+      if (sortField === key) {
+        th.classList.add('active-col');
+        if (arrSpan) arrSpan.textContent = asc ? '▴' : '▾';
+      } else {
+        th.classList.remove('active-col');
+        if (arrSpan) arrSpan.textContent = '';
+      }
+    }
+  });
+
+  document.querySelectorAll('#advSortBtns button').forEach(btn => {
+    const sortField = btn.dataset.sort;
+    if (sortField === key) {
+      btn.classList.add('active');
+      btn.textContent = btn.dataset.sort.charAt(0).toUpperCase() + btn.dataset.sort.slice(1) + (asc ? ' ▴' : ' ▾');
+    } else {
+      btn.classList.remove('active');
+      btn.textContent = btn.dataset.sort.charAt(0).toUpperCase() + btn.dataset.sort.slice(1);
+    }
+  });
+}
+
+function initAdvSort() {
+  document.querySelectorAll('#advTable thead th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const field = th.dataset.sort;
+      if (state.advSortKey === field) {
+        state.advSortAsc = !state.advSortAsc;
+      } else {
+        state.advSortKey = field;
+        state.advSortAsc = (field === 'name');
+      }
+      renderAdvTable();
+    });
+  });
+
+  document.querySelectorAll('#advSortBtns button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const field = btn.dataset.sort;
+      if (state.advSortKey === field) {
+        state.advSortAsc = !state.advSortAsc;
+      } else {
+        state.advSortKey = field;
+        state.advSortAsc = false;
+      }
+      renderAdvTable();
+    });
+  });
+}
+
+/* ---------- TABLA 2: PERFORMANCE PER BRAND LOGIC ---------- */
+function renderBrandTable() {
+  const tbody = document.querySelector('#brandTable tbody');
+  const key = state.brandSortKey;
+  const asc = state.brandSortAsc;
+
+  const sorted = [...BRAND_DATA].sort((a, b) => {
+    if (key === 'adv_order') {
+      return asc ? a.origIdx - b.origIdx : b.origIdx - a.origIdx;
+    }
+    let va = a[key], vb = b[key];
+    if (typeof va === 'string') {
+      return asc ? va.localeCompare(vb) : vb.localeCompare(va);
+    }
+    return asc ? va - vb : vb - va;
+  });
+
+  tbody.innerHTML = sorted.map(row => {
+    const s2p = row.ftd > 0 ? '1:' + Math.round(row.signups / row.ftd) : '—';
+    const revCls = row.revenue > 0 ? 'pos' : '';
+    const budCls = row.budget > 0 ? 'pos' : '';
+    const profCls = row.profit > 0 ? 'pos' : (row.profit < 0 ? 'neg' : '');
+
+    return `
+      <tr>
+        <td>${row.advertiser}</td>
+        <td>${row.brand}</td>
+        <td class="num">${row.signups.toLocaleString('en-US')}</td>
+        <td class="num">${row.ftd.toLocaleString('en-US')}</td>
+        <td class="num ${revCls}">${fmtMoney(row.revenue)}</td>
+        <td class="num ${budCls}">${fmtMoney(row.budget)}</td>
+        <td class="num ${profCls}">${fmtMoney(row.profit)}</td>
+        <td class="num">${s2p}</td>
+      </tr>
+    `;
+  }).join('');
+
+  document.querySelectorAll('#brandTable thead th').forEach(th => {
+    const sortField = th.dataset.sort;
+    const arrSpan = th.querySelector('.arr');
+    if (sortField) {
+      const isCurrent = (key === 'adv_order' && sortField === 'advertiser') || (sortField === key);
+      if (isCurrent) {
+        th.classList.add('active-col');
+        if (arrSpan) arrSpan.textContent = asc ? '▲' : '▼';
+      } else {
+        th.classList.remove('active-col');
+        if (arrSpan) arrSpan.textContent = '';
+      }
+    }
+  });
+
+  document.querySelectorAll('#brandSortBtns button').forEach(btn => {
+    const sortField = btn.dataset.sort;
+    if (sortField === key) {
+      btn.classList.add('active');
+      const label = (sortField === 'adv_order') ? 'Advertiser Order' : (sortField.charAt(0).toUpperCase() + sortField.slice(1));
+      btn.textContent = label + (asc ? ' ▲' : ' ▼');
+    } else {
+      btn.classList.remove('active');
+      const label = (sortField === 'adv_order') ? 'Advertiser Order' : (sortField.charAt(0).toUpperCase() + sortField.slice(1));
+      btn.textContent = label;
+    }
+  });
+}
+
+function initBrandSort() {
+  document.querySelectorAll('#brandTable thead th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      let field = th.dataset.sort;
+      if (field === 'advertiser') field = 'adv_order';
+      if (state.brandSortKey === field) {
+        state.brandSortAsc = !state.brandSortAsc;
+      } else {
+        state.brandSortKey = field;
+        state.brandSortAsc = (field === 'adv_order' || field === 'brand');
+      }
+      renderBrandTable();
+    });
+  });
+
+  document.querySelectorAll('#brandSortBtns button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const field = btn.dataset.sort;
+      if (state.brandSortKey === field) {
+        state.brandSortAsc = !state.brandSortAsc;
+      } else {
+        state.brandSortKey = field;
+        state.brandSortAsc = (field === 'adv_order');
+      }
+      renderBrandTable();
+    });
+  });
+}
+
+/* ---------- 4 GRÁFICAS DE PERFORMANCE Y PROFIT ---------- */
+const palette = [
+  '#2f6fed', '#ec4899', '#f59e0b', '#10b981', '#8b5cf6',
+  '#06b6d4', '#f97316', '#64748b', '#94a3b8', '#cbd5e1'
+];
+const brandPalette = [
+  '#2f6fed', '#ec4899', '#f59e0b', '#10b981', '#8b5cf6',
+  '#06b6d4', '#f97316', '#ef4444', '#14b8a6', '#6366f1',
+  '#84cc16', '#a855f7', '#3b82f6', '#d946ef', '#eab308'
+];
+
+let chAdvPerfInst = null;
+let chAdvProfitInst = null;
+let chBrandPerfInst = null;
+let chBrandProfitInst = null;
+
+function renderAdvPerfChart() {
+  const m = state.advPerfMetric;
+  const sorted = [...ADVERTISER_DATA].sort((a, b) => b[m] - a[m]);
+  const labels = sorted.map(d => d.name);
+  const values = sorted.map(d => d[m]);
+  const colors = sorted.map((_, i) => palette[i % palette.length]);
+
+  if (chAdvPerfInst) chAdvPerfInst.destroy();
+  chAdvPerfInst = new Chart(document.getElementById('chAdvPerf'), {
+    type: 'bar',
     data: {
-      labels: teams.map(t => t.name),
+      labels: labels,
       datasets: [{
-        data: dataValues,
-        backgroundColor: teamColors,
-        borderWidth: 2,
-        borderColor: '#ffffff',
-        hoverOffset: 6
+        data: values,
+        backgroundColor: colors,
+        borderRadius: 6,
+        barThickness: 14
       }]
     },
     options: {
+      indexAxis: 'y',
       responsive: true,
       maintainAspectRatio: false,
-      cutout: '65%',
-      plugins: {
-        legend: {
-          position: 'right',
-          labels: {
-            boxWidth: 10,
-            usePointStyle: true,
-            pointStyle: 'circle',
-            font: { size: 11 },
-            generateLabels: (chart) => {
-              const d = chart.data;
-              return d.labels.map((lbl, i) => {
-                const val = d.datasets[0].data[i];
-                const pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
-                const formatted = isCurrency ? fmtMoney(val) : fmtInt(val);
-                return {
-                  text: `${lbl}: ${formatted} (${pct}%)`,
-                  fillStyle: d.datasets[0].backgroundColor[i],
-                  strokeStyle: d.datasets[0].backgroundColor[i],
-                  index: i
-                };
-              });
-            }
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          grid: { color: '#f0f1f4' },
+          beginAtZero: true,
+          ticks: {
+            callback: v => m === 'revenue' ? '$' + v.toLocaleString('en-US') : v.toLocaleString('en-US')
           }
         },
-        tooltip: {
-          callbacks: {
-            label: (c) => {
-              const val = c.parsed;
-              const pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
-              const formatted = isCurrency ? fmtMoney(val) : fmtInt(val);
-              return ` ${c.label}: ${formatted} (${pct}%)`;
-            }
-          }
+        y: {
+          grid: { display: false },
+          ticks: { font: { size: 11, family: 'Segoe UI, sans-serif' } }
         }
       }
     }
   });
 }
 
-function renderRevShareChart() {
-  const mode = state.revShareMode;
-  const teams = DATA.teams.filter(t => t.cls !== 'total');
-  const values = teams.map(t => t[mode].revenue);
-  const total = values.reduce((a, b) => a + b, 0);
+function renderAdvProfitChart() {
+  const sorted = [...ADVERTISER_DATA].sort((a, b) => b.profit - a.profit);
+  const labels = sorted.map(d => d.name);
+  const values = sorted.map(d => d.profit);
+  const colors = sorted.map(d => d.profit >= 0 ? '#10b981' : '#dc2626');
 
-  document.getElementById('hintRevShare').textContent =
-    `Distribution of total revenue across teams (Total: ${fmtMoney(total)}).`;
-
-  if (chInstances.rev) chInstances.rev.destroy();
-  chInstances.rev = createTeamDoughnut('chRevShare', teams, values, total, true);
+  if (chAdvProfitInst) chAdvProfitInst.destroy();
+  chAdvProfitInst = new Chart(document.getElementById('chAdvProfit'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors,
+        borderRadius: 6,
+        barThickness: 14
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: c => ' Profit: ' + fmtMoney(c.parsed.x)
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: '#f0f1f4' },
+          ticks: {
+            callback: v => v < 0 ? '-$' + Math.abs(v).toLocaleString('en-US') : '$' + v.toLocaleString('en-US')
+          }
+        },
+        y: {
+          grid: { display: false },
+          ticks: { font: { size: 11, family: 'Segoe UI, sans-serif' } }
+        }
+      }
+    }
+  });
 }
 
-function renderUsersShareChart() {
-  const mode = state.usersShareMode;
-  const teams = DATA.teams.filter(t => t.cls !== 'total');
-  const values = teams.map(t => t[mode].users);
-  const total = values.reduce((a, b) => a + b, 0);
+function renderBrandPerfChart() {
+  const m = state.brandPerfMetric;
+  const activeBrands = BRAND_DATA.filter(b => b[m] > 0).sort((a, b) => b[m] - a[m]);
+  const displayBrands = activeBrands.slice(0, 15);
 
-  document.getElementById('hintUsersShare').textContent =
-    `Distribution of total users (FTD) across teams (Total: ${fmtInt(total)}).`;
+  document.getElementById('brandPerfHint').textContent = `Top active brands by ${m === 'signups' ? 'signups' : (m === 'ftd' ? 'FTD' : 'revenue')}.`;
 
-  if (chInstances.users) chInstances.users.destroy();
-  chInstances.users = createTeamDoughnut('chUsersShare', teams, values, total, false);
+  const labels = displayBrands.map(d => d.brand);
+  const values = displayBrands.map(d => d[m]);
+  const colors = displayBrands.map((_, i) => brandPalette[i % brandPalette.length]);
+
+  if (chBrandPerfInst) chBrandPerfInst.destroy();
+  chBrandPerfInst = new Chart(document.getElementById('chBrandPerf'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors,
+        borderRadius: 6,
+        barThickness: 12
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          grid: { color: '#f0f1f4' },
+          beginAtZero: true,
+          ticks: {
+            callback: v => m === 'revenue' ? '$' + v.toLocaleString('en-US') : v.toLocaleString('en-US')
+          }
+        },
+        y: {
+          grid: { display: false },
+          ticks: { font: { size: 11, family: 'Segoe UI, sans-serif' } }
+        }
+      }
+    }
+  });
 }
 
-function renderBudShareChart() {
-  const mode = state.budShareMode;
-  const teams = DATA.teams.filter(t => t.cls !== 'total');
-  const values = teams.map(t => t[mode].budget);
-  const total = values.reduce((a, b) => a + b, 0);
+function renderBrandProfitChart() {
+  const activeProfitBrands = BRAND_DATA.filter(b => b.profit !== 0).sort((a, b) => b.profit - a.profit);
+  const labels = activeProfitBrands.map(d => d.brand);
+  const values = activeProfitBrands.map(d => d.profit);
+  const colors = activeProfitBrands.map(d => d.profit >= 0 ? '#10b981' : '#dc2626');
 
-  document.getElementById('hintBudShare').textContent =
-    `Distribution of total budget across teams (Total: ${fmtMoney(total)}).`;
-
-  if (chInstances.bud) chInstances.bud.destroy();
-  chInstances.bud = createTeamDoughnut('chBudShare', teams, values, total, true);
+  if (chBrandProfitInst) chBrandProfitInst.destroy();
+  chBrandProfitInst = new Chart(document.getElementById('chBrandProfit'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors,
+        borderRadius: 6,
+        barThickness: 12
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: c => ' Profit: ' + fmtMoney(c.parsed.x)
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: '#f0f1f4' },
+          ticks: {
+            callback: v => v < 0 ? '-$' + Math.abs(v).toLocaleString('en-US') : '$' + v.toLocaleString('en-US')
+          }
+        },
+        y: {
+          grid: { display: false },
+          ticks: { font: { size: 11, family: 'Segoe UI, sans-serif' } }
+        }
+      }
+    }
+  });
 }
 
-function renderAllDoughnuts() {
-  renderRevShareChart();
-  renderUsersShareChart();
-  renderBudShareChart();
-}
-
-function initDoughnutToggles() {
-  const tRev = document.getElementById('toggleRevShare');
-  if (tRev) {
-    tRev.querySelectorAll('button').forEach(btn => {
+function initChartToggles() {
+  const tAdv = document.getElementById('toggleAdvPerf');
+  if (tAdv) {
+    tAdv.querySelectorAll('button').forEach(btn => {
       btn.addEventListener('click', () => {
-        state.revShareMode = btn.dataset.m;
-        tRev.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
-        renderRevShareChart();
+        state.advPerfMetric = btn.dataset.m;
+        tAdv.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+        renderAdvPerfChart();
       });
     });
   }
 
-  const tUsers = document.getElementById('toggleUsersShare');
-  if (tUsers) {
-    tUsers.querySelectorAll('button').forEach(btn => {
+  const tBrand = document.getElementById('toggleBrandPerf');
+  if (tBrand) {
+    tBrand.querySelectorAll('button').forEach(btn => {
       btn.addEventListener('click', () => {
-        state.usersShareMode = btn.dataset.m;
-        tUsers.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
-        renderUsersShareChart();
+        state.brandPerfMetric = btn.dataset.m;
+        tBrand.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+        renderBrandPerfChart();
       });
     });
   }
+}
 
-  const tBud = document.getElementById('toggleBudShare');
-  if (tBud) {
-    tBud.querySelectorAll('button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.budShareMode = btn.dataset.m;
-        tBud.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
-        renderBudShareChart();
-      });
+function renderAllCharts2x2() {
+  renderAdvPerfChart();
+  renderAdvProfitChart();
+  renderBrandPerfChart();
+  renderBrandProfitChart();
+}
+
+/* ---------- TABLA 3: INHOUSE BRANDS LOGIC ---------- */
+function renderInhouseTable() {
+  const tbody = document.querySelector('#inhouseTable tbody');
+  const key = state.inhouseSortKey;
+  const asc = state.inhouseSortAsc;
+
+  const sorted = [...INHOUSE_DATA].sort((a, b) => {
+    let va = a[key], vb = b[key];
+    if (typeof va === 'string') {
+      return asc ? va.localeCompare(vb) : vb.localeCompare(va);
+    }
+    return asc ? va - vb : vb - va;
+  });
+
+  tbody.innerHTML = sorted.map(row => {
+    const s2p = row.ftd > 0 ? '1:' + Math.round(row.signups / row.ftd) : '—';
+    const revCls = row.revenue > 0 ? 'pos' : '';
+    const budCls = row.budget > 0 ? 'pos' : '';
+    const profCls = row.profit > 0 ? 'pos' : (row.profit < 0 ? 'neg' : '');
+
+    return `
+      <tr>
+        <td>${row.brand}</td>
+        <td class="num">${row.signups.toLocaleString('en-US')}</td>
+        <td class="num">${row.ftd.toLocaleString('en-US')}</td>
+        <td class="num ${revCls}">${fmtMoney(row.revenue)}</td>
+        <td class="num ${budCls}">${fmtMoney(row.budget)}</td>
+        <td class="num ${profCls}">${fmtMoney(row.profit)}</td>
+        <td class="num">${s2p}</td>
+      </tr>
+    `;
+  }).join('');
+
+  document.querySelectorAll('#inhouseTable thead th').forEach(th => {
+    const sortField = th.dataset.sort;
+    const arrSpan = th.querySelector('.arr');
+    if (sortField) {
+      if (sortField === key) {
+        th.classList.add('active-col');
+        if (arrSpan) arrSpan.textContent = asc ? '▴' : '▾';
+      } else {
+        th.classList.remove('active-col');
+        if (arrSpan) arrSpan.textContent = '';
+      }
+    }
+  });
+
+  document.querySelectorAll('#inhouseSortBtns button').forEach(btn => {
+    const sortField = btn.dataset.sort;
+    if (sortField === key) {
+      btn.classList.add('active');
+      btn.textContent = btn.dataset.sort.charAt(0).toUpperCase() + btn.dataset.sort.slice(1) + (asc ? ' ▴' : ' ▾');
+    } else {
+      btn.classList.remove('active');
+      btn.textContent = btn.dataset.sort.charAt(0).toUpperCase() + btn.dataset.sort.slice(1);
+    }
+  });
+}
+
+function initInhouseSort() {
+  document.querySelectorAll('#inhouseTable thead th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const field = th.dataset.sort;
+      if (state.inhouseSortKey === field) {
+        state.inhouseSortAsc = !state.inhouseSortAsc;
+      } else {
+        state.inhouseSortKey = field;
+        state.inhouseSortAsc = (field === 'brand');
+      }
+      renderInhouseTable();
     });
-  }
+  });
+
+  document.querySelectorAll('#inhouseSortBtns button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const field = btn.dataset.sort;
+      if (state.inhouseSortKey === field) {
+        state.inhouseSortAsc = !state.inhouseSortAsc;
+      } else {
+        state.inhouseSortKey = field;
+        state.inhouseSortAsc = (field === 'brand');
+      }
+      renderInhouseTable();
+    });
+  });
 }
 
 /* ---------- Filters ---------- */
@@ -576,16 +1162,23 @@ document.getElementById('btnReset').addEventListener('click', () => {
   state.from = DATA.dateMin; state.to = DATA.dateMax;
   document.getElementById('dateFrom').value = DATA.dateMin; document.getElementById('dateTo').value = DATA.dateMax;
   state.advs = new Set(DATA.advertisers);
-  state.revShareMode = 'mtd';
-  state.usersShareMode = 'mtd';
-  state.budShareMode = 'mtd';
-  document.querySelectorAll('#toggleRevShare button').forEach(b => b.classList.toggle('active', b.dataset.m === 'mtd'));
-  document.querySelectorAll('#toggleUsersShare button').forEach(b => b.classList.toggle('active', b.dataset.m === 'mtd'));
-  document.querySelectorAll('#toggleBudShare button').forEach(b => b.classList.toggle('active', b.dataset.m === 'mtd'));
-  renderAdvPanel(); updateAdvBtn(); renderDaily(); renderAllDoughnuts();
+  state.advSortKey = 'revenue';
+  state.advSortAsc = false;
+  state.brandSortKey = 'adv_order';
+  state.brandSortAsc = true;
+  state.advPerfMetric = 'signups';
+  state.brandPerfMetric = 'signups';
+  state.inhouseSortKey = 'budget';
+  state.inhouseSortAsc = false;
+  document.querySelectorAll('#toggleAdvPerf button').forEach(b => b.classList.toggle('active', b.dataset.m === 'signups'));
+  document.querySelectorAll('#toggleBrandPerf button').forEach(b => b.classList.toggle('active', b.dataset.m === 'signups'));
+  renderAdvPanel(); updateAdvBtn(); renderDaily(); renderAdvTable(); renderBrandTable(); renderAllCharts2x2(); renderInhouseTable();
 });
 
-renderCards(); renderTeams(); renderAdvPanel(); updateAdvBtn(); renderDaily(); renderAllDoughnuts(); initDoughnutToggles();
+renderCards(); renderTeams(); renderAdvPanel(); updateAdvBtn(); renderDaily();
+renderAdvTable(); initAdvSort(); renderBrandTable(); initBrandSort();
+renderAllCharts2x2(); initChartToggles();
+renderInhouseTable(); initInhouseSort();
 </script>
 </body>
 </html>
