@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Management Dashboard</title>
+<title>Management and advertisers report</title>
 <style>
   :root{
     --bg:#f4f5f7; --card:#ffffff; --ink:#111827; --muted:#8a94a6;
@@ -38,19 +38,82 @@
   .panel .hint{font-size:12px; color:var(--muted); margin-bottom:12px;}
   .panel-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;}
   
-  /* Sort buttons and toggles */
-  .sort-btns{display:flex; gap:6px; align-items:center; flex-wrap:wrap;}
-  .sort-btns button{
-    border:1px solid #d7dce4; background:#fff; border-radius:6px;
-    padding:5px 12px; font-size:12px; cursor:pointer; color:var(--ink);
-    font-weight:500; transition:all .15s ease;
+  /* Seamless Capsule Pill Filters matching the screenshots identically */
+  .sort-btns{
+    display:inline-flex;
+    align-items:center;
+    background:#ffffff;
+    border:1px solid #d7dce4;
+    border-radius:999px;
+    overflow:hidden;
+    padding:0;
+    height:32px;
+    box-shadow:0 1px 2px rgba(16,24,40,.04);
   }
-  .sort-btns button:hover{background:#f8fafc;}
-  .sort-btns button.active{background:#0b1329; color:#fff; border-color:#0b1329;}
+  .sort-btns button{
+    border:none;
+    outline:none;
+    background:transparent;
+    padding:0 16px;
+    height:100%;
+    font-size:12.5px;
+    font-weight:500;
+    color:#0f172a;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    white-space:nowrap;
+    transition:background-color .15s ease, color .15s ease;
+    border-radius:0;
+  }
+  .sort-btns button:hover:not(.active){
+    background:#f8fafc;
+    color:#000000;
+  }
+  .sort-btns button.active{
+    background:#0b1329;
+    color:#ffffff;
+    font-weight:600;
+  }
 
-  .toggle{display:inline-flex; border:1px solid #d7dce4; border-radius:999px; overflow:hidden;}
-  .toggle button{border:0; background:#fff; padding:5px 14px; font-size:12px; cursor:pointer; color:var(--ink);}
-  .toggle button.active{background:#0b1329; color:#fff;}
+  .toggle{
+    display:inline-flex;
+    align-items:center;
+    background:#ffffff;
+    border:1px solid #d7dce4;
+    border-radius:999px;
+    overflow:hidden;
+    padding:0;
+    height:32px;
+    box-shadow:0 1px 2px rgba(16,24,40,.04);
+  }
+  .toggle button{
+    border:none;
+    outline:none;
+    background:transparent;
+    padding:0 16px;
+    height:100%;
+    font-size:12px;
+    font-weight:500;
+    color:#0f172a;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    white-space:nowrap;
+    transition:background-color .15s ease, color .15s ease;
+    border-radius:0;
+  }
+  .toggle button:hover:not(.active){
+    background:#f8fafc;
+    color:#000000;
+  }
+  .toggle button.active{
+    background:#0b1329;
+    color:#ffffff;
+    font-weight:600;
+  }
 
   table{width:100%; border-collapse:collapse; font-size:13px;}
   th,td{padding:10px 12px; text-align:right; white-space:nowrap;}
@@ -71,7 +134,7 @@
   tr.total-row td{font-weight:700; background:#fafbfc; border-top:1px solid #e2e8f0;}
   .num{font-variant-numeric:tabular-nums;}
 
-  /* Report table styles */
+  /* Report table styling */
   .report-table thead th{
     color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.5px;
     font-weight:700; border-bottom:1px solid var(--line); cursor:pointer; user-select:none;
@@ -80,7 +143,7 @@
   .report-table tbody td{font-size:13px;}
   .report-table tbody tr:hover{background:#fbfcfd;}
 
-  /* 2x2 grid for charts */
+  /* 2x2 charts grid */
   .charts-2x2{display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-bottom:16px;}
   .chart-box{position:relative; height:360px;}
 
@@ -95,7 +158,7 @@
 <body>
 <div class="wrap">
   <div class="topbar">
-    <h1>Management Dashboard - September 1-17</h1>
+    <h1>Management and advertisers report</h1>
     <button class="btn-reset" id="btnReset">Reset filters</button>
   </div>
 
@@ -148,7 +211,7 @@
         <div class="hint">Click on column headers or use buttons to sort.</div>
       </div>
       <div class="sort-btns" id="advSortBtns">
-        <button data-sort="revenue" class="active">Revenue ▾</button>
+        <button data-sort="revenue" class="active">Revenue ▼</button>
         <button data-sort="signups">Signups</button>
         <button data-sort="ftd">Ftd</button>
         <button data-sort="budget">Budget</button>
@@ -161,7 +224,7 @@
           <th data-sort="name" style="text-align:left;">ADVERTISER <span class="arr"></span></th>
           <th data-sort="signups">SIGNUPS <span class="arr"></span></th>
           <th data-sort="ftd">FTD <span class="arr"></span></th>
-          <th data-sort="revenue" class="active-col">REVENUE <span class="arr">▾</span></th>
+          <th data-sort="revenue" class="active-col">REVENUE <span class="arr">▼</span></th>
           <th data-sort="budget">BUDGET <span class="arr"></span></th>
           <th data-sort="profit">PROFIT <span class="arr"></span></th>
           <th style="cursor:default;">S2P</th>
@@ -291,7 +354,7 @@
         <div class="hint">Tracking for internal sweeps landing pages & in-development brands.</div>
       </div>
       <div class="sort-btns" id="inhouseSortBtns">
-        <button data-sort="budget" class="active">Budget ▾</button>
+        <button data-sort="budget" class="active">Budget ▼</button>
         <button data-sort="profit">Profit</button>
         <button data-sort="brand">Brand</button>
       </div>
@@ -303,7 +366,7 @@
           <th data-sort="signups">SIGNUPS <span class="arr"></span></th>
           <th data-sort="ftd">FTD <span class="arr"></span></th>
           <th data-sort="revenue">REVENUE <span class="arr"></span></th>
-          <th data-sort="budget" class="active-col">BUDGET <span class="arr">▾</span></th>
+          <th data-sort="budget" class="active-col">BUDGET <span class="arr">▼</span></th>
           <th data-sort="profit">PROFIT <span class="arr"></span></th>
           <th style="cursor:default;">S2P</th>
         </tr>
@@ -684,7 +747,7 @@ function renderAdvTable() {
     if (sortField) {
       if (sortField === key) {
         th.classList.add('active-col');
-        if (arrSpan) arrSpan.textContent = asc ? '▴' : '▾';
+        if (arrSpan) arrSpan.textContent = asc ? '▲' : '▼';
       } else {
         th.classList.remove('active-col');
         if (arrSpan) arrSpan.textContent = '';
@@ -694,12 +757,13 @@ function renderAdvTable() {
 
   document.querySelectorAll('#advSortBtns button').forEach(btn => {
     const sortField = btn.dataset.sort;
+    const label = sortField.charAt(0).toUpperCase() + sortField.slice(1);
     if (sortField === key) {
       btn.classList.add('active');
-      btn.textContent = btn.dataset.sort.charAt(0).toUpperCase() + btn.dataset.sort.slice(1) + (asc ? ' ▴' : ' ▾');
+      btn.textContent = label + (asc ? ' ▲' : ' ▼');
     } else {
       btn.classList.remove('active');
-      btn.textContent = btn.dataset.sort.charAt(0).toUpperCase() + btn.dataset.sort.slice(1);
+      btn.textContent = label;
     }
   });
 }
@@ -786,13 +850,12 @@ function renderBrandTable() {
 
   document.querySelectorAll('#brandSortBtns button').forEach(btn => {
     const sortField = btn.dataset.sort;
+    const label = (sortField === 'adv_order') ? 'Advertiser Order' : (sortField.charAt(0).toUpperCase() + sortField.slice(1));
     if (sortField === key) {
       btn.classList.add('active');
-      const label = (sortField === 'adv_order') ? 'Advertiser Order' : (sortField.charAt(0).toUpperCase() + sortField.slice(1));
       btn.textContent = label + (asc ? ' ▲' : ' ▼');
     } else {
       btn.classList.remove('active');
-      const label = (sortField === 'adv_order') ? 'Advertiser Order' : (sortField.charAt(0).toUpperCase() + sortField.slice(1));
       btn.textContent = label;
     }
   });
@@ -1091,7 +1154,7 @@ function renderInhouseTable() {
     if (sortField) {
       if (sortField === key) {
         th.classList.add('active-col');
-        if (arrSpan) arrSpan.textContent = asc ? '▴' : '▾';
+        if (arrSpan) arrSpan.textContent = asc ? '▲' : '▼';
       } else {
         th.classList.remove('active-col');
         if (arrSpan) arrSpan.textContent = '';
@@ -1101,12 +1164,13 @@ function renderInhouseTable() {
 
   document.querySelectorAll('#inhouseSortBtns button').forEach(btn => {
     const sortField = btn.dataset.sort;
+    const label = sortField.charAt(0).toUpperCase() + sortField.slice(1);
     if (sortField === key) {
       btn.classList.add('active');
-      btn.textContent = btn.dataset.sort.charAt(0).toUpperCase() + btn.dataset.sort.slice(1) + (asc ? ' ▴' : ' ▾');
+      btn.textContent = label + (asc ? ' ▲' : ' ▼');
     } else {
       btn.classList.remove('active');
-      btn.textContent = btn.dataset.sort.charAt(0).toUpperCase() + btn.dataset.sort.slice(1);
+      btn.textContent = label;
     }
   });
 }
