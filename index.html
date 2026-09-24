@@ -164,7 +164,7 @@
 
   <div class="filters">
     <div><label>From</label><input type="date" id="dateFrom" min="2026-09-01" max="2026-09-30" value="2026-09-01"></div>
-    <div><label>To</label><input type="date" id="dateTo" min="2026-09-01" max="2026-09-30" value="2026-09-23"></div>
+    <div><label>To</label><input type="date" id="dateTo" min="2026-09-01" max="2026-09-30" value="2026-09-24"></div>
     <div class="adv-drop">
       <label>Advertisers</label>
       <button id="advBtn">All advertisers ▾</button>
@@ -199,11 +199,11 @@
 
   <div class="panel">
     <h3>Daily Performance</h3>
-    <div class="hint">Registrations, FTD and revenue by day (Sep 1 - Sep 23).</div>
+    <div class="hint">Registrations, FTD and revenue by day (Sep 1 - Sep 24).</div>
     <div style="height:340px"><canvas id="chDaily"></canvas></div>
   </div>
 
-  <!-- TABLE 1: ADVERTISER REPORT -->
+  <!-- ADVERTISER REPORT TABLE -->
   <div class="panel">
     <div class="panel-head">
       <div>
@@ -234,25 +234,25 @@
       <tfoot>
         <tr class="total-row">
           <td>Grand total</td>
-          <td class="num">913</td>
-          <td class="num">55</td>
-          <td class="num pos">$5,600</td>
+          <td class="num">933</td>
+          <td class="num">57</td>
+          <td class="num pos">$5,745.42</td>
           <td class="num pos">$1,545</td>
-          <td class="num pos">$4,055</td>
-          <td class="num">1:17</td>
+          <td class="num pos">$4,200.42</td>
+          <td class="num">1:16</td>
         </tr>
       </tfoot>
     </table>
   </div>
 
-  <!-- TABLE 2: PERFORMANCE PER BRAND -->
+  <!-- TABLE 1: SWEEPSTAKES BRANDS -->
   <div class="panel">
     <div class="panel-head">
       <div>
-        <h3>Performance per brand</h3>
-        <div class="hint">Sort brands by metric or keep advertiser order.</div>
+        <h3>Sweepstakes Brands</h3>
+        <div class="hint">Performance breakdown for sweepstakes and social casino brands.</div>
       </div>
-      <div class="sort-btns" id="brandSortBtns">
+      <div class="sort-btns" id="sweepsBrandSortBtns">
         <button data-sort="adv_order" class="active">Advertiser Order ▲</button>
         <button data-sort="revenue">Revenue</button>
         <button data-sort="signups">Signups</button>
@@ -261,7 +261,7 @@
         <button data-sort="profit">Profit</button>
       </div>
     </div>
-    <table class="report-table" id="brandTable">
+    <table class="report-table" id="sweepsBrandTable">
       <thead>
         <tr>
           <th data-sort="advertiser" style="text-align:left;" class="active-col">ADVERTISER <span class="arr">▲</span></th>
@@ -277,13 +277,101 @@
       <tbody></tbody>
       <tfoot>
         <tr class="total-row">
-          <td colspan="2">Grand total</td>
-          <td class="num">913</td>
-          <td class="num">55</td>
-          <td class="num pos">$5,600</td>
-          <td class="num pos">$1,545</td>
-          <td class="num pos">$4,055</td>
-          <td class="num">1:17</td>
+          <td colspan="2">Subtotal Sweepstakes</td>
+          <td class="num">835</td>
+          <td class="num">42</td>
+          <td class="num pos">$4,760</td>
+          <td class="num pos">$1,470</td>
+          <td class="num pos">$3,290</td>
+          <td class="num">1:20</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- TABLE 2: CASINO BRANDS -->
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <h3>Casino Brands</h3>
+        <div class="hint">Performance breakdown for real-money online casino and sportsbook brands.</div>
+      </div>
+      <div class="sort-btns" id="casinoBrandSortBtns">
+        <button data-sort="adv_order" class="active">Advertiser Order ▲</button>
+        <button data-sort="revenue">Revenue</button>
+        <button data-sort="signups">Signups</button>
+        <button data-sort="ftd">Ftd</button>
+        <button data-sort="budget">Budget</button>
+        <button data-sort="profit">Profit</button>
+      </div>
+    </div>
+    <table class="report-table" id="casinoBrandTable">
+      <thead>
+        <tr>
+          <th data-sort="advertiser" style="text-align:left;" class="active-col">ADVERTISER <span class="arr">▲</span></th>
+          <th data-sort="brand" style="text-align:left;">BRAND <span class="arr"></span></th>
+          <th data-sort="signups">SIGNUPS <span class="arr"></span></th>
+          <th data-sort="ftd">FTD <span class="arr"></span></th>
+          <th data-sort="revenue">REVENUE <span class="arr"></span></th>
+          <th data-sort="budget">BUDGET <span class="arr"></span></th>
+          <th data-sort="profit">PROFIT <span class="arr"></span></th>
+          <th style="cursor:default;">S2P</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      <tfoot>
+        <tr class="total-row">
+          <td colspan="2">Subtotal Casino</td>
+          <td class="num">60</td>
+          <td class="num">5</td>
+          <td class="num pos">$800</td>
+          <td class="num">$0</td>
+          <td class="num pos">$800</td>
+          <td class="num">1:12</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- TABLE 3: OTHER BRANDS -->
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <h3>Other Brands</h3>
+        <div class="hint">Performance breakdown for educational apps, loyalty tools, and tracking links.</div>
+      </div>
+      <div class="sort-btns" id="otherBrandSortBtns">
+        <button data-sort="adv_order" class="active">Advertiser Order ▲</button>
+        <button data-sort="revenue">Revenue</button>
+        <button data-sort="signups">Signups</button>
+        <button data-sort="ftd">Ftd</button>
+        <button data-sort="budget">Budget</button>
+        <button data-sort="profit">Profit</button>
+      </div>
+    </div>
+    <table class="report-table" id="otherBrandTable">
+      <thead>
+        <tr>
+          <th data-sort="advertiser" style="text-align:left;" class="active-col">ADVERTISER <span class="arr">▲</span></th>
+          <th data-sort="brand" style="text-align:left;">BRAND <span class="arr"></span></th>
+          <th data-sort="signups">SIGNUPS <span class="arr"></span></th>
+          <th data-sort="ftd">FTD <span class="arr"></span></th>
+          <th data-sort="revenue">REVENUE <span class="arr"></span></th>
+          <th data-sort="budget">BUDGET <span class="arr"></span></th>
+          <th data-sort="profit">PROFIT <span class="arr"></span></th>
+          <th style="cursor:default;">S2P</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      <tfoot>
+        <tr class="total-row">
+          <td colspan="2">Subtotal Other</td>
+          <td class="num">38</td>
+          <td class="num">10</td>
+          <td class="num pos">$185.42</td>
+          <td class="num pos">$75</td>
+          <td class="num pos">$110.42</td>
+          <td class="num">1:4</td>
         </tr>
       </tfoot>
     </table>
@@ -346,7 +434,7 @@
     </div>
   </div>
 
-  <!-- TABLE 3: INHOUSE BRANDS (IN CONSTRUCTION) -->
+  <!-- INHOUSE BRANDS TABLE -->
   <div class="panel">
     <div class="panel-head">
       <div>
@@ -378,8 +466,8 @@
           <td class="num">0</td>
           <td class="num">0</td>
           <td class="num">$0</td>
-          <td class="num pos">$354</td>
-          <td class="num neg">-$354</td>
+          <td class="num pos">$360</td>
+          <td class="num neg">-$360</td>
           <td class="num">—</td>
         </tr>
       </tfoot>
@@ -389,10 +477,10 @@
 
 <script>
 const DATA = {
-  "daysElapsed": 23,
+  "daysElapsed": 24,
   "daysInMonth": 30,
   "dateMin": "2026-09-01",
-  "dateMax": "2026-09-23",
+  "dateMax": "2026-09-24",
   "advertisers": [
     "ACEBET", "AFF 66", "ALL IN AFFILIATES", "BASHER AGENCY",
     "CHANCED", "COINSROYALE", "EPC", "GAMETIME DIGITAL", "IMPACT", "PURIFY", "SPLASH"
@@ -401,22 +489,22 @@ const DATA = {
     {
       "name": "EMAIL", "cls": "email",
       "kpi": {"budget": 1100, "signups": 500, "users": 40, "revenue": 4400, "profit": 3300},
-      "mtd": {"budget": 940, "signups": 381, "users": 17, "revenue": 2810, "profit": 1870}
+      "mtd": {"budget": 940, "signups": 388, "users": 18, "revenue": 2690, "profit": 1750}
     },
     {
       "name": "MEDIA", "cls": "media",
       "kpi": {"budget": 5500, "signups": 1000, "users": 300, "revenue": 16500, "profit": 11000},
-      "mtd": {"budget": 540, "signups": 484, "users": 38, "revenue": 3050, "profit": 2510}
+      "mtd": {"budget": 546, "signups": 498, "users": 39, "revenue": 3055, "profit": 2509}
     },
     {
       "name": "SOCIAL", "cls": "social",
       "kpi": {"budget": 1100, "signups": 250, "users": 20, "revenue": 3300, "profit": 2200},
-      "mtd": {"budget": 440, "signups": 9, "users": 0, "revenue": 0, "profit": -440}
+      "mtd": {"budget": 440, "signups": 1, "users": 1, "revenue": 120, "profit": -320}
     },
     {
       "name": "Grand total", "cls": "total",
       "kpi": {"budget": 7700, "signups": 1750, "users": 360, "revenue": 24200, "profit": 16500},
-      "mtd": {"budget": 1920, "signups": 874, "users": 55, "revenue": 5860, "profit": 3940}
+      "mtd": {"budget": 1926, "signups": 887, "users": 58, "revenue": 5865, "profit": 3939}
     }
   ],
   "daily": {
@@ -428,7 +516,7 @@ const DATA = {
       "2026-09-13": [4, 0, 0], "2026-09-14": [5, 0, 0], "2026-09-15": [4, 0, 0],
       "2026-09-16": [5, 0, 0], "2026-09-17": [4, 0, 0], "2026-09-18": [5, 1, 150],
       "2026-09-19": [4, 0, 0], "2026-09-20": [4, 0, 0], "2026-09-21": [5, 0, 0],
-      "2026-09-22": [4, 0, 0], "2026-09-23": [4, 0, 0]
+      "2026-09-22": [4, 0, 0], "2026-09-23": [4, 0, 0], "2026-09-24": [4, 0, 0]
     },
     "ALL IN AFFILIATES": {
       "2026-09-01": [1, 0, 0], "2026-09-02": [1, 0, 0], "2026-09-03": [1, 0, 0],
@@ -438,7 +526,7 @@ const DATA = {
       "2026-09-13": [1, 0, 0], "2026-09-14": [1, 0, 0], "2026-09-15": [1, 0, 0],
       "2026-09-16": [1, 0, 0], "2026-09-17": [1, 0, 0], "2026-09-18": [2, 1, 160],
       "2026-09-19": [1, 0, 0], "2026-09-20": [1, 0, 0], "2026-09-21": [1, 0, 0],
-      "2026-09-22": [1, 0, 0], "2026-09-23": [1, 0, 0]
+      "2026-09-22": [1, 0, 0], "2026-09-23": [1, 0, 0], "2026-09-24": [1, 0, 0]
     },
     "CHANCED": {
       "2026-09-01": [6, 0, 0], "2026-09-02": [5, 0, 0], "2026-09-03": [6, 0, 0],
@@ -448,7 +536,7 @@ const DATA = {
       "2026-09-13": [6, 0, 0], "2026-09-14": [7, 0, 0], "2026-09-15": [6, 0, 0],
       "2026-09-16": [7, 0, 0], "2026-09-17": [6, 0, 0], "2026-09-18": [2, 0, 0],
       "2026-09-19": [3, 0, 0], "2026-09-20": [3, 0, 0], "2026-09-21": [4, 0, 0],
-      "2026-09-22": [3, 0, 0], "2026-09-23": [3, 0, 0]
+      "2026-09-22": [3, 0, 0], "2026-09-23": [3, 0, 0], "2026-09-24": [3, 0, 0]
     },
     "SPLASH": {
       "2026-09-01": [2, 0, 0], "2026-09-02": [2, 0, 0], "2026-09-03": [2, 0, 0],
@@ -458,7 +546,7 @@ const DATA = {
       "2026-09-13": [2, 0, 0], "2026-09-14": [2, 0, 0], "2026-09-15": [2, 0, 0],
       "2026-09-16": [2, 0, 0], "2026-09-17": [2, 0, 0], "2026-09-18": [1, 0, 0],
       "2026-09-19": [1, 0, 0], "2026-09-20": [1, 0, 0], "2026-09-21": [1, 1, 150],
-      "2026-09-22": [1, 0, 0], "2026-09-23": [1, 0, 0]
+      "2026-09-22": [1, 0, 0], "2026-09-23": [1, 0, 0], "2026-09-24": [1, 0, 0]
     },
     "BASHER AGENCY": {
       "2026-09-01": [5, 0, 0], "2026-09-02": [4, 0, 0], "2026-09-03": [5, 0, 0],
@@ -468,7 +556,7 @@ const DATA = {
       "2026-09-13": [5, 0, 0], "2026-09-14": [6, 0, 0], "2026-09-15": [5, 0, 0],
       "2026-09-16": [6, 0, 0], "2026-09-17": [5, 0, 0], "2026-09-18": [17, 1, 140],
       "2026-09-19": [5, 0, 0], "2026-09-20": [5, 0, 0], "2026-09-21": [6, 0, 0],
-      "2026-09-22": [5, 0, 0], "2026-09-23": [6, 0, 0]
+      "2026-09-22": [5, 0, 0], "2026-09-23": [6, 0, 0], "2026-09-24": [6, 0, 0]
     },
     "GAMETIME DIGITAL": {
       "2026-09-01": [26, 2, 250], "2026-09-02": [28, 1, 260], "2026-09-03": [27, 2, 260],
@@ -478,7 +566,7 @@ const DATA = {
       "2026-09-13": [10, 0, 30],  "2026-09-14": [12, 0, 30],  "2026-09-15": [36, 6, 525],
       "2026-09-16": [35, 6, 525], "2026-09-17": [37, 5, 525], "2026-09-18": [47, 3, 430],
       "2026-09-19": [30, 2, 270], "2026-09-20": [32, 2, 280], "2026-09-21": [35, 3, 310],
-      "2026-09-22": [28, 2, 320], "2026-09-23": [27, 3, 320]
+      "2026-09-22": [28, 2, 320], "2026-09-23": [27, 3, 320], "2026-09-24": [29, 2, 280]
     },
     "COINSROYALE": {
       "2026-09-01": [6, 0, 0], "2026-09-02": [7, 1, 0], "2026-09-03": [7, 0, 0],
@@ -488,7 +576,7 @@ const DATA = {
       "2026-09-13": [7, 0, 0], "2026-09-14": [7, 0, 0], "2026-09-15": [7, 1, 0],
       "2026-09-16": [7, 1, 0], "2026-09-17": [7, 0, 0], "2026-09-18": [7, 1, 0],
       "2026-09-19": [5, 0, 0], "2026-09-20": [6, 0, 0], "2026-09-21": [6, 1, 0],
-      "2026-09-22": [5, 0, 0], "2026-09-23": [5, 0, 0]
+      "2026-09-22": [5, 0, 0], "2026-09-23": [5, 0, 0], "2026-09-24": [5, 0, 0]
     },
     "PURIFY": {
       "2026-09-01": [1, 0, 0], "2026-09-02": [1, 0, 0], "2026-09-03": [2, 0, 0],
@@ -498,27 +586,7 @@ const DATA = {
       "2026-09-13": [1, 0, 0], "2026-09-14": [2, 0, 0], "2026-09-15": [2, 1, 20],
       "2026-09-16": [2, 1, 20], "2026-09-17": [2, 0, 0], "2026-09-18": [2, 1, 20],
       "2026-09-19": [1, 0, 0], "2026-09-20": [2, 0, 0], "2026-09-21": [1, 1, 20],
-      "2026-09-22": [1, 0, 0], "2026-09-23": [1, 0, 0]
-    },
-    "EPC": {
-      "2026-09-01": [0, 0, 0], "2026-09-02": [0, 0, 0], "2026-09-03": [0, 0, 0],
-      "2026-09-04": [0, 0, 0], "2026-09-05": [0, 0, 0], "2026-09-06": [0, 0, 0],
-      "2026-09-07": [0, 0, 0], "2026-09-08": [0, 0, 0], "2026-09-09": [0, 0, 0],
-      "2026-09-10": [0, 0, 0], "2026-09-11": [0, 0, 0], "2026-09-12": [0, 0, 0],
-      "2026-09-13": [0, 0, 0], "2026-09-14": [0, 0, 0], "2026-09-15": [0, 0, 0],
-      "2026-09-16": [0, 0, 0], "2026-09-17": [0, 0, 0], "2026-09-18": [0, 0, 0],
-      "2026-09-19": [0, 0, 0], "2026-09-20": [0, 0, 0], "2026-09-21": [0, 0, 0],
-      "2026-09-22": [0, 0, 0], "2026-09-23": [0, 0, 0]
-    },
-    "ACEBET": {
-      "2026-09-01": [0, 0, 0], "2026-09-02": [0, 0, 0], "2026-09-03": [0, 0, 0],
-      "2026-09-04": [0, 0, 0], "2026-09-05": [0, 0, 0], "2026-09-06": [0, 0, 0],
-      "2026-09-07": [0, 0, 0], "2026-09-08": [0, 0, 0], "2026-09-09": [0, 0, 0],
-      "2026-09-10": [0, 0, 0], "2026-09-11": [0, 0, 0], "2026-09-12": [0, 0, 0],
-      "2026-09-13": [0, 0, 0], "2026-09-14": [0, 0, 0], "2026-09-15": [0, 0, 0],
-      "2026-09-16": [0, 0, 0], "2026-09-17": [0, 0, 0], "2026-09-18": [0, 0, 0],
-      "2026-09-19": [0, 0, 0], "2026-09-20": [0, 0, 0], "2026-09-21": [0, 0, 0],
-      "2026-09-22": [0, 0, 0], "2026-09-23": [0, 0, 0]
+      "2026-09-22": [1, 0, 0], "2026-09-23": [1, 0, 0], "2026-09-24": [1, 0, 0]
     },
     "IMPACT": {
       "2026-09-01": [0, 0, 0], "2026-09-02": [0, 0, 0], "2026-09-03": [0, 0, 0],
@@ -528,73 +596,105 @@ const DATA = {
       "2026-09-13": [0, 0, 0], "2026-09-14": [0, 0, 0], "2026-09-15": [0, 0, 0],
       "2026-09-16": [0, 0, 0], "2026-09-17": [0, 0, 0], "2026-09-18": [0, 0, 0],
       "2026-09-19": [0, 0, 0], "2026-09-20": [0, 0, 0], "2026-09-21": [0, 0, 0],
-      "2026-09-22": [0, 0, 0], "2026-09-23": [0, 0, 0]
+      "2026-09-22": [0, 0, 0], "2026-09-23": [0, 0, 0], "2026-09-24": [1, 1, 5.42]
+    },
+    "EPC": {
+      "2026-09-01": [0, 0, 0], "2026-09-02": [0, 0, 0], "2026-09-03": [0, 0, 0],
+      "2026-09-04": [0, 0, 0], "2026-09-05": [0, 0, 0], "2026-09-06": [0, 0, 0],
+      "2026-09-07": [0, 0, 0], "2026-09-08": [0, 0, 0], "2026-09-09": [0, 0, 0],
+      "2026-09-10": [0, 0, 0], "2026-09-11": [0, 0, 0], "2026-09-12": [0, 0, 0],
+      "2026-09-13": [0, 0, 0], "2026-09-14": [0, 0, 0], "2026-09-15": [0, 0, 0],
+      "2026-09-16": [0, 0, 0], "2026-09-17": [0, 0, 0], "2026-09-18": [0, 0, 0],
+      "2026-09-19": [0, 0, 0], "2026-09-20": [0, 0, 0], "2026-09-21": [0, 0, 0],
+      "2026-09-22": [0, 0, 0], "2026-09-23": [0, 0, 0], "2026-09-24": [0, 0, 0]
+    },
+    "ACEBET": {
+      "2026-09-01": [0, 0, 0], "2026-09-02": [0, 0, 0], "2026-09-03": [0, 0, 0],
+      "2026-09-04": [0, 0, 0], "2026-09-05": [0, 0, 0], "2026-09-06": [0, 0, 0],
+      "2026-09-07": [0, 0, 0], "2026-09-08": [0, 0, 0], "2026-09-09": [0, 0, 0],
+      "2026-09-10": [0, 0, 0], "2026-09-11": [0, 0, 0], "2026-09-12": [0, 0, 0],
+      "2026-09-13": [0, 0, 0], "2026-09-14": [0, 0, 0], "2026-09-15": [0, 0, 0],
+      "2026-09-16": [0, 0, 0], "2026-09-17": [0, 0, 0], "2026-09-18": [0, 0, 0],
+      "2026-09-19": [0, 0, 0], "2026-09-20": [0, 0, 0], "2026-09-21": [0, 0, 0],
+      "2026-09-22": [0, 0, 0], "2026-09-23": [0, 0, 0], "2026-09-24": [0, 0, 0]
     }
   }
 };
 
-/* ADVERTISER SUMMARY (UPDATED TO SEP 23, CONSOLIDATED COINSROYALE) */
+/* ADVERTISER SUMMARY (CONSOLIDATED COINSROYALE & IMPACT INCLUDED) */
 const ADVERTISER_DATA = [
-  { name: "GAMETIME DIGITAL", signups: 587, ftd: 27, revenue: 3830, budget: 120, profit: 3710 },
+  { name: "GAMETIME DIGITAL", signups: 605, ftd: 28, revenue: 3970, budget: 120, profit: 3850 },
   { name: "ALL IN AFFILIATES", signups: 36, ftd: 3, revenue: 600, budget: 0, profit: 600 },
-  { name: "BASHER AGENCY", signups: 49, ftd: 4, revenue: 540, budget: 0, profit: 540 },
+  { name: "BASHER AGENCY", signups: 50, ftd: 4, revenue: 540, budget: 0, profit: 540 },
   { name: "AFF 66", signups: 10, ftd: 2, revenue: 300, budget: 0, profit: 300 },
   { name: "PURIFY", signups: 34, ftd: 9, revenue: 180, budget: 75, profit: 105 },
   { name: "SPLASH", signups: 2, ftd: 1, revenue: 150, budget: 0, profit: 150 },
+  { name: "IMPACT", signups: 1, ftd: 1, revenue: 5.42, budget: 0, profit: 5.42 },
   { name: "CHANCED", signups: 56, ftd: 0, revenue: 0, budget: 0, profit: 0 },
   { name: "COINSROYALE", signups: 139, ftd: 9, revenue: 0, budget: 1350, profit: -1350 },
   { name: "ACEBET", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
-  { name: "EPC", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
-  { name: "IMPACT", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 }
+  { name: "EPC", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 }
 ];
 
-/* PERFORMANCE PER BRAND DATA (UPDATED TO SEP 23, CONSOLIDATED COINSROYALE) */
-const BRAND_DATA = [
+/* 1. SWEEPSTAKES BRANDS DATA */
+const SWEEPS_BRAND_DATA = [
+  { advertiser: "AFF 66", brand: "SweepJungle", signups: 7, ftd: 2, revenue: 300, budget: 0, profit: 300, origIdx: 0 },
+  { advertiser: "AFF 66", brand: "Sixty6", signups: 3, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 1 },
+  { advertiser: "BASHER AGENCY", brand: "LavishLuck Sweepstakes Casino", signups: 29, ftd: 3, revenue: 420, budget: 0, profit: 420, origIdx: 2 },
+  { advertiser: "BASHER AGENCY", brand: "LuckyZino Sweepstakes Casino", signups: 6, ftd: 1, revenue: 120, budget: 0, profit: 120, origIdx: 3 },
+  { advertiser: "BASHER AGENCY", brand: "WiseSpin Sweeps Casino", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 4 },
+  { advertiser: "BASHER AGENCY", brand: "Luckyvibe", signups: 13, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 5 },
+  { advertiser: "CHANCED", brand: "Chanced Punt", signups: 56, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 6 },
+  { advertiser: "COINSROYALE", brand: "CoinsRoyale", signups: 139, ftd: 9, revenue: 0, budget: 1350, profit: -1350, origIdx: 7 },
+  { advertiser: "GAMETIME DIGITAL", brand: "LuckyBunny", signups: 36, ftd: 9, revenue: 1080, budget: 0, profit: 1080, origIdx: 8 },
+  { advertiser: "GAMETIME DIGITAL", brand: "LavishLuck", signups: 190, ftd: 5, revenue: 900, budget: 0, profit: 900, origIdx: 9 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Baba", signups: 6, ftd: 3, revenue: 450, budget: 0, profit: 450, origIdx: 10 },
+  { advertiser: "GAMETIME DIGITAL", brand: "WiseSpin", signups: 20, ftd: 3, revenue: 420, budget: 0, profit: 420, origIdx: 11 },
+  { advertiser: "GAMETIME DIGITAL", brand: "The Boss", signups: 17, ftd: 1, revenue: 170, budget: 0, profit: 170, origIdx: 12 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Mega Bonanza", signups: 18, ftd: 1, revenue: 160, budget: 0, profit: 160, origIdx: 13 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Sweet Sweep", signups: 5, ftd: 1, revenue: 150, budget: 0, profit: 150, origIdx: 14 },
+  { advertiser: "GAMETIME DIGITAL", brand: "LuckyZino", signups: 8, ftd: 1, revenue: 140, budget: 0, profit: 140, origIdx: 15 },
+  { advertiser: "GAMETIME DIGITAL", brand: "CardCrush", signups: 119, ftd: 1, revenue: 130, budget: 0, profit: 130, origIdx: 16 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Spinjo CA", signups: 9, ftd: 1, revenue: 75, budget: 0, profit: 75, origIdx: 17 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Jackpotgo", signups: 116, ftd: 1, revenue: 170, budget: 120, profit: 50, origIdx: 18 },
+  { advertiser: "GAMETIME DIGITAL", brand: "High5Casino", signups: 15, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 19 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Crown Coins Email", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 20 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Dorados", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 21 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Go Go Gold Win", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 22 },
+  { advertiser: "GAMETIME DIGITAL", brand: "ChipNWin", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 23 },
+  { advertiser: "GAMETIME DIGITAL", brand: "McLuck", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 24 },
+  { advertiser: "GAMETIME DIGITAL", brand: "PlayFame SEO", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 25 },
+  { advertiser: "GAMETIME DIGITAL", brand: "TitanTreasure", signups: 3, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 26 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Spinblitz SEO", signups: 15, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 27 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Zunado", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 28 },
+  { advertiser: "SPLASH", brand: "splashcoins", signups: 2, ftd: 1, revenue: 150, budget: 0, profit: 150, origIdx: 29 }
+];
+
+/* 2. CASINO BRANDS DATA */
+const CASINO_BRAND_DATA = [
   { advertiser: "ACEBET", brand: "Acebet", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 0 },
-  { advertiser: "AFF 66", brand: "SweepJungle", signups: 7, ftd: 2, revenue: 300, budget: 0, profit: 300, origIdx: 1 },
-  { advertiser: "AFF 66", brand: "Sixty6", signups: 3, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 2 },
-  { advertiser: "ALL IN AFFILIATES", brand: "FS Casino", signups: 16, ftd: 2, revenue: 440, budget: 0, profit: 440, origIdx: 3 },
-  { advertiser: "ALL IN AFFILIATES", brand: "7Bit Casino", signups: 15, ftd: 1, revenue: 160, budget: 0, profit: 160, origIdx: 4 },
-  { advertiser: "ALL IN AFFILIATES", brand: "Casino Smartlink", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 5 },
-  { advertiser: "ALL IN AFFILIATES", brand: "BetRiot", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 6 },
-  { advertiser: "ALL IN AFFILIATES", brand: "Betnjet", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 7 },
-  { advertiser: "ALL IN AFFILIATES", brand: "Ice Casino", signups: 5, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 8 },
-  { advertiser: "ALL IN AFFILIATES", brand: "Lussurio", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 9 },
-  { advertiser: "ALL IN AFFILIATES", brand: "Smash Casino", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 10 },
-  { advertiser: "BASHER AGENCY", brand: "LavishLuck Sweepstakes Casino", signups: 29, ftd: 3, revenue: 420, budget: 0, profit: 420, origIdx: 11 },
-  { advertiser: "BASHER AGENCY", brand: "LuckyZino Sweepstakes Casino", signups: 6, ftd: 1, revenue: 120, budget: 0, profit: 120, origIdx: 12 },
-  { advertiser: "BASHER AGENCY", brand: "Luckyvibe", signups: 12, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 13 },
-  { advertiser: "BASHER AGENCY", brand: "WiseSpin Sweeps Casino", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 14 },
-  { advertiser: "CHANCED", brand: "Chanced Punt", signups: 56, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 15 },
-  { advertiser: "COINSROYALE", brand: "CoinsRoyale", signups: 139, ftd: 9, revenue: 0, budget: 1350, profit: -1350, origIdx: 16 },
-  { advertiser: "GAMETIME DIGITAL", brand: "LuckyBunny", signups: 32, ftd: 9, revenue: 1080, budget: 0, profit: 1080, origIdx: 17 },
-  { advertiser: "GAMETIME DIGITAL", brand: "LavishLuck", signups: 187, ftd: 5, revenue: 900, budget: 0, profit: 900, origIdx: 18 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Baba", signups: 6, ftd: 3, revenue: 450, budget: 0, profit: 450, origIdx: 19 },
-  { advertiser: "GAMETIME DIGITAL", brand: "WiseSpin", signups: 20, ftd: 3, revenue: 420, budget: 0, profit: 420, origIdx: 20 },
-  { advertiser: "GAMETIME DIGITAL", brand: "The Boss", signups: 15, ftd: 1, revenue: 170, budget: 0, profit: 170, origIdx: 21 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Mega Bonanza", signups: 18, ftd: 1, revenue: 160, budget: 0, profit: 160, origIdx: 22 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Sweet Sweep", signups: 5, ftd: 1, revenue: 150, budget: 0, profit: 150, origIdx: 23 },
-  { advertiser: "GAMETIME DIGITAL", brand: "CardCrush", signups: 111, ftd: 1, revenue: 130, budget: 0, profit: 130, origIdx: 24 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Rolla", signups: 15, ftd: 1, revenue: 125, budget: 0, profit: 125, origIdx: 25 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Spinjo CA", signups: 9, ftd: 1, revenue: 75, budget: 0, profit: 75, origIdx: 26 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Jackpotgo", signups: 116, ftd: 1, revenue: 170, budget: 120, profit: 50, origIdx: 27 },
-  { advertiser: "GAMETIME DIGITAL", brand: "High5Casino", signups: 15, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 28 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Crown Coins Email", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 29 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Dorados", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 30 },
-  { advertiser: "GAMETIME DIGITAL", brand: "CoinsBack", signups: 3, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 31 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Go Go Gold Win", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 32 },
-  { advertiser: "GAMETIME DIGITAL", brand: "ChipNWin", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 33 },
-  { advertiser: "GAMETIME DIGITAL", brand: "McLuck", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 34 },
-  { advertiser: "GAMETIME DIGITAL", brand: "PlayFame SEO", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 35 },
-  { advertiser: "GAMETIME DIGITAL", brand: "LuckyZino", signups: 8, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 36 },
-  { advertiser: "GAMETIME DIGITAL", brand: "TitanTreasure", signups: 3, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 37 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Spinblitz SEO", signups: 15, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 38 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Zunado", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 39 },
-  { advertiser: "PURIFY", brand: "Simply Piano Desktop", signups: 34, ftd: 9, revenue: 180, budget: 75, profit: 105, origIdx: 40 },
-  { advertiser: "SPLASH", brand: "splashcoins", signups: 2, ftd: 1, revenue: 150, budget: 0, profit: 150, origIdx: 41 }
+  { advertiser: "ALL IN AFFILIATES", brand: "FS Casino", signups: 16, ftd: 2, revenue: 440, budget: 0, profit: 440, origIdx: 1 },
+  { advertiser: "ALL IN AFFILIATES", brand: "7Bit Casino", signups: 15, ftd: 1, revenue: 160, budget: 0, profit: 160, origIdx: 2 },
+  { advertiser: "ALL IN AFFILIATES", brand: "Casino Smartlink", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 3 },
+  { advertiser: "ALL IN AFFILIATES", brand: "BetRiot", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 4 },
+  { advertiser: "ALL IN AFFILIATES", brand: "Betnjet", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 5 },
+  { advertiser: "ALL IN AFFILIATES", brand: "Ice Casino", signups: 5, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 6 },
+  { advertiser: "ALL IN AFFILIATES", brand: "Lussurio", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 7 },
+  { advertiser: "ALL IN AFFILIATES", brand: "Smash Casino", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 8 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Rolla", signups: 15, ftd: 1, revenue: 125, budget: 0, profit: 125, origIdx: 9 }
 ];
 
-/* INHOUSE BRANDS (SCALEO - UPDATED TO SEP 23) */
+/* 3. OTHER BRANDS DATA */
+const OTHER_BRAND_DATA = [
+  { advertiser: "GAMETIME DIGITAL", brand: "CoinsBack", signups: 3, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 0 },
+  { advertiser: "IMPACT", brand: "Impact", signups: 1, ftd: 1, revenue: 5.42, budget: 0, profit: 5.42, origIdx: 1 },
+  { advertiser: "PURIFY", brand: "Simply Piano Desktop", signups: 34, ftd: 9, revenue: 180, budget: 75, profit: 105, origIdx: 2 }
+];
+
+/* ALL BRANDS CONSOLIDATED FOR 2X2 CHARTS */
+const ALL_BRAND_DATA = [...SWEEPS_BRAND_DATA, ...CASINO_BRAND_DATA, ...OTHER_BRAND_DATA];
+
+/* INHOUSE BRANDS (SCALEO - UPDATED TO SEP 24) */
 const INHOUSE_DATA = [
   { brand: "Bonusclubs", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
   { brand: "WinningEmpire CA/NZ", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
@@ -604,11 +704,11 @@ const INHOUSE_DATA = [
   { brand: "Wannnasee USA LP", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
   { brand: "PrizeFlow  sweeps LP", signups: 0, ftd: 0, revenue: 0, budget: 3, profit: -3 },
   { brand: "Spin2Win  sweeps LP", signups: 0, ftd: 0, revenue: 0, budget: 30, profit: -30 },
-  { brand: "Pirates LP", signups: 0, ftd: 0, revenue: 0, budget: 150, profit: -150 },
+  { brand: "Pirates LP", signups: 0, ftd: 0, revenue: 0, budget: 156, profit: -156 },
   { brand: "SuperSlotz sweeps", signups: 0, ftd: 0, revenue: 0, budget: 171, profit: -171 }
 ];
 
-/* 30-Day Run-Rate Projection (RR = MTD * 30 / 23) */
+/* 30-Day Run-Rate Projection (RR = MTD * 30 / 24) */
 const factor = DATA.daysInMonth / DATA.daysElapsed;
 DATA.teams.forEach(t => {
   const m = t.mtd;
@@ -631,7 +731,12 @@ DATA.cards = {
 };
 
 const fmtInt = v => Math.round(v).toLocaleString('en-US');
-const fmtMoney = v => (v < 0 ? '-$' : '$') + fmtInt(Math.abs(v));
+const fmtMoney = v => {
+  const isNeg = v < 0;
+  const absVal = Math.abs(v);
+  const formatted = absVal % 1 !== 0 ? absVal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : fmtInt(absVal);
+  return (isNeg ? '-$' : '$') + formatted;
+};
 const moneyCls = v => v < 0 ? 'neg' : (v > 0 ? 'pos' : '');
 const kpiCls = (v, kpi, invert) => {
   if (v < 0) return 'neg';
@@ -644,15 +749,19 @@ const state = {
   advs: new Set(DATA.advertisers),
   advSortKey: 'revenue',
   advSortAsc: false,
-  brandSortKey: 'adv_order',
-  brandSortAsc: true,
+  sweepsSortKey: 'adv_order',
+  sweepsSortAsc: true,
+  casinoSortKey: 'adv_order',
+  casinoSortAsc: true,
+  otherSortKey: 'adv_order',
+  otherSortAsc: true,
   advPerfMetric: 'signups',
   brandPerfMetric: 'signups',
   inhouseSortKey: 'budget',
   inhouseSortAsc: false
 };
 
-/* ---------- Top cards (pure black values) ---------- */
+/* ---------- Top cards ---------- */
 function renderCards(){
   const c = DATA.cards;
   const defs = [
@@ -693,7 +802,7 @@ function renderTeams(){
     </tr>`).join('');
 }
 
-/* ---------- Daily chart (Sep 1 - Sep 23) ---------- */
+/* ---------- Daily chart (Sep 1 - Sep 24) ---------- */
 let chDailyInstance = null;
 function dateRange(){
   const out = [];
@@ -841,21 +950,20 @@ function initAdvSort() {
   });
 }
 
-/* ---------- TABLE 2: PERFORMANCE PER BRAND ---------- */
-function renderBrandTable() {
-  const tbody = document.querySelector('#brandTable tbody');
-  const key = state.brandSortKey;
-  const asc = state.brandSortAsc;
+/* ---------- GENERIC BRAND TABLE RENDERER ---------- */
+function renderCustomBrandTable(tableId, btnsId, dataArray, sortKey, sortAsc) {
+  const tbody = document.querySelector(`#${tableId} tbody`);
+  if (!tbody) return;
 
-  const sorted = [...BRAND_DATA].sort((a, b) => {
-    if (key === 'adv_order') {
-      return asc ? a.origIdx - b.origIdx : b.origIdx - a.origIdx;
+  const sorted = [...dataArray].sort((a, b) => {
+    if (sortKey === 'adv_order') {
+      return sortAsc ? a.origIdx - b.origIdx : b.origIdx - a.origIdx;
     }
-    let va = a[key], vb = b[key];
+    let va = a[sortKey], vb = b[sortKey];
     if (typeof va === 'string') {
-      return asc ? va.localeCompare(vb) : vb.localeCompare(va);
+      return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
     }
-    return asc ? va - vb : vb - va;
+    return sortAsc ? va - vb : vb - va;
   });
 
   tbody.innerHTML = sorted.map(row => {
@@ -878,14 +986,14 @@ function renderBrandTable() {
     `;
   }).join('');
 
-  document.querySelectorAll('#brandTable thead th').forEach(th => {
+  document.querySelectorAll(`#${tableId} thead th`).forEach(th => {
     const sortField = th.dataset.sort;
     const arrSpan = th.querySelector('.arr');
     if (sortField) {
-      const isCurrent = (key === 'adv_order' && sortField === 'advertiser') || (sortField === key);
+      const isCurrent = (sortKey === 'adv_order' && sortField === 'advertiser') || (sortField === sortKey);
       if (isCurrent) {
         th.classList.add('active-col');
-        if (arrSpan) arrSpan.textContent = asc ? '▲' : '▼';
+        if (arrSpan) arrSpan.textContent = sortAsc ? '▲' : '▼';
       } else {
         th.classList.remove('active-col');
         if (arrSpan) arrSpan.textContent = '';
@@ -893,12 +1001,12 @@ function renderBrandTable() {
     }
   });
 
-  document.querySelectorAll('#brandSortBtns button').forEach(btn => {
+  document.querySelectorAll(`#${btnsId} button`).forEach(btn => {
     const sortField = btn.dataset.sort;
     const label = (sortField === 'adv_order') ? 'Advertiser Order' : (sortField.charAt(0).toUpperCase() + sortField.slice(1));
-    if (sortField === key) {
+    if (sortField === sortKey) {
       btn.classList.add('active');
-      btn.textContent = label + (asc ? ' ▲' : ' ▼');
+      btn.textContent = label + (sortAsc ? ' ▲' : ' ▼');
     } else {
       btn.classList.remove('active');
       btn.textContent = label;
@@ -906,33 +1014,45 @@ function renderBrandTable() {
   });
 }
 
-function initBrandSort() {
-  document.querySelectorAll('#brandTable thead th[data-sort]').forEach(th => {
+function renderAllBrandTables() {
+  renderCustomBrandTable('sweepsBrandTable', 'sweepsBrandSortBtns', SWEEPS_BRAND_DATA, state.sweepsSortKey, state.sweepsSortAsc);
+  renderCustomBrandTable('casinoBrandTable', 'casinoBrandSortBtns', CASINO_BRAND_DATA, state.casinoSortKey, state.casinoSortAsc);
+  renderCustomBrandTable('otherBrandTable', 'otherBrandSortBtns', OTHER_BRAND_DATA, state.otherSortKey, state.otherSortAsc);
+}
+
+function initBrandTableSort(tableId, btnsId, stateKeyPrefix, dataArray) {
+  document.querySelectorAll(`#${tableId} thead th[data-sort]`).forEach(th => {
     th.addEventListener('click', () => {
       let field = th.dataset.sort;
       if (field === 'advertiser') field = 'adv_order';
-      if (state.brandSortKey === field) {
-        state.brandSortAsc = !state.brandSortAsc;
+      if (state[`${stateKeyPrefix}SortKey`] === field) {
+        state[`${stateKeyPrefix}SortAsc`] = !state[`${stateKeyPrefix}SortAsc`];
       } else {
-        state.brandSortKey = field;
-        state.brandSortAsc = (field === 'adv_order' || field === 'brand');
+        state[`${stateKeyPrefix}SortKey`] = field;
+        state[`${stateKeyPrefix}SortAsc`] = (field === 'adv_order' || field === 'brand');
       }
-      renderBrandTable();
+      renderCustomBrandTable(tableId, btnsId, dataArray, state[`${stateKeyPrefix}SortKey`], state[`${stateKeyPrefix}SortAsc`]);
     });
   });
 
-  document.querySelectorAll('#brandSortBtns button').forEach(btn => {
+  document.querySelectorAll(`#${btnsId} button`).forEach(btn => {
     btn.addEventListener('click', () => {
       const field = btn.dataset.sort;
-      if (state.brandSortKey === field) {
-        state.brandSortAsc = !state.brandSortAsc;
+      if (state[`${stateKeyPrefix}SortKey`] === field) {
+        state[`${stateKeyPrefix}SortAsc`] = !state[`${stateKeyPrefix}SortAsc`];
       } else {
-        state.brandSortKey = field;
-        state.brandSortAsc = (field === 'adv_order');
+        state[`${stateKeyPrefix}SortKey`] = field;
+        state[`${stateKeyPrefix}SortAsc`] = (field === 'adv_order');
       }
-      renderBrandTable();
+      renderCustomBrandTable(tableId, btnsId, dataArray, state[`${stateKeyPrefix}SortKey`], state[`${stateKeyPrefix}SortAsc`]);
     });
   });
+}
+
+function initAllBrandSorts() {
+  initBrandTableSort('sweepsBrandTable', 'sweepsBrandSortBtns', 'sweeps', SWEEPS_BRAND_DATA);
+  initBrandTableSort('casinoBrandTable', 'casinoBrandSortBtns', 'casino', CASINO_BRAND_DATA);
+  initBrandTableSort('otherBrandTable', 'otherBrandSortBtns', 'other', OTHER_BRAND_DATA);
 }
 
 /* ---------- 4 EXECUTIVE CHARTS (2x2) ---------- */
@@ -1040,7 +1160,7 @@ function renderAdvProfitChart() {
 
 function renderBrandPerfChart() {
   const m = state.brandPerfMetric;
-  const activeBrands = BRAND_DATA.filter(b => b[m] > 0).sort((a, b) => b[m] - a[m]);
+  const activeBrands = ALL_BRAND_DATA.filter(b => b[m] > 0).sort((a, b) => b[m] - a[m]);
   const displayBrands = activeBrands.slice(0, 15);
 
   document.getElementById('brandPerfHint').textContent = `Top active brands by ${m === 'signups' ? 'signups' : (m === 'ftd' ? 'FTD' : 'revenue')}.`;
@@ -1084,7 +1204,7 @@ function renderBrandPerfChart() {
 }
 
 function renderBrandProfitChart() {
-  const activeProfitBrands = BRAND_DATA.filter(b => b.profit !== 0).sort((a, b) => b.profit - a.profit);
+  const activeProfitBrands = ALL_BRAND_DATA.filter(b => b.profit !== 0).sort((a, b) => b.profit - a.profit);
   const labels = activeProfitBrands.map(d => d.brand);
   const values = activeProfitBrands.map(d => d.profit);
   const colors = activeProfitBrands.map(d => d.profit >= 0 ? '#10b981' : '#dc2626');
@@ -1273,19 +1393,23 @@ document.getElementById('btnReset').addEventListener('click', () => {
   state.advs = new Set(DATA.advertisers);
   state.advSortKey = 'revenue';
   state.advSortAsc = false;
-  state.brandSortKey = 'adv_order';
-  state.brandSortAsc = true;
+  state.sweepsSortKey = 'adv_order';
+  state.sweepsSortAsc = true;
+  state.casinoSortKey = 'adv_order';
+  state.casinoSortAsc = true;
+  state.otherSortKey = 'adv_order';
+  state.otherSortAsc = true;
   state.advPerfMetric = 'signups';
   state.brandPerfMetric = 'signups';
   state.inhouseSortKey = 'budget';
   state.inhouseSortAsc = false;
   document.querySelectorAll('#toggleAdvPerf button').forEach(b => b.classList.toggle('active', b.dataset.m === 'signups'));
   document.querySelectorAll('#toggleBrandPerf button').forEach(b => b.classList.toggle('active', b.dataset.m === 'signups'));
-  renderAdvPanel(); updateAdvBtn(); renderDaily(); renderAdvTable(); renderBrandTable(); renderAllCharts2x2(); renderInhouseTable();
+  renderAdvPanel(); updateAdvBtn(); renderDaily(); renderAdvTable(); renderAllBrandTables(); renderAllCharts2x2(); renderInhouseTable();
 });
 
 renderCards(); renderTeams(); renderAdvPanel(); updateAdvBtn(); renderDaily();
-renderAdvTable(); initAdvSort(); renderBrandTable(); initBrandSort();
+renderAdvTable(); initAdvSort(); renderAllBrandTables(); initAllBrandSorts();
 renderAllCharts2x2(); initChartToggles();
 renderInhouseTable(); initInhouseSort();
 </script>
