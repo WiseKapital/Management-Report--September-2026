@@ -278,12 +278,12 @@
       <tfoot>
         <tr class="total-row">
           <td colspan="2">Subtotal Sweepstakes</td>
-          <td class="num">835</td>
-          <td class="num">42</td>
-          <td class="num pos">$4,760</td>
+          <td class="num">829</td>
+          <td class="num">39</td>
+          <td class="num pos">$4,310</td>
           <td class="num pos">$1,470</td>
-          <td class="num pos">$3,290</td>
-          <td class="num">1:20</td>
+          <td class="num pos">$2,840</td>
+          <td class="num">1:21</td>
         </tr>
       </tfoot>
     </table>
@@ -322,12 +322,12 @@
       <tfoot>
         <tr class="total-row">
           <td colspan="2">Subtotal Casino</td>
-          <td class="num">60</td>
-          <td class="num">5</td>
-          <td class="num pos">$800</td>
+          <td class="num">66</td>
+          <td class="num">8</td>
+          <td class="num pos">$1,250</td>
           <td class="num">$0</td>
-          <td class="num pos">$800</td>
-          <td class="num">1:12</td>
+          <td class="num pos">$1,250</td>
+          <td class="num">1:8</td>
         </tr>
       </tfoot>
     </table>
@@ -499,12 +499,12 @@ const DATA = {
     {
       "name": "SOCIAL", "cls": "social",
       "kpi": {"budget": 1100, "signups": 250, "users": 20, "revenue": 3300, "profit": 2200},
-      "mtd": {"budget": 440, "signups": 1, "users": 1, "revenue": 120, "profit": -320}
+      "mtd": {"budget": 440, "signups": 1, "users": 1, "revenue": 0, "profit": -440}
     },
     {
       "name": "Grand total", "cls": "total",
       "kpi": {"budget": 7700, "signups": 1750, "users": 360, "revenue": 24200, "profit": 16500},
-      "mtd": {"budget": 1926, "signups": 887, "users": 58, "revenue": 5865, "profit": 3939}
+      "mtd": {"budget": 1926, "signups": 887, "users": 58, "revenue": 5745, "profit": 3819}
     }
   ],
   "daily": {
@@ -636,7 +636,7 @@ const ADVERTISER_DATA = [
   { name: "EPC", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 }
 ];
 
-/* 1. SWEEPSTAKES BRANDS DATA */
+/* 1. SWEEPSTAKES BRANDS DATA (EXCLUDING BABA) */
 const SWEEPS_BRAND_DATA = [
   { advertiser: "AFF 66", brand: "SweepJungle", signups: 7, ftd: 2, revenue: 300, budget: 0, profit: 300, origIdx: 0 },
   { advertiser: "AFF 66", brand: "Sixty6", signups: 3, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 1 },
@@ -648,29 +648,28 @@ const SWEEPS_BRAND_DATA = [
   { advertiser: "COINSROYALE", brand: "CoinsRoyale", signups: 139, ftd: 9, revenue: 0, budget: 1350, profit: -1350, origIdx: 7 },
   { advertiser: "GAMETIME DIGITAL", brand: "LuckyBunny", signups: 36, ftd: 9, revenue: 1080, budget: 0, profit: 1080, origIdx: 8 },
   { advertiser: "GAMETIME DIGITAL", brand: "LavishLuck", signups: 190, ftd: 5, revenue: 900, budget: 0, profit: 900, origIdx: 9 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Baba", signups: 6, ftd: 3, revenue: 450, budget: 0, profit: 450, origIdx: 10 },
-  { advertiser: "GAMETIME DIGITAL", brand: "WiseSpin", signups: 20, ftd: 3, revenue: 420, budget: 0, profit: 420, origIdx: 11 },
-  { advertiser: "GAMETIME DIGITAL", brand: "The Boss", signups: 17, ftd: 1, revenue: 170, budget: 0, profit: 170, origIdx: 12 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Mega Bonanza", signups: 18, ftd: 1, revenue: 160, budget: 0, profit: 160, origIdx: 13 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Sweet Sweep", signups: 5, ftd: 1, revenue: 150, budget: 0, profit: 150, origIdx: 14 },
-  { advertiser: "GAMETIME DIGITAL", brand: "LuckyZino", signups: 8, ftd: 1, revenue: 140, budget: 0, profit: 140, origIdx: 15 },
-  { advertiser: "GAMETIME DIGITAL", brand: "CardCrush", signups: 119, ftd: 1, revenue: 130, budget: 0, profit: 130, origIdx: 16 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Spinjo CA", signups: 9, ftd: 1, revenue: 75, budget: 0, profit: 75, origIdx: 17 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Jackpotgo", signups: 116, ftd: 1, revenue: 170, budget: 120, profit: 50, origIdx: 18 },
-  { advertiser: "GAMETIME DIGITAL", brand: "High5Casino", signups: 15, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 19 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Crown Coins Email", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 20 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Dorados", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 21 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Go Go Gold Win", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 22 },
-  { advertiser: "GAMETIME DIGITAL", brand: "ChipNWin", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 23 },
-  { advertiser: "GAMETIME DIGITAL", brand: "McLuck", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 24 },
-  { advertiser: "GAMETIME DIGITAL", brand: "PlayFame SEO", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 25 },
-  { advertiser: "GAMETIME DIGITAL", brand: "TitanTreasure", signups: 3, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 26 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Spinblitz SEO", signups: 15, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 27 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Zunado", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 28 },
-  { advertiser: "SPLASH", brand: "splashcoins", signups: 2, ftd: 1, revenue: 150, budget: 0, profit: 150, origIdx: 29 }
+  { advertiser: "GAMETIME DIGITAL", brand: "WiseSpin", signups: 20, ftd: 3, revenue: 420, budget: 0, profit: 420, origIdx: 10 },
+  { advertiser: "GAMETIME DIGITAL", brand: "The Boss", signups: 17, ftd: 1, revenue: 170, budget: 0, profit: 170, origIdx: 11 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Mega Bonanza", signups: 18, ftd: 1, revenue: 160, budget: 0, profit: 160, origIdx: 12 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Sweet Sweep", signups: 5, ftd: 1, revenue: 150, budget: 0, profit: 150, origIdx: 13 },
+  { advertiser: "GAMETIME DIGITAL", brand: "LuckyZino", signups: 8, ftd: 1, revenue: 140, budget: 0, profit: 140, origIdx: 14 },
+  { advertiser: "GAMETIME DIGITAL", brand: "CardCrush", signups: 119, ftd: 1, revenue: 130, budget: 0, profit: 130, origIdx: 15 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Spinjo CA", signups: 9, ftd: 1, revenue: 75, budget: 0, profit: 75, origIdx: 16 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Jackpotgo", signups: 116, ftd: 1, revenue: 170, budget: 120, profit: 50, origIdx: 17 },
+  { advertiser: "GAMETIME DIGITAL", brand: "High5Casino", signups: 15, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 18 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Crown Coins Email", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 19 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Dorados", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 20 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Go Go Gold Win", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 21 },
+  { advertiser: "GAMETIME DIGITAL", brand: "ChipNWin", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 22 },
+  { advertiser: "GAMETIME DIGITAL", brand: "McLuck", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 23 },
+  { advertiser: "GAMETIME DIGITAL", brand: "PlayFame SEO", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 24 },
+  { advertiser: "GAMETIME DIGITAL", brand: "TitanTreasure", signups: 3, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 25 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Spinblitz SEO", signups: 15, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 26 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Zunado", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 27 },
+  { advertiser: "SPLASH", brand: "splashcoins", signups: 2, ftd: 1, revenue: 150, budget: 0, profit: 150, origIdx: 28 }
 ];
 
-/* 2. CASINO BRANDS DATA */
+/* 2. CASINO BRANDS DATA (INCLUDING BABA) */
 const CASINO_BRAND_DATA = [
   { advertiser: "ACEBET", brand: "Acebet", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 0 },
   { advertiser: "ALL IN AFFILIATES", brand: "FS Casino", signups: 16, ftd: 2, revenue: 440, budget: 0, profit: 440, origIdx: 1 },
@@ -681,7 +680,8 @@ const CASINO_BRAND_DATA = [
   { advertiser: "ALL IN AFFILIATES", brand: "Ice Casino", signups: 5, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 6 },
   { advertiser: "ALL IN AFFILIATES", brand: "Lussurio", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 7 },
   { advertiser: "ALL IN AFFILIATES", brand: "Smash Casino", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 8 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Rolla", signups: 15, ftd: 1, revenue: 125, budget: 0, profit: 125, origIdx: 9 }
+  { advertiser: "GAMETIME DIGITAL", brand: "Baba", signups: 6, ftd: 3, revenue: 450, budget: 0, profit: 450, origIdx: 9 },
+  { advertiser: "GAMETIME DIGITAL", brand: "Rolla", signups: 15, ftd: 1, revenue: 125, budget: 0, profit: 125, origIdx: 10 }
 ];
 
 /* 3. OTHER BRANDS DATA */
