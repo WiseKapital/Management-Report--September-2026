@@ -672,6 +672,11 @@ async function filterAndRenderAll() {
   const isFullPeriod = (daysCount >= totalPeriodDays);
   const rrFactor = isFullPeriod ? 1.0 : (totalPeriodDays / daysCount);
 
+  // SI SE SELECCIONA EL MES COMPLETO, LAS TABLAS Y TARJETAS TOMAN DIRECTAMENTE EL DÍA 31
+  const recordsForTables = (isFullPeriod && allLoadedRecords.length > 0)
+    ? [allLoadedRecords[allLoadedRecords.length - 1]]
+    : allLoadedRecords;
+
   // 1. Teams Aggregation
   const teamTotals = {
     EMAIL: { budget: 0, signups: 0, users: 0, revenue: 0 },
@@ -679,7 +684,7 @@ async function filterAndRenderAll() {
     SOCIAL: { budget: 0, signups: 0, users: 0, revenue: 0 }
   };
 
-  allLoadedRecords.forEach(day => {
+  recordsForTables.forEach(day => {
     if (day.teams) {
       for (const [tName, arr] of Object.entries(day.teams)) {
         if (teamTotals[tName]) {
@@ -755,7 +760,7 @@ async function filterAndRenderAll() {
     advMap[adv] = { name: adv, signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 };
   });
 
-  allLoadedRecords.forEach(day => {
+  recordsForTables.forEach(day => {
     if (day.advertisers) {
       for (const [adv, arr] of Object.entries(day.advertisers)) {
         if (!advMap[adv]) advMap[adv] = { name: adv, signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 };
@@ -785,7 +790,7 @@ async function filterAndRenderAll() {
     };
   });
 
-  allLoadedRecords.forEach(day => {
+  recordsForTables.forEach(day => {
     if (day.brands) {
       for (const [bName, arr] of Object.entries(day.brands)) {
         if (brandMap[bName]) {
@@ -814,7 +819,7 @@ async function filterAndRenderAll() {
     inhouseMap[ib] = { brand: ib, origIdx: ibIdx++, signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 };
   });
 
-  allLoadedRecords.forEach(day => {
+  recordsForTables.forEach(day => {
     if (day.inhouse) {
       for (const [ibName, bud] of Object.entries(day.inhouse)) {
         if (!inhouseMap[ibName]) inhouseMap[ibName] = { brand: ibName, origIdx: ibIdx++, signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 };
@@ -1003,7 +1008,9 @@ function renderDaily() {
   const reg = [], ftd = [], rev = [];
   filtered.forEach(d => {
     let r = 0, f = 0, v = 0;
-    for (const [adv, vals] of Object.entries(d.advertisers || {})) {
+    // SI EXISTE CHART_ADVERTISERS (PARA LA GRÁFICA), LO USA PARA EVITAR EL PICO
+    const advSource = d.chart_advertisers || d.advertisers || {};
+    for (const [adv, vals] of Object.entries(advSource)) {
       if (state.advs.has(adv)) {
         r += vals[0];
         f += vals[1];
