@@ -42,7 +42,7 @@
   }
   .date-trigger:hover{background:#fafbfc;}
   .date-trigger.active{
-    border:2px solid #000000; box-shadow:0 0 0 1px #000000; padding:5px 11px; /* keep size stable */
+    border:2px solid #000000; box-shadow:0 0 0 1px #000000; padding:5px 11px;
   }
   .cal-icon{width:15px; height:15px; fill:none; stroke:#4b5563; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
 
@@ -470,19 +470,18 @@
 
 <script>
 /* =========================================================================
-   APPLICATION STATE & DATE BOUNDS
+   APPLICATION CONFIGURATION & STATE
    ========================================================================= */
 const MONTH_NAMES = [
   'january', 'february', 'march', 'april', 'may', 'june',
   'july', 'august', 'september', 'october', 'november', 'december'
 ];
 
-// Earliest allowed date: July 1, 2026
+// Available range: July 1, 2026 through current date (September 30, 2026)
 const MIN_DATE = "2026-07-01";
-// Maximum allowed date is today: September 30, 2026
 const MAX_DATE = "2026-09-30";
 
-// In-Memory cache of loaded months to prevent redundant fetches
+// Cache for loaded JSONs
 const LOADED_MONTHS = {};
 
 let CURRENT = {
@@ -500,9 +499,9 @@ let CURRENT = {
 const state = {
   from: "2026-09-01",
   to: "2026-09-30",
-  activePicker: null, // 'from' or 'to'
+  activePicker: null,
   viewYear: 2026,
-  viewMonth: 8,       // 0-indexed: 8 = September
+  viewMonth: 8, // September (0-indexed)
   advs: new Set(),
   advSortKey: 'revenue',
   advSortAsc: false,
@@ -538,7 +537,7 @@ const toDisplayDate = iso => {
 };
 
 /* =========================================================================
-   MULTI-MONTH JSON FETCHER & ZERO-FALLBACK
+   DYNAMIC JSON FETCHER & AUTOMATIC FALLBACK
    ========================================================================= */
 function generateZeroMonth(year, monthNum) {
   const monthName = MONTH_NAMES[monthNum - 1];
@@ -594,7 +593,7 @@ async function fetchMonth(year, monthNum) {
     LOADED_MONTHS[monthKey] = data;
     return data;
   } catch (err) {
-    console.warn(`File ${fileName} not found. Defaulting month to 0.`, err);
+    console.warn(`File ${fileName} not found. Generating default zero month.`, err);
     const zeroData = generateZeroMonth(year, monthNum);
     LOADED_MONTHS[monthKey] = zeroData;
     return zeroData;
@@ -619,7 +618,7 @@ async function ensureDataRangeLoaded(fromStr, toStr) {
 }
 
 /* =========================================================================
-   CENTRAL DATE-FILTERING & MULTI-MONTH RECALCULATION ENGINE
+   DATE-FILTERING & RECALCULATION ENGINE (WITH 30/31-DAY RUN-RATE FIX)
    ========================================================================= */
 async function filterAndRenderAll() {
   const overlay = document.getElementById('loadingOverlay');
@@ -627,7 +626,7 @@ async function filterAndRenderAll() {
 
   await ensureDataRangeLoaded(state.from, state.to);
 
-  // Combine daily records from all months in range
+  // Combine records strictly between state.from and state.to
   const allLoadedRecords = [];
   const mergedCatalogs = {
     advertisers: new Set(),
@@ -636,7 +635,7 @@ async function filterAndRenderAll() {
   };
 
   Object.values(LOADED_MONTHS).forEach(mObj => {
-    mObj.daily_records.forEach(r => {
+    (mObj.daily_records || []).forEach(r => {
       if (r.date >= state.from && r.date <= state.to) {
         allLoadedRecords.push(r);
       }
@@ -657,7 +656,21 @@ async function filterAndRenderAll() {
   CURRENT.daily = allLoadedRecords;
 
   const daysCount = allLoadedRecords.length || 1;
-  const rrFactor = daysCount > 0 ? (30 / daysCount) : 1;
+
+  // Calculate full month length dynamically (handles 30 vs 31 days)
+  const [fromY, fromM] = state.from.split('-').map(Number);
+  const [toY, toM] = state.to.split('-').map(Number);
+  let totalPeriodDays = 0;
+  let y = fromY, m = fromM;
+  while (y < toY || (y === toY && m <= toM)) {
+    totalPeriodDays += new Date(y, m, 0).getDate();
+    m++;
+    if (m > 12) { m = 1; y++; }
+  }
+
+  // If the user selected the full month/period, factor is exactly 1.0 (actuals = final)
+  const isFullPeriod = (daysCount >= totalPeriodDays);
+  const rrFactor = isFullPeriod ? 1.0 : (totalPeriodDays / daysCount);
 
   // 1. Teams Aggregation
   const teamTotals = {
@@ -679,7 +692,11 @@ async function filterAndRenderAll() {
     }
   });
 
-  const baseKpi = LOADED_MONTHS["2026-09"] ? LOADED_MONTHS["2026-09"].teams_kpi : generateZeroMonth(2026, 9).teams_kpi;
+  const refMonthKey = state.to.slice(0, 7);
+  const baseKpi = (LOADED_MONTHS[refMonthKey] && LOADED_MONTHS[refMonthKey].teams_kpi) 
+    ? LOADED_MONTHS[refMonthKey].teams_kpi 
+    : generateZeroMonth(2026, 9).teams_kpi;
+
   const gtActual = { budget: 0, signups: 0, users: 0, revenue: 0, profit: 0 };
 
   CURRENT.teams = ["EMAIL", "MEDIA", "SOCIAL"].map(tName => {
@@ -811,17 +828,19 @@ async function filterAndRenderAll() {
     return ib;
   });
 
-  // Sync advertisers filter set
   if (state.advs.size === 0) {
     state.advs = new Set(Object.keys(advMap));
   }
+
+  // Update header text
+  document.getElementById('teamRrHeader').textContent = isFullPeriod ? 'FINAL' : 'PROJECTED RUN-RATE';
 
   renderAll();
   overlay.style.display = 'none';
 }
 
 /* =========================================================================
-   CUSTOM CALENDAR PICKER (Matching Screenshot)
+   CUSTOM CALENDAR PICKER
    ========================================================================= */
 function updateDateDisplay() {
   document.getElementById('fromDateVal').textContent = toDisplayDate(state.from);
@@ -837,15 +856,13 @@ function openCalendar(type) {
   fromTrigger.classList.toggle('active', type === 'from');
   toTrigger.classList.toggle('active', type === 'to');
 
-  // Position popup directly under the active trigger
   const triggerEl = type === 'from' ? fromTrigger : toTrigger;
   popup.style.left = `${triggerEl.offsetLeft}px`;
 
-  // Focus current month on open (September 2026 by default)
   const refDate = type === 'from' ? state.from : state.to;
   const [y, m] = refDate.split('-').map(Number);
   state.viewYear = y;
-  state.viewMonth = m - 1; // 0-indexed
+  state.viewMonth = m - 1;
 
   renderCalendarGrid();
   popup.classList.add('open');
@@ -867,10 +884,9 @@ function renderCalendarGrid() {
 
   document.getElementById('calTitle').textContent = `${monthNames[state.viewMonth]} ${state.viewYear}`;
 
-  // Prev / Next Bounds Navigation
   const viewKey = `${state.viewYear}-${pad(state.viewMonth + 1)}`;
-  const minKey = MIN_DATE.slice(0, 7); // '2026-07'
-  const maxKey = MAX_DATE.slice(0, 7); // '2026-09'
+  const minKey = MIN_DATE.slice(0, 7);
+  const maxKey = MAX_DATE.slice(0, 7);
 
   document.getElementById('calPrev').disabled = (viewKey <= minKey);
   document.getElementById('calNext').disabled = (viewKey >= maxKey);
@@ -878,21 +894,18 @@ function renderCalendarGrid() {
   const grid = document.getElementById('calGrid');
   grid.innerHTML = '';
 
-  // Monday-first indexing: (0: Mon, ..., 6: Sun)
   const firstDayObj = new Date(state.viewYear, state.viewMonth, 1);
   let firstDayIndex = firstDayObj.getDay() - 1;
   if (firstDayIndex === -1) firstDayIndex = 6;
 
   const daysInCurrentMonth = new Date(state.viewYear, state.viewMonth + 1, 0).getDate();
 
-  // Empty leading days
   for (let i = 0; i < firstDayIndex; i++) {
     const emptyCell = document.createElement('div');
     emptyCell.className = 'cal-cell empty';
     grid.appendChild(emptyCell);
   }
 
-  // Active days
   for (let day = 1; day <= daysInCurrentMonth; day++) {
     const dateStr = `${state.viewYear}-${pad(state.viewMonth + 1)}-${pad(day)}`;
     const cell = document.createElement('div');
@@ -931,7 +944,7 @@ function renderCalendarGrid() {
    ========================================================================= */
 function renderCards() {
   const c = CURRENT.cards;
-  const isMonthClosed = (state.from === MIN_DATE && state.to === MAX_DATE);
+  const isMonthClosed = (state.from.slice(8) === "01" && state.to.slice(8) >= "30");
   const defs = [
     { lbl: 'REGISTRATIONS', val: fmtInt(c.registrations.mtd), accent: 'var(--pink)', sub: { kpi: fmtInt(c.registrations.kpi), rr: fmtInt(c.registrations.run_rate), rrCls: c.registrations.run_rate >= c.registrations.kpi ? 'green' : 'red' } },
     { lbl: 'FTD', val: fmtInt(c.ftd.mtd), accent: 'var(--pink)', sub: { kpi: fmtInt(c.ftd.kpi), rr: fmtInt(c.ftd.run_rate), rrCls: c.ftd.run_rate >= c.ftd.kpi ? 'green' : 'red' } },
@@ -1004,7 +1017,11 @@ function renderDaily() {
   const avg = arr => arr.reduce((a,b) => a+b, 0) / count;
   const f1 = v => (Math.round(v*10)/10).toLocaleString('en-US');
 
-  const gtKpi = LOADED_MONTHS["2026-09"] ? LOADED_MONTHS["2026-09"].teams_kpi["Grand total"] : { signups: 1750, users: 360, revenue: 24200 };
+  const refKey = state.to.slice(0, 7);
+  const gtKpi = (LOADED_MONTHS[refKey] && LOADED_MONTHS[refKey].teams_kpi) 
+    ? LOADED_MONTHS[refKey].teams_kpi["Grand total"] 
+    : { signups: 1750, users: 360, revenue: 24200 };
+
   const kpiDailySignups = gtKpi.signups / 30;
   const kpiDailyFtd = gtKpi.users / 30;
   const kpiDailyRev = gtKpi.revenue / 30;
@@ -1256,7 +1273,7 @@ function renderAllCharts2x2() {
 
 function renderAdvPanel() {
   const p = document.getElementById('advPanel');
-  const advList = CURRENT.advertisers.map(a => a.name);
+  const advList = Array.from(new Set(CURRENT.advertisers.map(a => a.name)));
   p.innerHTML = advList.map(adv => `
     <label><input type="checkbox" value="${adv}" ${state.advs.has(adv) ? 'checked' : ''}> ${adv}</label>`).join('');
   
@@ -1286,11 +1303,7 @@ function renderAll() {
   renderAllCharts2x2();
 }
 
-/* =========================================================================
-   GLOBAL LISTENERS & INITIALIZATION
-   ========================================================================= */
 function setupGlobalListeners() {
-  // Calendar trigger clicks
   document.getElementById('fromTrigger').addEventListener('click', e => {
     e.stopPropagation();
     state.activePicker === 'from' ? closeCalendar() : openCalendar('from');
@@ -1301,7 +1314,6 @@ function setupGlobalListeners() {
     state.activePicker === 'to' ? closeCalendar() : openCalendar('to');
   });
 
-  // Calendar month navigation buttons
   document.getElementById('calPrev').addEventListener('click', e => {
     e.stopPropagation();
     state.viewMonth--;
@@ -1322,7 +1334,6 @@ function setupGlobalListeners() {
     renderCalendarGrid();
   });
 
-  // Close calendar popup on click outside
   document.addEventListener('click', e => {
     if (!e.target.closest('.date-picker-wrap')) {
       closeCalendar();
@@ -1332,13 +1343,11 @@ function setupGlobalListeners() {
     }
   });
 
-  // Advertisers dropdown
   document.getElementById('advBtn').addEventListener('click', e => {
     e.stopPropagation();
     document.getElementById('advPanel').classList.toggle('open');
   });
 
-  // Reset Filters button
   document.getElementById('btnReset').addEventListener('click', () => {
     state.from = "2026-09-01";
     state.to = MAX_DATE;
@@ -1346,7 +1355,6 @@ function setupGlobalListeners() {
     filterAndRenderAll();
   });
 
-  // Chart toggles
   const tAdv = document.getElementById('toggleAdvPerf');
   tAdv.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1365,7 +1373,6 @@ function setupGlobalListeners() {
     });
   });
 
-  // Init sorting for all tables
   initTableSortEvents('advTable', 'advSortBtns', 'adv', () => CURRENT.advertisers, false);
   initTableSortEvents('sweepsBrandTable', 'sweepsBrandSortBtns', 'sweeps', () => CURRENT.sweepsBrands, true);
   initTableSortEvents('casinoBrandTable', 'casinoBrandSortBtns', 'casino', () => CURRENT.casinoBrands, true);
@@ -1373,7 +1380,6 @@ function setupGlobalListeners() {
   initTableSortEvents('inhouseTable', 'inhouseSortBtns', 'inhouse', () => CURRENT.inhouseBrands, false);
 }
 
-// Initial Boot
 document.addEventListener('DOMContentLoaded', () => {
   setupGlobalListeners();
   updateDateDisplay();
