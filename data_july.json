@@ -24,14 +24,15 @@
       { "advertiser": "AFF 66", "brand": "SweepJungle", "category": "sweepstakes" },
       { "advertiser": "AFF 66", "brand": "Sixty6", "category": "sweepstakes" },
       { "advertiser": "BASHER AGENCY", "brand": "Greenluck", "category": "sweepstakes" },
-      { "advertiser": "BASHER AGENCY", "brand": "5Bet", "category": "casino" },
       { "advertiser": "BASHER AGENCY", "brand": "Luckyvibe", "category": "sweepstakes" },
       { "advertiser": "BASHER AGENCY", "brand": "Spinbara", "category": "sweepstakes" },
       { "advertiser": "CHANCED", "brand": "Chanced Punt", "category": "sweepstakes" },
+      { "advertiser": "COINSROYALE", "brand": "Coins Royale sweeps", "category": "sweepstakes" },
       { "advertiser": "COINSROYALE", "brand": "CoinsRoyale", "category": "sweepstakes" },
+      { "advertiser": "COINSROYALE", "brand": "Coins Royale Las Vegas", "category": "sweepstakes" },
+      { "advertiser": "COINSROYALE", "brand": "Coins Royale CPL sweeps", "category": "sweepstakes" },
       { "advertiser": "EPC", "brand": "SweepSpotGameTime", "category": "sweepstakes" },
       { "advertiser": "EPC", "brand": "LegendzGameTime", "category": "sweepstakes" },
-      { "advertiser": "EPC", "brand": "CasinoClick", "category": "casino" },
       { "advertiser": "EPC", "brand": "lonestar new", "category": "sweepstakes" },
       { "advertiser": "EPC", "brand": "High5", "category": "sweepstakes" },
       { "advertiser": "EPC", "brand": "Spinfinite2", "category": "sweepstakes" },
@@ -57,7 +58,6 @@
       { "advertiser": "GAMETIME DIGITAL", "brand": "CrownsCoins", "category": "sweepstakes" },
       { "advertiser": "GAMETIME DIGITAL", "brand": "Sweet Sweep", "category": "sweepstakes" },
       { "advertiser": "GAMETIME DIGITAL", "brand": "Rolling Riches", "category": "sweepstakes" },
-      { "advertiser": "GAMETIME DIGITAL", "brand": "Rooster.bet CA", "category": "casino" },
       { "advertiser": "GAMETIME DIGITAL", "brand": "theWinZone", "category": "sweepstakes" },
       { "advertiser": "GAMETIME DIGITAL", "brand": "VegasWays", "category": "sweepstakes" },
       { "advertiser": "GAMETIME DIGITAL", "brand": "The Boss", "category": "sweepstakes" },
@@ -78,6 +78,9 @@
       { "advertiser": "ALL IN AFFILIATES", "brand": "SpinPanda", "category": "casino" },
       { "advertiser": "ALL IN AFFILIATES", "brand": "RodeoSlot Casino", "category": "casino" },
       { "advertiser": "ALL IN AFFILIATES", "brand": "Millioner", "category": "casino" },
+      { "advertiser": "BASHER AGENCY", "brand": "5Bet", "category": "casino" },
+      { "advertiser": "EPC", "brand": "CasinoClick", "category": "casino" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "Rooster.bet CA", "category": "casino" },
       { "advertiser": "IMPACT", "brand": "Impact", "category": "other" }
     ],
     "inhouse_brands": [
@@ -92,217 +95,217 @@
       "date": "2026-07-01",
       "teams": { "MEDIA": [140.00, 21, 2, 25.00], "EMAIL": [28.00, 11, 0, 35.00], "SOCIAL": [55.00, 6, 2, 38.00] },
       "advertisers": { "COINSROYALE": [22, 2, 115.00, 150.00], "GAMETIME DIGITAL": [7, 0, 0.00, 0.00], "ALL IN AFFILIATES": [2, 0, 0.00, 0.00], "EPC": [1, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [22, 2, 115.00, 150.00], "Dorados": [2, 0, 0.00, 0.00], "The Boss": [2, 0, 0.00, 0.00], "Chanced Punt": [1, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [20, 2, 115.00, 130.00], "CoinsRoyale": [2, 0, 0.00, 20.00], "Dorados": [2, 0, 0.00, 0.00], "The Boss": [2, 0, 0.00, 0.00], "Chanced Punt": [1, 0, 0.00, 0.00], "BetAlice": [1, 0, 0.00, 0.00], "QBet": [1, 0, 0.00, 0.00], "lonestar new": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 30.00 }
     },
     {
       "date": "2026-07-02",
       "teams": { "MEDIA": [160.00, 25, 3, 35.00], "EMAIL": [30.00, 13, 1, 45.00], "SOCIAL": [62.00, 8, 2, 44.00] },
       "advertisers": { "COINSROYALE": [26, 3, 145.00, 165.00], "GAMETIME DIGITAL": [9, 1, 125.00, 0.00], "ALL IN AFFILIATES": [3, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [1, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [26, 3, 145.00, 165.00], "Rolla": [2, 1, 125.00, 0.00], "VegasWays": [2, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [23, 3, 145.00, 145.00], "CoinsRoyale": [3, 0, 0.00, 20.00], "Rolla": [2, 1, 125.00, 0.00], "VegasWays": [2, 0, 0.00, 0.00], "SpinRise": [1, 0, 0.00, 0.00], "Seven Casino": [1, 0, 0.00, 0.00], "Bitkingz": [1, 0, 0.00, 0.00], "High5": [1, 0, 0.00, 0.00], "CasinoClick": [1, 0, 0.00, 0.00], "splashcoins": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 32.00 }
     },
     {
       "date": "2026-07-03",
       "teams": { "MEDIA": [185.00, 30, 3, 40.00], "EMAIL": [34.00, 15, 1, 50.00], "SOCIAL": [70.00, 9, 3, 48.00] },
       "advertisers": { "COINSROYALE": [33, 4, 180.00, 180.00], "GAMETIME DIGITAL": [11, 0, 0.00, 0.00], "ALL IN AFFILIATES": [3, 0, 13.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [1, 1, 6.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [33, 4, 180.00, 180.00], "Revolution Casino": [2, 0, 13.00, 0.00], "Impact": [1, 1, 6.00, 0.00], "SweepShark": [2, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [30, 4, 180.00, 160.00], "CoinsRoyale": [3, 0, 0.00, 20.00], "Revolution Casino": [2, 0, 13.00, 0.00], "Impact": [1, 1, 6.00, 0.00], "SweepShark": [2, 0, 0.00, 0.00], "BankRolla": [2, 0, 0.00, 0.00], "Millioner": [1, 0, 0.00, 0.00], "Spinfinite2": [1, 0, 0.00, 0.00], "Spree": [1, 0, 0.00, 0.00], "Luckyvibe": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 34.00 }
     },
     {
       "date": "2026-07-04",
       "teams": { "MEDIA": [230.00, 39, 5, 60.00], "EMAIL": [45.00, 20, 1, 65.00], "SOCIAL": [88.00, 13, 4, 62.00] },
       "advertisers": { "COINSROYALE": [38, 4, 210.00, 210.00], "GAMETIME DIGITAL": [12, 1, 120.00, 0.00], "ALL IN AFFILIATES": [4, 0, 0.00, 0.00], "EPC": [2, 1, 120.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [1, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [38, 4, 210.00, 210.00], "LuckyBunny": [3, 1, 120.00, 0.00], "LegendzGameTime": [1, 1, 120.00, 0.00], "The Boss": [3, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [34, 4, 210.00, 185.00], "CoinsRoyale": [4, 0, 0.00, 25.00], "LuckyBunny": [3, 1, 120.00, 0.00], "LegendzGameTime": [1, 1, 120.00, 0.00], "The Boss": [3, 0, 0.00, 0.00], "Sweet Sweep": [2, 0, 0.00, 0.00], "BetAlice": [2, 0, 0.00, 0.00], "5Bet": [1, 0, 0.00, 0.00], "CasinoClick": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 36.00 }
     },
     {
       "date": "2026-07-05",
       "teams": { "MEDIA": [220.00, 34, 4, 50.00], "EMAIL": [40.00, 18, 1, 55.00], "SOCIAL": [80.00, 11, 3, 54.00] },
       "advertisers": { "COINSROYALE": [35, 4, 195.00, 190.00], "GAMETIME DIGITAL": [11, 1, 125.00, 0.00], "ALL IN AFFILIATES": [3, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [35, 4, 195.00, 190.00], "SweepShark": [3, 1, 125.00, 0.00], "Dorados": [2, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [31, 4, 195.00, 170.00], "CoinsRoyale": [4, 0, 0.00, 20.00], "SweepShark": [3, 1, 125.00, 0.00], "Dorados": [2, 0, 0.00, 0.00], "Revolution Casino": [2, 0, 0.00, 0.00], "lonestar new": [1, 0, 0.00, 0.00], "High5": [1, 0, 0.00, 0.00], "Spinbara": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 35.00 }
     },
     {
       "date": "2026-07-06",
       "teams": { "MEDIA": [130.00, 15, 1, 15.00], "EMAIL": [18.00, 7, 0, 20.00], "SOCIAL": [42.00, 4, 1, 26.00] },
       "advertisers": { "COINSROYALE": [15, 1, 50.00, 125.00], "GAMETIME DIGITAL": [5, 0, 0.00, 0.00], "ALL IN AFFILIATES": [2, 0, 0.00, 0.00], "EPC": [1, 0, 0.00, 0.00], "BASHER AGENCY": [0, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [15, 1, 50.00, 125.00], "Millioner": [1, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [14, 1, 50.00, 110.00], "CoinsRoyale": [1, 0, 0.00, 15.00], "Millioner": [1, 0, 0.00, 0.00], "BetAlice": [1, 0, 0.00, 0.00], "ChipNWin": [1, 0, 0.00, 0.00], "BankRolla": [1, 0, 0.00, 0.00], "lonestar new": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 25.00 }
     },
     {
       "date": "2026-07-07",
       "teams": { "MEDIA": [150.00, 19, 2, 25.00], "EMAIL": [22.00, 9, 0, 25.00], "SOCIAL": [50.00, 5, 2, 32.00] },
       "advertisers": { "COINSROYALE": [19, 2, 90.00, 140.00], "GAMETIME DIGITAL": [6, 0, 0.00, 0.00], "ALL IN AFFILIATES": [2, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [19, 2, 90.00, 140.00], "BetAlice": [2, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [17, 2, 90.00, 125.00], "CoinsRoyale": [2, 0, 0.00, 15.00], "BetAlice": [2, 0, 0.00, 0.00], "Baba": [1, 0, 0.00, 0.00], "Jackpotgo": [1, 0, 0.00, 0.00], "CasinoClick": [1, 0, 0.00, 0.00], "5Bet": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 27.00, "PrizeFlow  sweeps LP": 9.00 }
     },
     {
       "date": "2026-07-08",
       "teams": { "MEDIA": [175.00, 24, 3, 35.00], "EMAIL": [28.00, 12, 0, 35.00], "SOCIAL": [60.00, 7, 2, 42.00] },
       "advertisers": { "COINSROYALE": [24, 2, 110.00, 160.00], "GAMETIME DIGITAL": [8, 0, 0.00, 0.00], "ALL IN AFFILIATES": [2, 0, 0.00, 0.00], "EPC": [1, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [1, 0, 0.00, 0.00], "IMPACT": [1, 1, 6.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [24, 2, 110.00, 160.00], "Impact": [1, 1, 6.00, 0.00], "Luckyvibe": [1, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [22, 2, 110.00, 140.00], "CoinsRoyale": [2, 0, 0.00, 20.00], "Impact": [1, 1, 6.00, 0.00], "Luckyvibe": [1, 0, 0.00, 0.00], "SpinRise": [1, 0, 0.00, 0.00], "Millioner": [1, 0, 0.00, 0.00], "SweepSpotGameTime": [1, 0, 0.00, 0.00], "High5Casino": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 29.00, "SuperSlotz sweeps": 9.00 }
     },
     {
       "date": "2026-07-09",
       "teams": { "MEDIA": [160.00, 21, 2, 30.00], "EMAIL": [25.00, 10, 0, 30.00], "SOCIAL": [55.00, 6, 2, 38.00] },
       "advertisers": { "COINSROYALE": [19, 2, 95.00, 150.00], "GAMETIME DIGITAL": [7, 0, 0.00, 0.00], "ALL IN AFFILIATES": [2, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [2, 1, 135.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [19, 2, 95.00, 150.00], "Greenluck": [2, 1, 135.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [17, 2, 95.00, 130.00], "CoinsRoyale": [2, 0, 0.00, 20.00], "Greenluck": [2, 1, 135.00, 0.00], "Mega Bonanza": [1, 0, 0.00, 0.00], "McLuck": [1, 0, 0.00, 0.00], "lonestar new": [1, 0, 0.00, 0.00], "High5": [1, 0, 0.00, 0.00], "Smash Casino": [1, 0, 0.00, 0.00], "RodeoSlot Casino": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 28.00 }
     },
     {
       "date": "2026-07-10",
       "teams": { "MEDIA": [190.00, 28, 3, 45.00], "EMAIL": [32.00, 14, 1, 48.00], "SOCIAL": [65.00, 8, 3, 48.00] },
       "advertisers": { "COINSROYALE": [28, 3, 140.00, 170.00], "GAMETIME DIGITAL": [9, 1, 75.00, 0.00], "ALL IN AFFILIATES": [3, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [28, 3, 140.00, 170.00], "Lucky Vibe CA": [2, 1, 75.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [25, 3, 140.00, 150.00], "CoinsRoyale": [3, 0, 0.00, 20.00], "Lucky Vibe CA": [2, 1, 75.00, 0.00], "Legendz": [1, 0, 0.00, 0.00], "Lonestar": [1, 0, 0.00, 0.00], "5Bet": [1, 0, 0.00, 0.00], "CasinoClick": [1, 0, 0.00, 0.00], "BetAlice": [2, 0, 0.00, 0.00], "QBet": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 31.00, "Spin2Win  sweeps LP": 12.00 }
     },
     {
       "date": "2026-07-11",
       "teams": { "MEDIA": [240.00, 41, 5, 65.00], "EMAIL": [48.00, 21, 1, 75.00], "SOCIAL": [90.00, 13, 4, 65.00] },
       "advertisers": { "COINSROYALE": [37, 4, 210.00, 210.00], "GAMETIME DIGITAL": [11, 0, 0.00, 0.00], "ALL IN AFFILIATES": [3, 0, 32.00, 0.00], "EPC": [3, 1, 120.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [1, 0, 0.00, 0.00], "IMPACT": [1, 1, 6.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [37, 4, 210.00, 210.00], "SweepSpotGameTime": [2, 1, 120.00, 0.00], "Midarion": [1, 0, 32.00, 0.00], "Impact": [1, 1, 6.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [33, 4, 210.00, 185.00], "CoinsRoyale": [4, 0, 0.00, 25.00], "SweepSpotGameTime": [2, 1, 120.00, 0.00], "Midarion": [1, 0, 32.00, 0.00], "Impact": [1, 1, 6.00, 0.00], "Pulsz SEO": [1, 0, 0.00, 0.00], "Dorados": [2, 0, 0.00, 0.00], "CrownsCoins": [1, 0, 0.00, 0.00], "SweetSweepsGameTime": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 36.00 }
     },
     {
       "date": "2026-07-12",
       "teams": { "MEDIA": [215.00, 35, 4, 55.00], "EMAIL": [40.00, 18, 1, 60.00], "SOCIAL": [80.00, 11, 3, 55.00] },
       "advertisers": { "COINSROYALE": [33, 4, 185.00, 190.00], "GAMETIME DIGITAL": [10, 0, 0.00, 0.00], "ALL IN AFFILIATES": [3, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [33, 4, 185.00, 190.00], "Sweet Sweep": [3, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [29, 4, 185.00, 170.00], "CoinsRoyale": [4, 0, 0.00, 20.00], "Sweet Sweep": [3, 0, 0.00, 0.00], "Rolling Riches": [1, 0, 0.00, 0.00], "Rooster.bet CA": [1, 0, 0.00, 0.00], "theWinZone": [1, 0, 0.00, 0.00], "Bitkingz": [1, 0, 0.00, 0.00], "BetRiot": [1, 0, 0.00, 0.00], "CasinoClick": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 34.00 }
     },
     {
       "date": "2026-07-13",
       "teams": { "MEDIA": [125.00, 14, 1, 15.00], "EMAIL": [16.00, 6, 0, 18.00], "SOCIAL": [40.00, 4, 1, 24.00] },
       "advertisers": { "COINSROYALE": [14, 1, 45.00, 120.00], "GAMETIME DIGITAL": [4, 0, 0.00, 0.00], "ALL IN AFFILIATES": [1, 0, 0.00, 0.00], "EPC": [1, 0, 0.00, 0.00], "BASHER AGENCY": [0, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [14, 1, 45.00, 120.00] },
+      "brands": { "Coins Royale sweeps": [13, 1, 45.00, 105.00], "CoinsRoyale": [1, 0, 0.00, 15.00], "The Boss": [2, 0, 0.00, 0.00], "Dorados": [1, 0, 0.00, 0.00], "Revolution Casino": [1, 0, 0.00, 0.00], "High5": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 25.00 }
     },
     {
       "date": "2026-07-14",
       "teams": { "MEDIA": [145.00, 18, 2, 20.00], "EMAIL": [20.00, 8, 0, 25.00], "SOCIAL": [45.00, 5, 2, 30.00] },
       "advertisers": { "COINSROYALE": [18, 1, 60.00, 140.00], "GAMETIME DIGITAL": [7, 0, 0.00, 0.00], "ALL IN AFFILIATES": [3, 1, 160.00, 0.00], "EPC": [1, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [18, 1, 60.00, 140.00], "SpinRise": [2, 1, 160.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [16, 1, 60.00, 125.00], "CoinsRoyale": [2, 0, 0.00, 15.00], "SpinRise": [2, 1, 160.00, 0.00], "Millioner": [1, 0, 0.00, 0.00], "LuckyBunny": [2, 0, 0.00, 0.00], "SweepShark": [2, 0, 0.00, 0.00], "Greenluck": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 27.00, "PrizeFlow  sweeps LP": 9.00 }
     },
     {
       "date": "2026-07-15",
       "teams": { "MEDIA": [180.00, 27, 3, 40.00], "EMAIL": [31.00, 14, 1, 45.00], "SOCIAL": [65.00, 8, 3, 46.00] },
       "advertisers": { "COINSROYALE": [28, 3, 135.00, 165.00], "GAMETIME DIGITAL": [9, 0, 0.00, 0.00], "ALL IN AFFILIATES": [3, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [1, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 4.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [28, 3, 135.00, 165.00], "Impact": [0, 0, 0.00, 4.00], "The Boss": [2, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [25, 3, 135.00, 145.00], "CoinsRoyale": [3, 0, 0.00, 20.00], "Impact": [0, 0, 0.00, 4.00], "The Boss": [2, 0, 0.00, 0.00], "Dorados": [2, 0, 0.00, 0.00], "lonestar new": [1, 0, 0.00, 0.00], "High5": [1, 0, 0.00, 0.00], "5Bet": [1, 0, 0.00, 0.00], "BetAlice": [2, 0, 0.00, 0.00], "Seven Casino": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 31.00, "SuperSlotz sweeps": 9.00 }
     },
     {
       "date": "2026-07-16",
       "teams": { "MEDIA": [165.00, 23, 2, 30.00], "EMAIL": [26.00, 11, 0, 35.00], "SOCIAL": [55.00, 7, 2, 38.00] },
       "advertisers": { "COINSROYALE": [21, 2, 100.00, 150.00], "GAMETIME DIGITAL": [7, 0, 0.00, 0.00], "ALL IN AFFILIATES": [2, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [1, 1, 6.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [21, 2, 100.00, 150.00], "Impact": [1, 1, 6.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [19, 2, 100.00, 130.00], "CoinsRoyale": [2, 0, 0.00, 20.00], "Impact": [1, 1, 6.00, 0.00], "Lucky Vibe CA": [2, 0, 0.00, 0.00], "Rolla": [2, 0, 0.00, 0.00], "CasinoClick": [1, 0, 0.00, 0.00], "Spinfinite2": [1, 0, 0.00, 0.00], "SpinRise": [1, 0, 0.00, 0.00], "Millioner": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 29.00 }
     },
     {
       "date": "2026-07-17",
       "teams": { "MEDIA": [185.00, 28, 3, 40.00], "EMAIL": [32.00, 14, 1, 45.00], "SOCIAL": [65.00, 8, 3, 46.00] },
       "advertisers": { "COINSROYALE": [29, 3, 145.00, 170.00], "GAMETIME DIGITAL": [10, 0, 0.00, 0.00], "ALL IN AFFILIATES": [3, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [29, 3, 145.00, 170.00], "BankRolla": [2, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [26, 3, 145.00, 150.00], "CoinsRoyale": [3, 0, 0.00, 20.00], "BankRolla": [2, 0, 0.00, 0.00], "VegasWays": [2, 0, 0.00, 0.00], "The Boss": [2, 0, 0.00, 0.00], "Revolution Casino": [2, 0, 0.00, 0.00], "BetAlice": [1, 0, 0.00, 0.00], "lonestar new": [1, 0, 0.00, 0.00], "High5": [1, 0, 0.00, 0.00], "Greenluck": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 32.00 }
     },
     {
       "date": "2026-07-18",
       "teams": { "MEDIA": [245.00, 43, 6, 70.00], "EMAIL": [50.00, 22, 2, 85.00], "SOCIAL": [90.00, 14, 5, 70.00] },
       "advertisers": { "COINSROYALE": [39, 4, 220.00, 215.00], "GAMETIME DIGITAL": [12, 1, 130.00, 0.00], "ALL IN AFFILIATES": [5, 0, 0.00, 14.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [2, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [1, 0, 0.00, 0.00], "IMPACT": [1, 1, 6.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [39, 4, 220.00, 215.00], "CoinsBack": [2, 1, 130.00, 0.00], "Millioner": [2, 0, 0.00, 14.00], "Impact": [1, 1, 6.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [35, 4, 220.00, 190.00], "CoinsRoyale": [4, 0, 0.00, 25.00], "CoinsBack": [2, 1, 130.00, 0.00], "Millioner": [2, 0, 0.00, 14.00], "Impact": [1, 1, 6.00, 0.00], "LuckyBunny": [3, 0, 0.00, 0.00], "SweepShark": [2, 0, 0.00, 0.00], "Midarion": [1, 0, 0.00, 0.00], "BetAlice": [1, 0, 0.00, 0.00], "SpinRise": [1, 0, 0.00, 0.00], "5Bet": [1, 0, 0.00, 0.00], "Luckyvibe": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 37.00 }
     },
     {
       "date": "2026-07-19",
       "teams": { "MEDIA": [210.00, 36, 4, 50.00], "EMAIL": [40.00, 19, 1, 60.00], "SOCIAL": [80.00, 12, 4, 56.00] },
       "advertisers": { "COINSROYALE": [35, 4, 190.00, 190.00], "GAMETIME DIGITAL": [11, 0, 0.00, 0.00], "ALL IN AFFILIATES": [3, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [1, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [35, 4, 190.00, 190.00], "SweepJungle": [1, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [31, 4, 190.00, 170.00], "CoinsRoyale": [4, 0, 0.00, 20.00], "SweepJungle": [1, 0, 0.00, 0.00], "Dorados": [2, 0, 0.00, 0.00], "Sweet Sweep": [2, 0, 0.00, 0.00], "Revolution Casino": [2, 0, 0.00, 0.00], "Millioner": [1, 0, 0.00, 0.00], "CasinoClick": [1, 0, 0.00, 0.00], "Spree": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 35.00 }
     },
     {
       "date": "2026-07-20",
       "teams": { "MEDIA": [130.00, 13, 1, 15.00], "EMAIL": [17.00, 6, 0, 18.00], "SOCIAL": [40.00, 3, 1, 24.00] },
       "advertisers": { "COINSROYALE": [13, 1, 40.00, 120.00], "GAMETIME DIGITAL": [4, 0, 0.00, 0.00], "ALL IN AFFILIATES": [2, 0, 0.00, 0.00], "EPC": [1, 0, 0.00, 0.00], "BASHER AGENCY": [0, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [13, 1, 40.00, 120.00] },
+      "brands": { "Coins Royale sweeps": [12, 1, 40.00, 105.00], "CoinsRoyale": [1, 0, 0.00, 15.00], "The Boss": [2, 0, 0.00, 0.00], "BankRolla": [1, 0, 0.00, 0.00], "ChipNWin": [1, 0, 0.00, 0.00], "BetAlice": [1, 0, 0.00, 0.00], "Millioner": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 24.00 }
     },
     {
       "date": "2026-07-21",
       "teams": { "MEDIA": [155.00, 17, 2, 20.00], "EMAIL": [21.00, 8, 0, 22.00], "SOCIAL": [48.00, 5, 2, 30.00] },
       "advertisers": { "COINSROYALE": [18, 1, 60.00, 140.00], "GAMETIME DIGITAL": [6, 0, 0.00, 0.00], "ALL IN AFFILIATES": [2, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [2, 1, 150.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [18, 1, 60.00, 140.00], "splashcoins": [2, 1, 150.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [16, 1, 60.00, 125.00], "CoinsRoyale": [2, 0, 0.00, 15.00], "splashcoins": [2, 1, 150.00, 0.00], "SweepShark": [2, 0, 0.00, 0.00], "Rolla": [2, 0, 0.00, 0.00], "SpinRise": [1, 0, 0.00, 0.00], "Millioner": [1, 0, 0.00, 0.00], "lonestar new": [1, 0, 0.00, 0.00], "High5": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 26.00, "PrizeFlow  sweeps LP": 9.00 }
     },
     {
       "date": "2026-07-22",
       "teams": { "MEDIA": [175.00, 24, 3, 35.00], "EMAIL": [27.00, 12, 0, 35.00], "SOCIAL": [60.00, 7, 2, 42.00] },
       "advertisers": { "COINSROYALE": [25, 2, 115.00, 160.00], "GAMETIME DIGITAL": [8, 0, 0.00, 0.00], "ALL IN AFFILIATES": [2, 0, 0.00, 0.00], "EPC": [1, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [1, 1, 6.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [25, 2, 115.00, 160.00], "Impact": [1, 1, 6.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [23, 2, 115.00, 140.00], "CoinsRoyale": [2, 0, 0.00, 20.00], "Impact": [1, 1, 6.00, 0.00], "Lucky Vibe CA": [2, 0, 0.00, 0.00], "Dorados": [2, 0, 0.00, 0.00], "BetAlice": [1, 0, 0.00, 0.00], "Millioner": [1, 0, 0.00, 0.00], "CasinoClick": [1, 0, 0.00, 0.00], "5Bet": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 29.00, "SuperSlotz sweeps": 9.00 }
     },
     {
       "date": "2026-07-23",
       "teams": { "MEDIA": [160.00, 20, 2, 25.00], "EMAIL": [24.00, 10, 0, 28.00], "SOCIAL": [54.00, 6, 2, 36.00] },
       "advertisers": { "COINSROYALE": [19, 2, 90.00, 150.00], "GAMETIME DIGITAL": [7, 0, 0.00, 0.00], "ALL IN AFFILIATES": [2, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [19, 2, 90.00, 150.00], "VegasWays": [2, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [17, 2, 90.00, 130.00], "CoinsRoyale": [2, 0, 0.00, 20.00], "VegasWays": [2, 0, 0.00, 0.00], "The Boss": [2, 0, 0.00, 0.00], "Revolution Casino": [1, 0, 0.00, 0.00], "BetAlice": [1, 0, 0.00, 0.00], "lonestar new": [1, 0, 0.00, 0.00], "High5": [1, 0, 0.00, 0.00], "Spinbara": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 28.00 }
     },
     {
       "date": "2026-07-24",
       "teams": { "MEDIA": [180.00, 27, 3, 35.00], "EMAIL": [30.00, 13, 1, 42.00], "SOCIAL": [62.00, 8, 3, 44.00] },
       "advertisers": { "COINSROYALE": [27, 3, 135.00, 165.00], "GAMETIME DIGITAL": [9, 0, 0.00, 0.00], "ALL IN AFFILIATES": [3, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [27, 3, 135.00, 165.00], "Dorados": [3, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [24, 3, 135.00, 145.00], "CoinsRoyale": [3, 0, 0.00, 20.00], "Dorados": [3, 0, 0.00, 0.00], "Sweet Sweep": [2, 0, 0.00, 0.00], "Millioner": [2, 0, 0.00, 0.00], "SpinRise": [1, 0, 0.00, 0.00], "CasinoClick": [1, 0, 0.00, 0.00], "Spinfinite2": [1, 0, 0.00, 0.00], "5Bet": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 30.00, "Spin2Win  sweeps LP": 12.00 }
     },
     {
       "date": "2026-07-25",
       "teams": { "MEDIA": [235.00, 39, 5, 60.00], "EMAIL": [45.00, 20, 1, 70.00], "SOCIAL": [88.00, 13, 4, 65.00] },
       "advertisers": { "COINSROYALE": [36, 4, 201.00, 195.00], "GAMETIME DIGITAL": [11, 1, 120.00, 0.00], "ALL IN AFFILIATES": [3, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [1, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [36, 4, 201.00, 195.00], "LuckyBunny": [3, 1, 120.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [32, 4, 201.00, 170.00], "CoinsRoyale": [4, 0, 0.00, 25.00], "LuckyBunny": [3, 1, 120.00, 0.00], "SweepShark": [2, 0, 0.00, 0.00], "BankRolla": [2, 0, 0.00, 0.00], "Millioner": [1, 0, 0.00, 0.00], "BetAlice": [1, 0, 0.00, 0.00], "Revolution Casino": [1, 0, 0.00, 0.00], "lonestar new": [1, 0, 0.00, 0.00], "High5": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 36.00 }
     },
     {
       "date": "2026-07-26",
       "teams": { "MEDIA": [210.00, 34, 4, 50.00], "EMAIL": [38.00, 17, 1, 55.00], "SOCIAL": [80.00, 11, 3, 54.00] },
       "advertisers": { "COINSROYALE": [34, 4, 180.00, 185.00], "GAMETIME DIGITAL": [11, 0, 0.00, 0.00], "ALL IN AFFILIATES": [3, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [1, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [34, 4, 180.00, 185.00], "The Boss": [2, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [30, 4, 180.00, 165.00], "CoinsRoyale": [4, 0, 0.00, 20.00], "The Boss": [2, 0, 0.00, 0.00], "Sweet Sweep": [2, 0, 0.00, 0.00], "Dorados": [2, 0, 0.00, 0.00], "BetAlice": [2, 0, 0.00, 0.00], "Midarion": [1, 0, 0.00, 0.00], "CasinoClick": [1, 0, 0.00, 0.00], "Spree": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 34.00 }
     },
     {
       "date": "2026-07-27",
       "teams": { "MEDIA": [125.00, 12, 1, 12.00], "EMAIL": [15.00, 5, 0, 15.00], "SOCIAL": [38.00, 3, 1, 22.00] },
       "advertisers": { "COINSROYALE": [13, 1, 40.00, 120.00], "GAMETIME DIGITAL": [4, 0, 0.00, 0.00], "ALL IN AFFILIATES": [1, 0, 0.00, 0.00], "EPC": [1, 0, 0.00, 0.00], "BASHER AGENCY": [0, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [0, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [13, 1, 40.00, 120.00] },
+      "brands": { "Coins Royale sweeps": [12, 1, 40.00, 105.00], "CoinsRoyale": [1, 0, 0.00, 15.00], "The Boss": [1, 0, 0.00, 0.00], "ChipNWin": [1, 0, 0.00, 0.00], "Baba": [1, 0, 0.00, 0.00], "Millioner": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 23.00 }
     },
     {
       "date": "2026-07-28",
       "teams": { "MEDIA": [150.00, 16, 2, 20.00], "EMAIL": [20.00, 8, 0, 22.00], "SOCIAL": [45.00, 5, 2, 30.00] },
       "advertisers": { "COINSROYALE": [17, 1, 55.00, 135.00], "GAMETIME DIGITAL": [6, 0, 0.00, 0.00], "ALL IN AFFILIATES": [2, 0, 0.00, 0.00], "EPC": [1, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [2, 0, 0.00, 0.00], "IMPACT": [1, 1, 6.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [17, 1, 55.00, 135.00], "Impact": [1, 1, 6.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [15, 1, 55.00, 120.00], "CoinsRoyale": [2, 0, 0.00, 15.00], "Impact": [1, 1, 6.00, 0.00], "splashcoins": [2, 0, 0.00, 0.00], "VegasWays": [2, 0, 0.00, 0.00], "The Boss": [2, 0, 0.00, 0.00], "BetAlice": [1, 0, 0.00, 0.00], "Millioner": [1, 0, 0.00, 0.00], "Greenluck": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 26.00 }
     },
     {
       "date": "2026-07-29",
       "teams": { "MEDIA": [170.00, 23, 2, 30.00], "EMAIL": [28.00, 11, 0, 32.00], "SOCIAL": [58.00, 7, 2, 40.00] },
       "advertisers": { "COINSROYALE": [23, 2, 105.00, 155.00], "GAMETIME DIGITAL": [8, 0, 0.00, 0.00], "ALL IN AFFILIATES": [2, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [1, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [23, 2, 105.00, 155.00], "SweepSpotGameTime": [2, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [21, 2, 105.00, 135.00], "CoinsRoyale": [2, 0, 0.00, 20.00], "SweepSpotGameTime": [2, 0, 0.00, 0.00], "Dorados": [2, 0, 0.00, 0.00], "Lucky Vibe CA": [2, 0, 0.00, 0.00], "Revolution Casino": [1, 0, 0.00, 0.00], "Millioner": [1, 0, 0.00, 0.00], "5Bet": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 28.00 }
     },
     {
       "date": "2026-07-30",
       "teams": { "MEDIA": [185.00, 27, 3, 38.00], "EMAIL": [32.00, 14, 0, 42.00], "SOCIAL": [65.00, 8, 3, 46.00] },
       "advertisers": { "COINSROYALE": [27, 3, 135.00, 170.00], "GAMETIME DIGITAL": [9, 0, 0.00, 0.00], "ALL IN AFFILIATES": [2, 0, 0.00, 0.00], "EPC": [2, 0, 0.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [1, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [27, 3, 135.00, 170.00], "SweepSpotGameTime": [2, 0, 0.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [24, 3, 135.00, 150.00], "CoinsRoyale": [3, 0, 0.00, 20.00], "SweepSpotGameTime": [2, 0, 0.00, 0.00], "Lucky Vibe CA": [2, 0, 0.00, 0.00], "SweepShark": [2, 0, 0.00, 0.00], "BetAlice": [1, 0, 0.00, 0.00], "Seven Casino": [1, 0, 0.00, 0.00], "CasinoClick": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 30.00 }
     },
     {
       "date": "2026-07-31",
       "teams": { "MEDIA": [209.00, 32, 3, 60.00], "EMAIL": [46.00, 15, 1, 72.00], "SOCIAL": [79.00, 9, 2, 63.00] },
       "advertisers": { "COINSROYALE": [38, 4, 210.96, 195.00], "GAMETIME DIGITAL": [12, 3, 0.16, 0.00], "ALL IN AFFILIATES": [3, 0, 0.00, 0.00], "EPC": [2, 1, 120.00, 0.00], "BASHER AGENCY": [1, 0, 0.00, 0.00], "CHANCED": [0, 0, 0.00, 0.00], "SPLASH": [1, 0, 0.00, 0.00], "IMPACT": [0, 0, 0.00, 0.00], "AFF 66": [0, 0, 0.00, 0.00], "PURIFY": [0, 0, 0.00, 0.00], "ACEBET": [0, 0, 0.00, 0.00] },
-      "brands": { "CoinsRoyale": [38, 4, 210.96, 195.00], "Mega Spinz": [3, 3, 0.16, 0.00], "SweepSpotGameTime": [2, 1, 120.00, 0.00] },
+      "brands": { "Coins Royale sweeps": [34, 4, 210.96, 175.00], "CoinsRoyale": [4, 0, 0.00, 20.00], "Mega Spinz": [3, 3, 0.16, 0.00], "SweepSpotGameTime": [2, 1, 120.00, 0.00], "The Boss": [2, 0, 0.00, 0.00], "Dorados": [2, 0, 0.00, 0.00], "Revolution Casino": [1, 0, 0.00, 0.00], "SpinRise": [1, 0, 0.00, 0.00], "Millioner": [1, 0, 0.00, 0.00] },
       "inhouse": { "Pirates LP": 33.00 }
     }
   ]
