@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Management and advertisers report (IAM WORKING ON THIS, SO NOW THESE NUMBERS ARE NOT CORRECT UNTIL I FINISH)</title>
+<title>Management and advertisers report</title>
 <style>
   :root{
     --bg:#f4f5f7; --card:#ffffff; --ink:#111827; --muted:#8a94a6;
-    --blue:#2f6fed; --green:#16a34a; --emerald:#10b981; --red:#dc2626; --orange:#f59e0b;
+    --blue:#2f6fed; --green:#059669; --emerald:#10b981; --red:#dc2626; --orange:#f59e0b;
     --pink:#ec4899; --teal:#0ea5e9; --line:#eceef2;
   }
   *{box-sizing:border-box; margin:0; padding:0; font-family:'Segoe UI',Inter,Roboto,Arial,sans-serif;}
@@ -17,19 +17,68 @@
   .topbar-left{display:flex; align-items:center; gap:14px;}
   h1{font-size:22px; font-weight:700;}
   
-  .month-select{
-    border:1px solid #d7dce4; background:#fff; border-radius:8px; padding:6px 12px;
-    font-size:13px; font-weight:600; color:var(--ink); cursor:pointer; outline:none;
-  }
   .btn-reset{
     border:1px solid #d7dce4; background:#fff; border-radius:999px; padding:7px 16px;
     font-size:13px; cursor:pointer; box-shadow:0 1px 2px rgba(16,24,40,.04); transition:background .15s;
   }
   .btn-reset:hover{background:#f8fafc;}
 
-  .filters{display:flex; flex-wrap:wrap; gap:10px; align-items:center; background:var(--card); border-radius:14px; padding:12px 16px; margin-bottom:16px; box-shadow:0 1px 3px rgba(16,24,40,.05);}
-  .filters label{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.4px; margin-right:4px;}
-  .filters input[type=date]{border:1px solid #d7dce4; border-radius:8px; padding:6px 8px; font-size:13px; color:var(--ink);}
+  /* Filters Bar */
+  .filters{
+    display:flex; flex-wrap:wrap; gap:14px; align-items:center; background:var(--card);
+    border-radius:14px; padding:12px 18px; margin-bottom:16px; box-shadow:0 1px 3px rgba(16,24,40,.05);
+    position:relative;
+  }
+  
+  /* Custom Calendar Trigger & Popup Styling */
+  .date-picker-wrap{display:flex; align-items:center; gap:10px; position:relative;}
+  .date-lbl{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; font-weight:700;}
+  
+  .date-trigger{
+    display:inline-flex; align-items:center; justify-content:space-between; gap:10px;
+    background:#ffffff; border:1px solid #d7dce4; border-radius:10px; padding:6px 12px;
+    font-size:13px; font-weight:700; color:var(--ink); cursor:pointer; min-width:125px;
+    transition:border-color .15s, box-shadow .15s; user-select:none;
+  }
+  .date-trigger:hover{background:#fafbfc;}
+  .date-trigger.active{
+    border:2px solid #000000; box-shadow:0 0 0 1px #000000; padding:5px 11px; /* keep size stable */
+  }
+  .cal-icon{width:15px; height:15px; fill:none; stroke:#4b5563; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+
+  /* Calendar Dropdown */
+  .custom-calendar-popup{
+    display:none; position:absolute; top:calc(100% + 8px); left:0; z-index:100;
+    background:#ffffff; border-radius:16px; box-shadow:0 12px 36px rgba(0,0,0,0.12);
+    border:1px solid #edf0f5; padding:18px 20px 20px; width:290px;
+  }
+  .custom-calendar-popup.open{display:block;}
+  
+  .cal-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
+  .cal-title{font-size:13px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#0b1329;}
+  .cal-nav{
+    background:none; border:none; cursor:pointer; font-size:18px; font-weight:700;
+    color:#111827; padding:4px 8px; border-radius:6px; transition:background .15s; line-height:1;
+  }
+  .cal-nav:hover:not(:disabled){background:#f1f5f9;}
+  .cal-nav:disabled{color:#d1d5db; cursor:not-allowed;}
+
+  .cal-weekdays{display:grid; grid-template-columns:repeat(7, 1fr); text-align:center; margin-bottom:8px;}
+  .cal-weekdays div{font-size:11px; font-weight:800; color:#111827; letter-spacing:.3px;}
+
+  .cal-grid{display:grid; grid-template-columns:repeat(7, 1fr); gap:2px;}
+  .cal-cell{
+    height:34px; width:34px; margin:auto; display:flex; align-items:center; justify-content:center;
+    font-size:12.5px; font-weight:600; color:#111827; cursor:pointer; border-radius:8px;
+    transition:background .15s, color .15s; user-select:none;
+  }
+  .cal-cell:hover:not(.disabled):not(.empty){background:#f1f5f9;}
+  .cal-cell.disabled{color:#cbd5e1; cursor:not-allowed; opacity:0.4;}
+  .cal-cell.empty{cursor:default;}
+  .cal-cell.selected{
+    background:var(--green) !important; color:#ffffff !important; font-weight:700; border-radius:8px;
+  }
+
   .adv-drop{position:relative;}
   .adv-drop>button{border:1px solid #d7dce4; background:#fff; border-radius:8px; padding:7px 12px; font-size:13px; cursor:pointer;}
   .adv-panel{display:none; position:absolute; top:110%; left:0; z-index:50; background:#fff; border:1px solid #e2e6ec; border-radius:10px; box-shadow:0 8px 24px rgba(16,24,40,.12); padding:10px; width:240px; max-height:280px; overflow:auto;}
@@ -106,8 +155,8 @@
   .chart-box{position:relative; height:360px;}
 
   #loadingOverlay{
-    display:none; position:fixed; inset:0; background:rgba(255,255,255,.75);
-    align-items:center; justify-content:center; z-index:100; font-weight:600; font-size:16px;
+    display:none; position:fixed; inset:0; background:rgba(255,255,255,.8);
+    align-items:center; justify-content:center; z-index:9999; font-weight:600; font-size:15px; color:#111827;
   }
 
   @media (max-width:1100px){
@@ -118,24 +167,47 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 </head>
 <body>
-<div id="loadingOverlay">Loading report data...</div>
+<div id="loadingOverlay">Updating metrics...</div>
 
 <div class="wrap">
   <div class="topbar">
     <div class="topbar-left">
-      <h1>Management and advertisers report (IAM WORKING ON THIS, SO NOW THESE NUMBERS ARE NOT CORRECT UNTIL I FINISH)</h1>
-      <select class="month-select" id="monthSelect">
-        <option value="data_september.json" selected>September 2026</option>
-      </select>
+      <h1>Management and advertisers report</h1>
     </div>
     <button class="btn-reset" id="btnReset">Reset filters</button>
   </div>
 
+  <!-- Custom Filter Bar matching Screenshot -->
   <div class="filters">
-    <div><label>From</label><input type="date" id="dateFrom"></div>
-    <div><label>To</label><input type="date" id="dateTo"></div>
-    <div class="adv-drop">
-      <label>Advertisers</label>
+    <div class="date-picker-wrap">
+      <span class="date-lbl">FROM</span>
+      <div class="date-trigger" id="fromTrigger" tabindex="0">
+        <span class="date-val" id="fromDateVal">09/01/2026</span>
+        <svg class="cal-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      </div>
+
+      <span class="date-lbl" style="margin-left:6px;">TO</span>
+      <div class="date-trigger" id="toTrigger" tabindex="0">
+        <span class="date-val" id="toDateVal">09/30/2026</span>
+        <svg class="cal-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      </div>
+
+      <!-- Pop-up Calendar -->
+      <div class="custom-calendar-popup" id="calPopup">
+        <div class="cal-header">
+          <button class="cal-nav" id="calPrev">&lsaquo;</button>
+          <div class="cal-title" id="calTitle">SEPTEMBER 2026</div>
+          <button class="cal-nav" id="calNext">&rsaquo;</button>
+        </div>
+        <div class="cal-weekdays">
+          <div>MO</div><div>TU</div><div>WE</div><div>TH</div><div>FR</div><div>SA</div><div>SU</div>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+    </div>
+
+    <div class="adv-drop" style="margin-left:10px;">
+      <label class="date-lbl" style="margin-right:6px;">ADVERTISERS</label>
       <button id="advBtn">All advertisers ▾</button>
       <div class="adv-panel" id="advPanel"></div>
     </div>
@@ -397,9 +469,22 @@
 </div>
 
 <script>
-let RAW_DATA = null;
+/* =========================================================================
+   APPLICATION STATE & DATE BOUNDS
+   ========================================================================= */
+const MONTH_NAMES = [
+  'january', 'february', 'march', 'april', 'may', 'june',
+  'july', 'august', 'september', 'october', 'november', 'december'
+];
 
-// Currently active aggregated slices for the selected date range
+// Earliest allowed date: July 1, 2026
+const MIN_DATE = "2026-07-01";
+// Maximum allowed date is today: September 30, 2026
+const MAX_DATE = "2026-09-30";
+
+// In-Memory cache of loaded months to prevent redundant fetches
+const LOADED_MONTHS = {};
+
 let CURRENT = {
   teams: [],
   cards: {},
@@ -413,8 +498,11 @@ let CURRENT = {
 };
 
 const state = {
-  from: '',
-  to: '',
+  from: "2026-09-01",
+  to: "2026-09-30",
+  activePicker: null, // 'from' or 'to'
+  viewYear: 2026,
+  viewMonth: 8,       // 0-indexed: 8 = September
   advs: new Set(),
   advSortKey: 'revenue',
   advSortAsc: false,
@@ -444,81 +532,155 @@ const kpiCls = (v, kpi, invert) => {
   if (v < 0) return 'neg';
   return (invert ? v <= kpi : v >= kpi) ? 'pos' : 'neg';
 };
+const toDisplayDate = iso => {
+  const [y, m, d] = iso.split('-');
+  return `${m}/${d}/${y}`;
+};
 
-/* Fetch JSON (GitHub Pages Compatible) */
-async function loadMonthlyData(fileName) {
-  const overlay = document.getElementById('loadingOverlay');
-  overlay.style.display = 'flex';
+/* =========================================================================
+   MULTI-MONTH JSON FETCHER & ZERO-FALLBACK
+   ========================================================================= */
+function generateZeroMonth(year, monthNum) {
+  const monthName = MONTH_NAMES[monthNum - 1];
+  const capMonth = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+  const daysInMonth = new Date(year, monthNum, 0).getDate();
+  const pad = n => String(n).padStart(2, '0');
+  
+  const daily_records = [];
+  for (let d = 1; d <= daysInMonth; d++) {
+    daily_records.push({
+      date: `${year}-${pad(monthNum)}-${pad(d)}`,
+      teams: { "EMAIL": [0,0,0,0], "MEDIA": [0,0,0,0], "SOCIAL": [0,0,0,0] },
+      advertisers: {},
+      brands: {},
+      inhouse: {}
+    });
+  }
+
+  return {
+    metadata: {
+      month: capMonth,
+      year: year,
+      month_key: `${year}-${pad(monthNum)}`,
+      date_from: `${year}-${pad(monthNum)}-01`,
+      date_to: `${year}-${pad(monthNum)}-${pad(daysInMonth)}`,
+      days_in_month: daysInMonth,
+      days_elapsed: daysInMonth,
+      is_month_closed: true
+    },
+    teams_kpi: {
+      "EMAIL": { "budget": 1100.00, "signups": 500, "users": 40, "revenue": 4400.00, "profit": 3300.00 },
+      "MEDIA": { "budget": 5500.00, "signups": 1000, "users": 300, "revenue": 16500.00, "profit": 11000.00 },
+      "SOCIAL": { "budget": 1100.00, "signups": 250, "users": 20, "revenue": 3300.00, "profit": 2200.00 },
+      "Grand total": { "budget": 7700.00, "signups": 1750, "users": 360, "revenue": 24200.00, "profit": 16500.00 }
+    },
+    catalogs: { advertisers: [], brands: [], inhouse_brands: [] },
+    daily_records: daily_records
+  };
+}
+
+async function fetchMonth(year, monthNum) {
+  const pad = n => String(n).padStart(2, '0');
+  const monthKey = `${year}-${pad(monthNum)}`;
+  if (LOADED_MONTHS[monthKey]) return LOADED_MONTHS[monthKey];
+
+  const monthName = MONTH_NAMES[monthNum - 1];
+  const fileName = `data_${monthName}.json`;
+
   try {
     const res = await fetch(`./${fileName}?_cb=${Date.now()}`);
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    RAW_DATA = await res.json();
-    
-    initState();
-    aggregateAllByDateRange();
-    renderAll();
+    if (!res.ok) throw new Error(`Not found (${res.status})`);
+    const data = await res.json();
+    LOADED_MONTHS[monthKey] = data;
+    return data;
   } catch (err) {
-    console.error('Failed to load JSON data:', err);
-    alert(`Could not load ${fileName}. Make sure the JSON file exists in the same directory.`);
-  } finally {
-    overlay.style.display = 'none';
+    console.warn(`File ${fileName} not found. Defaulting month to 0.`, err);
+    const zeroData = generateZeroMonth(year, monthNum);
+    LOADED_MONTHS[monthKey] = zeroData;
+    return zeroData;
   }
 }
 
-function initState() {
-  state.from = RAW_DATA.metadata.date_from;
-  state.to = RAW_DATA.metadata.date_to;
-  
-  const fromInput = document.getElementById('dateFrom');
-  const toInput = document.getElementById('dateTo');
-  
-  fromInput.min = RAW_DATA.metadata.date_from;
-  fromInput.max = RAW_DATA.metadata.date_to;
-  fromInput.value = state.from;
+async function ensureDataRangeLoaded(fromStr, toStr) {
+  const [fromY, fromM] = fromStr.split('-').map(Number);
+  const [toY, toM] = toStr.split('-').map(Number);
 
-  toInput.min = RAW_DATA.metadata.date_from;
-  toInput.max = RAW_DATA.metadata.date_to;
-  toInput.value = state.to;
+  let curY = fromY;
+  let curM = fromM;
 
-  state.advs = new Set(RAW_DATA.catalogs.advertisers);
+  while (curY < toY || (curY === toY && curM <= toM)) {
+    await fetchMonth(curY, curM);
+    curM++;
+    if (curM > 12) {
+      curM = 1;
+      curY++;
+    }
+  }
 }
 
 /* =========================================================================
-   CENTRAL DATE-FILTERING & AGGREGATION ENGINE
+   CENTRAL DATE-FILTERING & MULTI-MONTH RECALCULATION ENGINE
    ========================================================================= */
-function aggregateAllByDateRange() {
-  const from = state.from;
-  const to = state.to;
+async function filterAndRenderAll() {
+  const overlay = document.getElementById('loadingOverlay');
+  overlay.style.display = 'flex';
 
-  // Filter daily records by date range
-  const filteredDays = RAW_DATA.daily_records.filter(d => d.date >= from && d.date <= to);
-  const daysInSlice = filteredDays.length || 1;
-  const fullMonthDays = RAW_DATA.metadata.days_in_month;
-  const scale = daysInSlice / fullMonthDays;
-  const rrFactor = fullMonthDays / daysInSlice;
+  await ensureDataRangeLoaded(state.from, state.to);
 
-  CURRENT.daily = filteredDays;
+  // Combine daily records from all months in range
+  const allLoadedRecords = [];
+  const mergedCatalogs = {
+    advertisers: new Set(),
+    brandsMap: new Map(),
+    inhouse: new Set()
+  };
 
-  // 1. TEAMS AGGREGATION
+  Object.values(LOADED_MONTHS).forEach(mObj => {
+    mObj.daily_records.forEach(r => {
+      if (r.date >= state.from && r.date <= state.to) {
+        allLoadedRecords.push(r);
+      }
+    });
+
+    if (mObj.catalogs) {
+      (mObj.catalogs.advertisers || []).forEach(a => mergedCatalogs.advertisers.add(a));
+      (mObj.catalogs.brands || []).forEach(b => {
+        if (!mergedCatalogs.brandsMap.has(b.brand)) {
+          mergedCatalogs.brandsMap.set(b.brand, b);
+        }
+      });
+      (mObj.catalogs.inhouse_brands || []).forEach(ib => mergedCatalogs.inhouse.add(ib));
+    }
+  });
+
+  allLoadedRecords.sort((a, b) => a.date.localeCompare(b.date));
+  CURRENT.daily = allLoadedRecords;
+
+  const daysCount = allLoadedRecords.length || 1;
+  const rrFactor = daysCount > 0 ? (30 / daysCount) : 1;
+
+  // 1. Teams Aggregation
   const teamTotals = {
     EMAIL: { budget: 0, signups: 0, users: 0, revenue: 0 },
     MEDIA: { budget: 0, signups: 0, users: 0, revenue: 0 },
     SOCIAL: { budget: 0, signups: 0, users: 0, revenue: 0 }
   };
 
-  filteredDays.forEach(day => {
-    for (const [tName, arr] of Object.entries(day.teams)) {
-      if (teamTotals[tName]) {
-        teamTotals[tName].budget += arr[0];
-        teamTotals[tName].signups += arr[1];
-        teamTotals[tName].users += arr[2];
-        teamTotals[tName].revenue += arr[3];
+  allLoadedRecords.forEach(day => {
+    if (day.teams) {
+      for (const [tName, arr] of Object.entries(day.teams)) {
+        if (teamTotals[tName]) {
+          teamTotals[tName].budget += arr[0];
+          teamTotals[tName].signups += arr[1];
+          teamTotals[tName].users += arr[2];
+          teamTotals[tName].revenue += arr[3];
+        }
       }
     }
   });
 
-  const gtKpi = RAW_DATA.teams_kpi["Grand total"];
-  let gtActual = { budget: 0, signups: 0, users: 0, revenue: 0, profit: 0 };
+  const baseKpi = LOADED_MONTHS["2026-09"] ? LOADED_MONTHS["2026-09"].teams_kpi : generateZeroMonth(2026, 9).teams_kpi;
+  const gtActual = { budget: 0, signups: 0, users: 0, revenue: 0, profit: 0 };
 
   CURRENT.teams = ["EMAIL", "MEDIA", "SOCIAL"].map(tName => {
     const act = teamTotals[tName];
@@ -529,7 +691,7 @@ function aggregateAllByDateRange() {
     gtActual.revenue += act.revenue;
     gtActual.profit += profit;
 
-    const kpi = RAW_DATA.teams_kpi[tName];
+    const kpi = baseKpi[tName];
     const rrBudget = Math.round(act.budget * rrFactor);
     const rrSignups = Math.round(act.signups * rrFactor);
     const rrUsers = Math.round(act.users * rrFactor);
@@ -546,7 +708,7 @@ function aggregateAllByDateRange() {
     };
   });
 
-  // Add Grand Total row
+  const gtKpi = baseKpi["Grand total"];
   const gtRrBudget = Math.round(gtActual.budget * rrFactor);
   const gtRrSignups = Math.round(gtActual.signups * rrFactor);
   const gtRrUsers = Math.round(gtActual.users * rrFactor);
@@ -562,7 +724,7 @@ function aggregateAllByDateRange() {
     roi: gtActual.budget > 0 ? '1:' + (gtActual.revenue / gtActual.budget).toFixed(1) : '—'
   });
 
-  // 2. TOP KPI CARDS
+  // 2. Top KPI Cards
   CURRENT.cards = {
     registrations: { mtd: gtActual.signups, kpi: gtKpi.signups, run_rate: gtRrSignups },
     ftd: { mtd: gtActual.users, kpi: gtKpi.users, run_rate: gtRrUsers },
@@ -570,15 +732,16 @@ function aggregateAllByDateRange() {
     profit: { mtd: Math.round(gtActual.profit), kpi: gtKpi.profit, run_rate: gtRrProfit }
   };
 
-  // 3. ADVERTISERS AGGREGATION
+  // 3. Advertisers Aggregation
   const advMap = {};
-  RAW_DATA.catalogs.advertisers.forEach(adv => {
+  mergedCatalogs.advertisers.forEach(adv => {
     advMap[adv] = { name: adv, signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 };
   });
 
-  filteredDays.forEach(day => {
-    for (const [adv, arr] of Object.entries(day.advertisers)) {
-      if (advMap[adv]) {
+  allLoadedRecords.forEach(day => {
+    if (day.advertisers) {
+      for (const [adv, arr] of Object.entries(day.advertisers)) {
+        if (!advMap[adv]) advMap[adv] = { name: adv, signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 };
         advMap[adv].signups += arr[0];
         advMap[adv].ftd += arr[1];
         advMap[adv].revenue += arr[2];
@@ -592,23 +755,20 @@ function aggregateAllByDateRange() {
     return a;
   });
 
-  // 4. BRANDS AGGREGATION
+  // 4. Brands Aggregation
   const brandMap = {};
-  RAW_DATA.catalogs.brands.forEach((b, idx) => {
+  let bIdx = 0;
+  mergedCatalogs.brandsMap.forEach(b => {
     brandMap[b.brand] = {
       advertiser: b.advertiser,
       brand: b.brand,
       category: b.category,
-      origIdx: idx,
-      signups: 0,
-      ftd: 0,
-      revenue: 0,
-      budget: 0,
-      profit: 0
+      origIdx: bIdx++,
+      signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0
     };
   });
 
-  filteredDays.forEach(day => {
+  allLoadedRecords.forEach(day => {
     if (day.brands) {
       for (const [bName, arr] of Object.entries(day.brands)) {
         if (brandMap[bName]) {
@@ -630,18 +790,18 @@ function aggregateAllByDateRange() {
   CURRENT.casinoBrands = CURRENT.allBrands.filter(b => b.category === 'casino');
   CURRENT.otherBrands = CURRENT.allBrands.filter(b => b.category === 'other');
 
-  // 5. INHOUSE BRANDS AGGREGATION
+  // 5. Inhouse Brands Aggregation
   const inhouseMap = {};
-  RAW_DATA.catalogs.inhouse_brands.forEach((ib, idx) => {
-    inhouseMap[ib] = { brand: ib, origIdx: idx, signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 };
+  let ibIdx = 0;
+  mergedCatalogs.inhouse.forEach(ib => {
+    inhouseMap[ib] = { brand: ib, origIdx: ibIdx++, signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 };
   });
 
-  filteredDays.forEach(day => {
+  allLoadedRecords.forEach(day => {
     if (day.inhouse) {
       for (const [ibName, bud] of Object.entries(day.inhouse)) {
-        if (inhouseMap[ibName]) {
-          inhouseMap[ibName].budget += bud;
-        }
+        if (!inhouseMap[ibName]) inhouseMap[ibName] = { brand: ibName, origIdx: ibIdx++, signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 };
+        inhouseMap[ibName].budget += bud;
       }
     }
   });
@@ -650,12 +810,128 @@ function aggregateAllByDateRange() {
     ib.profit = ib.revenue - ib.budget;
     return ib;
   });
+
+  // Sync advertisers filter set
+  if (state.advs.size === 0) {
+    state.advs = new Set(Object.keys(advMap));
+  }
+
+  renderAll();
+  overlay.style.display = 'none';
 }
 
-/* ---------- Render Top Cards ---------- */
+/* =========================================================================
+   CUSTOM CALENDAR PICKER (Matching Screenshot)
+   ========================================================================= */
+function updateDateDisplay() {
+  document.getElementById('fromDateVal').textContent = toDisplayDate(state.from);
+  document.getElementById('toDateVal').textContent = toDisplayDate(state.to);
+}
+
+function openCalendar(type) {
+  state.activePicker = type;
+  const fromTrigger = document.getElementById('fromTrigger');
+  const toTrigger = document.getElementById('toTrigger');
+  const popup = document.getElementById('calPopup');
+
+  fromTrigger.classList.toggle('active', type === 'from');
+  toTrigger.classList.toggle('active', type === 'to');
+
+  // Position popup directly under the active trigger
+  const triggerEl = type === 'from' ? fromTrigger : toTrigger;
+  popup.style.left = `${triggerEl.offsetLeft}px`;
+
+  // Focus current month on open (September 2026 by default)
+  const refDate = type === 'from' ? state.from : state.to;
+  const [y, m] = refDate.split('-').map(Number);
+  state.viewYear = y;
+  state.viewMonth = m - 1; // 0-indexed
+
+  renderCalendarGrid();
+  popup.classList.add('open');
+}
+
+function closeCalendar() {
+  document.getElementById('calPopup').classList.remove('open');
+  document.getElementById('fromTrigger').classList.remove('active');
+  document.getElementById('toTrigger').classList.remove('active');
+  state.activePicker = null;
+}
+
+function renderCalendarGrid() {
+  const pad = n => String(n).padStart(2, '0');
+  const monthNames = [
+    'JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE',
+    'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'
+  ];
+
+  document.getElementById('calTitle').textContent = `${monthNames[state.viewMonth]} ${state.viewYear}`;
+
+  // Prev / Next Bounds Navigation
+  const viewKey = `${state.viewYear}-${pad(state.viewMonth + 1)}`;
+  const minKey = MIN_DATE.slice(0, 7); // '2026-07'
+  const maxKey = MAX_DATE.slice(0, 7); // '2026-09'
+
+  document.getElementById('calPrev').disabled = (viewKey <= minKey);
+  document.getElementById('calNext').disabled = (viewKey >= maxKey);
+
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = '';
+
+  // Monday-first indexing: (0: Mon, ..., 6: Sun)
+  const firstDayObj = new Date(state.viewYear, state.viewMonth, 1);
+  let firstDayIndex = firstDayObj.getDay() - 1;
+  if (firstDayIndex === -1) firstDayIndex = 6;
+
+  const daysInCurrentMonth = new Date(state.viewYear, state.viewMonth + 1, 0).getDate();
+
+  // Empty leading days
+  for (let i = 0; i < firstDayIndex; i++) {
+    const emptyCell = document.createElement('div');
+    emptyCell.className = 'cal-cell empty';
+    grid.appendChild(emptyCell);
+  }
+
+  // Active days
+  for (let day = 1; day <= daysInCurrentMonth; day++) {
+    const dateStr = `${state.viewYear}-${pad(state.viewMonth + 1)}-${pad(day)}`;
+    const cell = document.createElement('div');
+    cell.className = 'cal-cell';
+    cell.textContent = day;
+
+    const isDisabled = (dateStr < MIN_DATE || dateStr > MAX_DATE);
+    const isSelected = (state.activePicker === 'from' && dateStr === state.from) ||
+                       (state.activePicker === 'to' && dateStr === state.to);
+
+    if (isDisabled) {
+      cell.classList.add('disabled');
+    } else {
+      if (isSelected) cell.classList.add('selected');
+
+      cell.addEventListener('click', () => {
+        if (state.activePicker === 'from') {
+          state.from = dateStr;
+          if (state.from > state.to) state.to = state.from;
+        } else {
+          state.to = dateStr;
+          if (state.to < state.from) state.from = state.to;
+        }
+        updateDateDisplay();
+        closeCalendar();
+        filterAndRenderAll();
+      });
+    }
+
+    grid.appendChild(cell);
+  }
+}
+
+/* =========================================================================
+   UI RENDERING METHODS
+   ========================================================================= */
 function renderCards() {
   const c = CURRENT.cards;
-  const isMonthClosed = (state.from === RAW_DATA.metadata.date_from && state.to === RAW_DATA.metadata.date_to);
+  const isMonthClosed = (state.from === MIN_DATE && state.to === MAX_DATE);
   const defs = [
     { lbl: 'REGISTRATIONS', val: fmtInt(c.registrations.mtd), accent: 'var(--pink)', sub: { kpi: fmtInt(c.registrations.kpi), rr: fmtInt(c.registrations.run_rate), rrCls: c.registrations.run_rate >= c.registrations.kpi ? 'green' : 'red' } },
     { lbl: 'FTD', val: fmtInt(c.ftd.mtd), accent: 'var(--pink)', sub: { kpi: fmtInt(c.ftd.kpi), rr: fmtInt(c.ftd.run_rate), rrCls: c.ftd.run_rate >= c.ftd.kpi ? 'green' : 'red' } },
@@ -675,7 +951,6 @@ function renderCards() {
     </div>`).join('');
 }
 
-/* ---------- Render Teams Table ---------- */
 function renderTeams() {
   const tbody = document.querySelector('#teamTable tbody');
   tbody.innerHTML = CURRENT.teams.map(t => {
@@ -703,7 +978,6 @@ function renderTeams() {
   }).join('');
 }
 
-/* ---------- Render Daily Chart ---------- */
 let chDailyInstance = null;
 function renderDaily() {
   const filtered = CURRENT.daily;
@@ -716,7 +990,7 @@ function renderDaily() {
   const reg = [], ftd = [], rev = [];
   filtered.forEach(d => {
     let r = 0, f = 0, v = 0;
-    for (const [adv, vals] of Object.entries(d.advertisers)) {
+    for (const [adv, vals] of Object.entries(d.advertisers || {})) {
       if (state.advs.has(adv)) {
         r += vals[0];
         f += vals[1];
@@ -730,10 +1004,10 @@ function renderDaily() {
   const avg = arr => arr.reduce((a,b) => a+b, 0) / count;
   const f1 = v => (Math.round(v*10)/10).toLocaleString('en-US');
 
-  const gtKpi = RAW_DATA.teams_kpi["Grand total"];
-  const kpiDailySignups = gtKpi.signups / RAW_DATA.metadata.days_in_month;
-  const kpiDailyFtd = gtKpi.users / RAW_DATA.metadata.days_in_month;
-  const kpiDailyRev = gtKpi.revenue / RAW_DATA.metadata.days_in_month;
+  const gtKpi = LOADED_MONTHS["2026-09"] ? LOADED_MONTHS["2026-09"].teams_kpi["Grand total"] : { signups: 1750, users: 360, revenue: 24200 };
+  const kpiDailySignups = gtKpi.signups / 30;
+  const kpiDailyFtd = gtKpi.users / 30;
+  const kpiDailyRev = gtKpi.revenue / 30;
 
   const dashed = (lbl, col, val) => ({
     label: lbl, data: filtered.map(() => Math.round(val*10)/10),
@@ -776,7 +1050,6 @@ function renderDaily() {
   chDailyInstance.update();
 }
 
-/* ---------- Generic Table Sort & Renderer ---------- */
 function renderTableGeneric(tableId, btnsId, dataArray, sortKey, sortAsc, isBrandTable = false) {
   const table = document.getElementById(tableId);
   const tbody = table.querySelector('tbody');
@@ -807,7 +1080,6 @@ function renderTableGeneric(tableId, btnsId, dataArray, sortKey, sortAsc, isBran
       </tr>`;
   }).join('');
 
-  // Total footer
   let totS = 0, totF = 0, totR = 0, totB = 0, totP = 0;
   dataArray.forEach(r => { totS += r.signups; totF += r.ftd; totR += r.revenue; totB += r.budget; totP += r.profit; });
   const totS2p = totF > 0 ? '1:' + Math.round(totS / totF) : '—';
@@ -823,7 +1095,6 @@ function renderTableGeneric(tableId, btnsId, dataArray, sortKey, sortAsc, isBran
       <td class="num">${totS2p}</td>
     </tr>`;
 
-  // Update header arrows
   table.querySelectorAll('thead th').forEach(th => {
     const f = th.dataset.sort;
     const arr = th.querySelector('.arr');
@@ -834,7 +1105,6 @@ function renderTableGeneric(tableId, btnsId, dataArray, sortKey, sortAsc, isBran
     }
   });
 
-  // Update capsule buttons
   if (btnsId) {
     document.querySelectorAll(`#${btnsId} button`).forEach(btn => {
       const f = btn.dataset.sort;
@@ -984,10 +1254,9 @@ function renderAllCharts2x2() {
   renderBrandProfitChart();
 }
 
-/* ---------- Filters & Event Bindings ---------- */
 function renderAdvPanel() {
   const p = document.getElementById('advPanel');
-  const advList = RAW_DATA.catalogs.advertisers;
+  const advList = CURRENT.advertisers.map(a => a.name);
   p.innerHTML = advList.map(adv => `
     <label><input type="checkbox" value="${adv}" ${state.advs.has(adv) ? 'checked' : ''}> ${adv}</label>`).join('');
   
@@ -999,11 +1268,10 @@ function renderAdvPanel() {
 }
 
 function updateAdvBtn() {
-  const total = RAW_DATA.catalogs.advertisers.length;
+  const total = CURRENT.advertisers.length;
   document.getElementById('advBtn').textContent = state.advs.size === total ? 'All advertisers ▾' : `${state.advs.size} advertisers ▾`;
 }
 
-/* Central Render Trigger */
 function renderAll() {
   renderCards();
   renderTeams();
@@ -1018,47 +1286,64 @@ function renderAll() {
   renderAllCharts2x2();
 }
 
+/* =========================================================================
+   GLOBAL LISTENERS & INITIALIZATION
+   ========================================================================= */
 function setupGlobalListeners() {
+  // Calendar trigger clicks
+  document.getElementById('fromTrigger').addEventListener('click', e => {
+    e.stopPropagation();
+    state.activePicker === 'from' ? closeCalendar() : openCalendar('from');
+  });
+
+  document.getElementById('toTrigger').addEventListener('click', e => {
+    e.stopPropagation();
+    state.activePicker === 'to' ? closeCalendar() : openCalendar('to');
+  });
+
+  // Calendar month navigation buttons
+  document.getElementById('calPrev').addEventListener('click', e => {
+    e.stopPropagation();
+    state.viewMonth--;
+    if (state.viewMonth < 0) {
+      state.viewMonth = 11;
+      state.viewYear--;
+    }
+    renderCalendarGrid();
+  });
+
+  document.getElementById('calNext').addEventListener('click', e => {
+    e.stopPropagation();
+    state.viewMonth++;
+    if (state.viewMonth > 11) {
+      state.viewMonth = 0;
+      state.viewYear++;
+    }
+    renderCalendarGrid();
+  });
+
+  // Close calendar popup on click outside
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.date-picker-wrap')) {
+      closeCalendar();
+    }
+    if (!e.target.closest('.adv-drop')) {
+      document.getElementById('advPanel').classList.remove('open');
+    }
+  });
+
+  // Advertisers dropdown
   document.getElementById('advBtn').addEventListener('click', e => {
     e.stopPropagation();
     document.getElementById('advPanel').classList.toggle('open');
   });
 
-  document.addEventListener('click', e => {
-    if (!e.target.closest('.adv-drop')) document.getElementById('advPanel').classList.remove('open');
-  });
-
-  // Calendar Date Filtering -> Recalculates ALL Tables and Charts!
-  document.getElementById('dateFrom').addEventListener('change', e => {
-    state.from = e.target.value || RAW_DATA.metadata.date_from;
-    if (state.from > state.to) {
-      state.to = state.from;
-      document.getElementById('dateTo').value = state.to;
-    }
-    aggregateAllByDateRange();
-    renderAll();
-  });
-
-  document.getElementById('dateTo').addEventListener('change', e => {
-    state.to = e.target.value || RAW_DATA.metadata.date_to;
-    if (state.to < state.from) {
-      state.from = state.to;
-      document.getElementById('dateFrom').value = state.from;
-    }
-    aggregateAllByDateRange();
-    renderAll();
-  });
-
-  // Reset Filters Button
+  // Reset Filters button
   document.getElementById('btnReset').addEventListener('click', () => {
-    initState();
-    aggregateAllByDateRange();
-    renderAll();
-  });
-
-  // Monthly Selector (data_september.json, data_october.json, etc.)
-  document.getElementById('monthSelect').addEventListener('change', e => {
-    loadMonthlyData(e.target.value);
+    state.from = "2026-09-01";
+    state.to = MAX_DATE;
+    updateDateDisplay();
+    filterAndRenderAll();
   });
 
   // Chart toggles
@@ -1080,7 +1365,7 @@ function setupGlobalListeners() {
     });
   });
 
-  // Init sort events for each table
+  // Init sorting for all tables
   initTableSortEvents('advTable', 'advSortBtns', 'adv', () => CURRENT.advertisers, false);
   initTableSortEvents('sweepsBrandTable', 'sweepsBrandSortBtns', 'sweeps', () => CURRENT.sweepsBrands, true);
   initTableSortEvents('casinoBrandTable', 'casinoBrandSortBtns', 'casino', () => CURRENT.casinoBrands, true);
@@ -1091,7 +1376,8 @@ function setupGlobalListeners() {
 // Initial Boot
 document.addEventListener('DOMContentLoaded', () => {
   setupGlobalListeners();
-  loadMonthlyData('data_september.json');
+  updateDateDisplay();
+  filterAndRenderAll();
 });
 </script>
 </body>
