@@ -13,10 +13,20 @@
   *{box-sizing:border-box; margin:0; padding:0; font-family:'Segoe UI',Inter,Roboto,Arial,sans-serif;}
   body{background:var(--bg); color:var(--ink); padding:22px 26px 40px;}
   .wrap{max-width:1560px; margin:0 auto;}
-  .topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
+  .topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:10px;}
+  .topbar-left{display:flex; align-items:center; gap:14px;}
   h1{font-size:22px; font-weight:700;}
-  .btn-reset{border:1px solid #d7dce4; background:#fff; border-radius:999px; padding:7px 16px; font-size:13px; cursor:pointer; box-shadow:0 1px 2px rgba(16,24,40,.04);}
+  
+  .month-select{
+    border:1px solid #d7dce4; background:#fff; border-radius:8px; padding:6px 12px;
+    font-size:13px; font-weight:600; color:var(--ink); cursor:pointer; outline:none;
+  }
+  .btn-reset{
+    border:1px solid #d7dce4; background:#fff; border-radius:999px; padding:7px 16px;
+    font-size:13px; cursor:pointer; box-shadow:0 1px 2px rgba(16,24,40,.04); transition:background .15s;
+  }
   .btn-reset:hover{background:#f8fafc;}
+
   .filters{display:flex; flex-wrap:wrap; gap:10px; align-items:center; background:var(--card); border-radius:14px; padding:12px 16px; margin-bottom:16px; box-shadow:0 1px 3px rgba(16,24,40,.05);}
   .filters label{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.4px; margin-right:4px;}
   .filters input[type=date]{border:1px solid #d7dce4; border-radius:8px; padding:6px 8px; font-size:13px; color:var(--ink);}
@@ -25,14 +35,16 @@
   .adv-panel{display:none; position:absolute; top:110%; left:0; z-index:50; background:#fff; border:1px solid #e2e6ec; border-radius:10px; box-shadow:0 8px 24px rgba(16,24,40,.12); padding:10px; width:240px; max-height:280px; overflow:auto;}
   .adv-panel.open{display:block;}
   .adv-panel label{display:flex; gap:8px; align-items:center; font-size:13px; text-transform:none; color:var(--ink); padding:4px 2px; margin:0; cursor:pointer;}
+  
   .cards{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:16px;}
   .card{background:var(--card); border-radius:14px; padding:18px 18px 14px; box-shadow:0 1px 3px rgba(16,24,40,.05); min-height:118px; display:flex; flex-direction:column;}
   .card .lbl{font-size:11px; letter-spacing:.6px; color:var(--muted); text-transform:uppercase; font-weight:600;}
-  .card .val{font-size:30px; font-weight:750; margin-top:8px; color:var(--ink);}
+  .card .val{font-size:30px; font-weight:750; margin-top:8px; color:#111827;}
   .card .accent{height:3px; width:52px; border-radius:2px; margin-top:10px;}
   .card .sub{margin-top:auto; padding-top:10px; display:flex; justify-content:space-between; font-size:11px; color:var(--muted);}
   .card .sub b{color:var(--ink); font-weight:600;}
   .card .sub b.green{color:var(--green);} .card .sub b.red{color:var(--red);}
+  
   .panel{background:var(--card); border-radius:14px; padding:18px; box-shadow:0 1px 3px rgba(16,24,40,.05); margin-bottom:16px;}
   .panel h3{font-size:16px; font-weight:700; margin-bottom:2px;}
   .panel .hint{font-size:12px; color:var(--muted); margin-bottom:12px;}
@@ -40,80 +52,28 @@
   
   /* Seamless Capsule Pill Filters */
   .sort-btns{
-    display:inline-flex;
-    align-items:center;
-    background:#ffffff;
-    border:1px solid #d7dce4;
-    border-radius:999px;
-    overflow:hidden;
-    padding:0;
-    height:32px;
-    box-shadow:0 1px 2px rgba(16,24,40,.04);
+    display:inline-flex; align-items:center; background:#ffffff; border:1px solid #d7dce4;
+    border-radius:999px; overflow:hidden; padding:0; height:32px; box-shadow:0 1px 2px rgba(16,24,40,.04);
   }
   .sort-btns button{
-    border:none;
-    outline:none;
-    background:transparent;
-    padding:0 16px;
-    height:100%;
-    font-size:12.5px;
-    font-weight:500;
-    color:#0f172a;
-    cursor:pointer;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    white-space:nowrap;
-    transition:background-color .15s ease, color .15s ease;
-    border-radius:0;
+    border:none; outline:none; background:transparent; padding:0 16px; height:100%;
+    font-size:12.5px; font-weight:500; color:#0f172a; cursor:pointer; display:inline-flex;
+    align-items:center; justify-content:center; white-space:nowrap; transition:background-color .15s ease, color .15s ease;
   }
-  .sort-btns button:hover:not(.active){
-    background:#f8fafc;
-    color:#000000;
-  }
-  .sort-btns button.active{
-    background:#0b1329;
-    color:#ffffff;
-    font-weight:600;
-  }
+  .sort-btns button:hover:not(.active){background:#f8fafc; color:#000000;}
+  .sort-btns button.active{background:#0b1329; color:#ffffff; font-weight:600;}
 
   .toggle{
-    display:inline-flex;
-    align-items:center;
-    background:#ffffff;
-    border:1px solid #d7dce4;
-    border-radius:999px;
-    overflow:hidden;
-    padding:0;
-    height:32px;
-    box-shadow:0 1px 2px rgba(16,24,40,.04);
+    display:inline-flex; align-items:center; background:#ffffff; border:1px solid #d7dce4;
+    border-radius:999px; overflow:hidden; padding:0; height:32px; box-shadow:0 1px 2px rgba(16,24,40,.04);
   }
   .toggle button{
-    border:none;
-    outline:none;
-    background:transparent;
-    padding:0 16px;
-    height:100%;
-    font-size:12px;
-    font-weight:500;
-    color:#0f172a;
-    cursor:pointer;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    white-space:nowrap;
-    transition:background-color .15s ease, color .15s ease;
-    border-radius:0;
+    border:none; outline:none; background:transparent; padding:0 16px; height:100%;
+    font-size:12px; font-weight:500; color:#0f172a; cursor:pointer; display:inline-flex;
+    align-items:center; justify-content:center; white-space:nowrap; transition:background-color .15s ease, color .15s ease;
   }
-  .toggle button:hover:not(.active){
-    background:#f8fafc;
-    color:#000000;
-  }
-  .toggle button.active{
-    background:#0b1329;
-    color:#ffffff;
-    font-weight:600;
-  }
+  .toggle button:hover:not(.active){background:#f8fafc; color:#000000;}
+  .toggle button.active{background:#0b1329; color:#ffffff; font-weight:600;}
 
   table{width:100%; border-collapse:collapse; font-size:13px;}
   th,td{padding:10px 12px; text-align:right; white-space:nowrap;}
@@ -134,7 +94,6 @@
   tr.total-row td{font-weight:700; background:#fafbfc; border-top:1px solid #e2e8f0;}
   .num{font-variant-numeric:tabular-nums;}
 
-  /* Report tables */
   .report-table thead th{
     color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.5px;
     font-weight:700; border-bottom:1px solid var(--line); cursor:pointer; user-select:none;
@@ -143,28 +102,38 @@
   .report-table tbody td{font-size:13px;}
   .report-table tbody tr:hover{background:#fbfcfd;}
 
-  /* 2x2 charts grid */
   .charts-2x2{display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-bottom:16px;}
   .chart-box{position:relative; height:360px;}
+
+  #loadingOverlay{
+    display:none; position:fixed; inset:0; background:rgba(255,255,255,.7);
+    align-items:center; justify-content:center; z-index:100; font-weight:600; font-size:16px;
+  }
 
   @media (max-width:1100px){
     .cards{grid-template-columns:repeat(2,1fr);}
     .charts-2x2{grid-template-columns:1fr;}
   }
 </style>
-<!-- Chart.js v4.4.3 -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 </head>
 <body>
+<div id="loadingOverlay">Loading report data...</div>
+
 <div class="wrap">
   <div class="topbar">
-    <h1>Management and advertisers report</h1>
+    <div class="topbar-left">
+      <h1>Management and advertisers report</h1>
+      <select class="month-select" id="monthSelect">
+        <option value="data_september.json" selected>September 2026</option>
+      </select>
+    </div>
     <button class="btn-reset" id="btnReset">Reset filters</button>
   </div>
 
   <div class="filters">
-    <div><label>From</label><input type="date" id="dateFrom" min="2026-09-01" max="2026-09-30" value="2026-09-01"></div>
-    <div><label>To</label><input type="date" id="dateTo" min="2026-09-01" max="2026-09-30" value="2026-09-30"></div>
+    <div><label>From</label><input type="date" id="dateFrom"></div>
+    <div><label>To</label><input type="date" id="dateTo"></div>
     <div class="adv-drop">
       <label>Advertisers</label>
       <button id="advBtn">All advertisers ▾</button>
@@ -174,6 +143,7 @@
 
   <div class="cards" id="cards"></div>
 
+  <!-- TEAM PERFORMANCE TABLE -->
   <div class="panel">
     <h3>Team Performance</h3>
     <table id="teamTable">
@@ -181,8 +151,8 @@
         <tr>
           <th style="text-align:left">TEAM</th>
           <th colspan="5" class="grp-blue">KPIS</th>
-          <th colspan="5" class="grp-green">MTD - SEP 2026</th>
-          <th colspan="5" class="grp-orange">RR - RUN-RATE TO SEP 30</th>
+          <th colspan="5" class="grp-green" id="teamMtdHeader">MTD</th>
+          <th colspan="5" class="grp-orange" id="teamRrHeader">RUN-RATE</th>
           <th class="grp-roi"></th>
         </tr>
         <tr class="sub">
@@ -197,9 +167,10 @@
     </table>
   </div>
 
+  <!-- DAILY PERFORMANCE CHART -->
   <div class="panel">
     <h3>Daily Performance</h3>
-    <div class="hint">Registrations, FTD and revenue by day (Sep 1 - Sep 30).</div>
+    <div class="hint" id="dailyHint">Registrations, FTD and revenue by day.</div>
     <div style="height:340px"><canvas id="chDaily"></canvas></div>
   </div>
 
@@ -231,17 +202,7 @@
         </tr>
       </thead>
       <tbody></tbody>
-      <tfoot>
-        <tr class="total-row">
-          <td>Grand total</td>
-          <td class="num">1,501</td>
-          <td class="num">79</td>
-          <td class="num pos">$8,886.22</td>
-          <td class="num pos">$1,765</td>
-          <td class="num pos">$7,121.22</td>
-          <td class="num">1:19</td>
-        </tr>
-      </tfoot>
+      <tfoot></tfoot>
     </table>
   </div>
 
@@ -275,17 +236,7 @@
         </tr>
       </thead>
       <tbody></tbody>
-      <tfoot>
-        <tr class="total-row">
-          <td colspan="2">Subtotal Sweepstakes</td>
-          <td class="num">1,396</td>
-          <td class="num">61</td>
-          <td class="num pos">$7,755</td>
-          <td class="num pos">$1,680</td>
-          <td class="num pos">$6,075</td>
-          <td class="num">1:23</td>
-        </tr>
-      </tfoot>
+      <tfoot></tfoot>
     </table>
   </div>
 
@@ -319,17 +270,7 @@
         </tr>
       </thead>
       <tbody></tbody>
-      <tfoot>
-        <tr class="total-row">
-          <td colspan="2">Subtotal Casino</td>
-          <td class="num">68</td>
-          <td class="num">6</td>
-          <td class="num pos">$935</td>
-          <td class="num">$0</td>
-          <td class="num pos">$935</td>
-          <td class="num">1:11</td>
-        </tr>
-      </tfoot>
+      <tfoot></tfoot>
     </table>
   </div>
 
@@ -363,17 +304,7 @@
         </tr>
       </thead>
       <tbody></tbody>
-      <tfoot>
-        <tr class="total-row">
-          <td colspan="2">Subtotal Other</td>
-          <td class="num">37</td>
-          <td class="num">12</td>
-          <td class="num pos">$196.22</td>
-          <td class="num pos">$85</td>
-          <td class="num pos">$111.22</td>
-          <td class="num">1:3</td>
-        </tr>
-      </tfoot>
+      <tfoot></tfoot>
     </table>
   </div>
 
@@ -411,7 +342,7 @@
       <div class="panel-head">
         <div>
           <h3>Brand Performance</h3>
-          <div class="hint" id="brandPerfHint">Top active brands by signups.</div>
+          <div class="hint" id="brandPerfHint">Top active brands.</div>
         </div>
         <div class="toggle" id="toggleBrandPerf">
           <button data-m="signups" class="active">Signups</button>
@@ -460,319 +391,19 @@
         </tr>
       </thead>
       <tbody></tbody>
-      <tfoot>
-        <tr class="total-row">
-          <td>Grand total</td>
-          <td class="num">0</td>
-          <td class="num">0</td>
-          <td class="num">$0</td>
-          <td class="num pos">$366</td>
-          <td class="num neg">-$366</td>
-          <td class="num">—</td>
-        </tr>
-      </tfoot>
+      <tfoot></tfoot>
     </table>
   </div>
 </div>
 
 <script>
-const DATA = {
-  "daysElapsed": 30,
-  "daysInMonth": 30,
-  "dateMin": "2026-09-01",
-  "dateMax": "2026-09-30",
-  "advertisers": [
-    "ACEBET", "AFF 66", "ALL IN AFFILIATES", "BASHER AGENCY",
-    "CHANCED", "COINSROYALE", "EPC", "GAMETIME DIGITAL", "IMPACT", "PURIFY", "SPLASH"
-  ],
-  "teams": [
-    {
-      "name": "EMAIL", "cls": "email",
-      "kpi": {"budget": 1100, "signups": 500, "users": 40, "revenue": 4400, "profit": 3300},
-      "mtd": {"budget": 940, "signups": 468, "users": 25, "revenue": 3920, "profit": 2980}
-    },
-    {
-      "name": "MEDIA", "cls": "media",
-      "kpi": {"budget": 5500, "signups": 1000, "users": 300, "revenue": 16500, "profit": 11000},
-      "mtd": {"budget": 2122, "signups": 1033, "users": 53, "revenue": 4966, "profit": 2844}
-    },
-    {
-      "name": "SOCIAL", "cls": "social",
-      "kpi": {"budget": 1100, "signups": 250, "users": 20, "revenue": 3300, "profit": 2200},
-      "mtd": {"budget": 720, "signups": 1, "users": 0, "revenue": 0, "profit": -720}
-    },
-    {
-      "name": "Grand total", "cls": "total",
-      "kpi": {"budget": 7700, "signups": 1750, "users": 360, "revenue": 24200, "profit": 16500},
-      "mtd": {"budget": 3782, "signups": 1502, "users": 78, "revenue": 8886, "profit": 5104}
-    }
-  ],
-  "daily": {
-    "AFF 66": {
-      "2026-09-01": [4, 0, 0], "2026-09-02": [3, 0, 0], "2026-09-03": [4, 0, 0],
-      "2026-09-04": [3, 0, 0], "2026-09-05": [4, 0, 0], "2026-09-06": [3, 0, 0],
-      "2026-09-07": [4, 0, 0], "2026-09-08": [3, 0, 0], "2026-09-09": [4, 0, 0],
-      "2026-09-10": [3, 0, 0], "2026-09-11": [4, 0, 0], "2026-09-12": [5, 0, 0],
-      "2026-09-13": [4, 0, 0], "2026-09-14": [5, 0, 0], "2026-09-15": [4, 0, 0],
-      "2026-09-16": [5, 0, 0], "2026-09-17": [4, 0, 0], "2026-09-18": [5, 1, 150],
-      "2026-09-19": [4, 0, 0], "2026-09-20": [4, 0, 0], "2026-09-21": [5, 0, 0],
-      "2026-09-22": [4, 0, 0], "2026-09-23": [4, 0, 0], "2026-09-24": [4, 0, 0],
-      "2026-09-25": [4, 0, 0], "2026-09-26": [3, 0, 0], "2026-09-27": [3, 0, 0],
-      "2026-09-28": [4, 0, 0], "2026-09-29": [3, 0, 0], "2026-09-30": [4, 0, 0]
-    },
-    "ALL IN AFFILIATES": {
-      "2026-09-01": [1, 0, 0], "2026-09-02": [1, 0, 0], "2026-09-03": [1, 0, 0],
-      "2026-09-04": [1, 0, 0], "2026-09-05": [1, 0, 0], "2026-09-06": [1, 0, 0],
-      "2026-09-07": [1, 0, 0], "2026-09-08": [1, 0, 0], "2026-09-09": [1, 0, 0],
-      "2026-09-10": [1, 0, 0], "2026-09-11": [1, 0, 0], "2026-09-12": [1, 0, 0],
-      "2026-09-13": [1, 0, 0], "2026-09-14": [1, 0, 0], "2026-09-15": [1, 0, 0],
-      "2026-09-16": [1, 0, 0], "2026-09-17": [1, 0, 0], "2026-09-18": [2, 1, 160],
-      "2026-09-19": [1, 0, 0], "2026-09-20": [1, 0, 0], "2026-09-21": [1, 0, 0],
-      "2026-09-22": [1, 0, 0], "2026-09-23": [1, 0, 0], "2026-09-24": [1, 0, 0],
-      "2026-09-25": [1, 0, 0], "2026-09-26": [1, 0, 0], "2026-09-27": [1, 0, 0],
-      "2026-09-28": [1, 0, 0], "2026-09-29": [1, 0, 0], "2026-09-30": [1, 0, 0]
-    },
-    "CHANCED": {
-      "2026-09-01": [6, 0, 0], "2026-09-02": [5, 0, 0], "2026-09-03": [6, 0, 0],
-      "2026-09-04": [5, 0, 0], "2026-09-05": [6, 0, 0], "2026-09-06": [5, 0, 0],
-      "2026-09-07": [6, 0, 0], "2026-09-08": [5, 0, 0], "2026-09-09": [6, 0, 0],
-      "2026-09-10": [5, 0, 0], "2026-09-11": [6, 0, 0], "2026-09-12": [7, 0, 0],
-      "2026-09-13": [6, 0, 0], "2026-09-14": [7, 0, 0], "2026-09-15": [6, 0, 0],
-      "2026-09-16": [7, 0, 0], "2026-09-17": [6, 0, 0], "2026-09-18": [2, 0, 0],
-      "2026-09-19": [3, 0, 0], "2026-09-20": [3, 0, 0], "2026-09-21": [4, 0, 0],
-      "2026-09-22": [3, 0, 0], "2026-09-23": [3, 0, 0], "2026-09-24": [3, 0, 0],
-      "2026-09-25": [3, 0, 0], "2026-09-26": [3, 0, 0], "2026-09-27": [3, 0, 0],
-      "2026-09-28": [3, 0, 0], "2026-09-29": [3, 0, 0], "2026-09-30": [3, 0, 0]
-    },
-    "SPLASH": {
-      "2026-09-01": [2, 0, 0], "2026-09-02": [2, 0, 0], "2026-09-03": [2, 0, 0],
-      "2026-09-04": [2, 0, 0], "2026-09-05": [2, 0, 0], "2026-09-06": [2, 0, 0],
-      "2026-09-07": [2, 0, 0], "2026-09-08": [2, 0, 0], "2026-09-09": [2, 0, 0],
-      "2026-09-10": [2, 0, 0], "2026-09-11": [2, 0, 0], "2026-09-12": [2, 0, 0],
-      "2026-09-13": [2, 0, 0], "2026-09-14": [2, 0, 0], "2026-09-15": [2, 0, 0],
-      "2026-09-16": [2, 0, 0], "2026-09-17": [2, 0, 0], "2026-09-18": [1, 0, 0],
-      "2026-09-19": [1, 0, 0], "2026-09-20": [1, 0, 0], "2026-09-21": [1, 1, 150],
-      "2026-09-22": [1, 0, 0], "2026-09-23": [1, 0, 0], "2026-09-24": [1, 0, 0],
-      "2026-09-25": [1, 0, 0], "2026-09-26": [1, 0, 0], "2026-09-27": [1, 0, 0],
-      "2026-09-28": [1, 0, 0], "2026-09-29": [3, 0, 0], "2026-09-30": [3, 0, 0]
-    },
-    "BASHER AGENCY": {
-      "2026-09-01": [5, 0, 0], "2026-09-02": [4, 0, 0], "2026-09-03": [5, 0, 0],
-      "2026-09-04": [4, 0, 0], "2026-09-05": [5, 0, 0], "2026-09-06": [4, 0, 0],
-      "2026-09-07": [5, 0, 0], "2026-09-08": [4, 0, 0], "2026-09-09": [5, 0, 0],
-      "2026-09-10": [4, 0, 0], "2026-09-11": [5, 0, 0], "2026-09-12": [6, 0, 0],
-      "2026-09-13": [5, 0, 0], "2026-09-14": [6, 0, 0], "2026-09-15": [5, 0, 0],
-      "2026-09-16": [6, 0, 0], "2026-09-17": [5, 0, 0], "2026-09-18": [17, 1, 140],
-      "2026-09-19": [5, 0, 0], "2026-09-20": [5, 0, 0], "2026-09-21": [6, 0, 0],
-      "2026-09-22": [5, 0, 0], "2026-09-23": [6, 0, 0], "2026-09-24": [6, 0, 0],
-      "2026-09-25": [6, 0, 0], "2026-09-26": [3, 0, 0], "2026-09-27": [4, 1, 140],
-      "2026-09-28": [4, 0, 0], "2026-09-29": [15, 0, 0], "2026-09-30": [15, 1, 140]
-    },
-    "GAMETIME DIGITAL": {
-      "2026-09-01": [26, 2, 250], "2026-09-02": [28, 1, 260], "2026-09-03": [27, 2, 260],
-      "2026-09-04": [26, 1, 170], "2026-09-05": [27, 2, 180], "2026-09-06": [26, 1, 170],
-      "2026-09-07": [27, 1, 170], "2026-09-08": [28, 3, 350], "2026-09-09": [28, 3, 350],
-      "2026-09-10": [27, 2, 345], "2026-09-11": [10, 1, 60],  "2026-09-12": [13, 1, 60],
-      "2026-09-13": [10, 0, 30],  "2026-09-14": [12, 0, 30],  "2026-09-15": [36, 6, 525],
-      "2026-09-16": [35, 6, 525], "2026-09-17": [37, 5, 525], "2026-09-18": [47, 3, 430],
-      "2026-09-19": [30, 2, 270], "2026-09-20": [32, 2, 280], "2026-09-21": [35, 3, 310],
-      "2026-09-22": [28, 2, 320], "2026-09-23": [27, 3, 320], "2026-09-24": [29, 2, 280],
-      "2026-09-25": [22, 3, 470], "2026-09-26": [95, 3, 480], "2026-09-27": [102, 3, 480],
-      "2026-09-28": [92, 3, 480], "2026-09-29": [100, 3, 470], "2026-09-30": [97, 3, 470]
-    },
-    "COINSROYALE": {
-      "2026-09-01": [6, 0, 0], "2026-09-02": [7, 1, 0], "2026-09-03": [7, 0, 0],
-      "2026-09-04": [7, 0, 0], "2026-09-05": [7, 1, 0], "2026-09-06": [7, 0, 0],
-      "2026-09-07": [7, 1, 0], "2026-09-08": [7, 1, 0], "2026-09-09": [7, 0, 0],
-      "2026-09-10": [7, 1, 0], "2026-09-11": [7, 1, 0], "2026-09-12": [7, 1, 0],
-      "2026-09-13": [7, 0, 0], "2026-09-14": [7, 0, 0], "2026-09-15": [7, 1, 0],
-      "2026-09-16": [7, 1, 0], "2026-09-17": [7, 0, 0], "2026-09-18": [7, 1, 0],
-      "2026-09-19": [5, 0, 0], "2026-09-20": [6, 0, 0], "2026-09-21": [6, 1, 0],
-      "2026-09-22": [5, 0, 0], "2026-09-23": [5, 0, 0], "2026-09-24": [5, 0, 0],
-      "2026-09-25": [4, 0, 0], "2026-09-26": [3, 0, 0], "2026-09-27": [3, 0, 0],
-      "2026-09-28": [2, 0, 0], "2026-09-29": [1, 0, 0], "2026-09-30": [1, 0, 0]
-    },
-    "PURIFY": {
-      "2026-09-01": [1, 0, 0], "2026-09-02": [1, 0, 0], "2026-09-03": [2, 0, 0],
-      "2026-09-04": [1, 0, 0], "2026-09-05": [2, 1, 20], "2026-09-06": [1, 0, 0],
-      "2026-09-07": [2, 1, 20], "2026-09-08": [2, 1, 20], "2026-09-09": [1, 0, 0],
-      "2026-09-10": [2, 1, 20], "2026-09-11": [2, 1, 20], "2026-09-12": [2, 1, 20],
-      "2026-09-13": [1, 0, 0], "2026-09-14": [2, 0, 0], "2026-09-15": [2, 1, 20],
-      "2026-09-16": [2, 1, 20], "2026-09-17": [2, 0, 0], "2026-09-18": [2, 1, 20],
-      "2026-09-19": [1, 0, 0], "2026-09-20": [2, 0, 0], "2026-09-21": [1, 1, 20],
-      "2026-09-22": [1, 0, 0], "2026-09-23": [1, 0, 0], "2026-09-24": [1, 0, 0],
-      "2026-09-25": [1, 0, 0], "2026-09-26": [1, 0, 0], "2026-09-27": [1, 0, 0],
-      "2026-09-28": [1, 0, 0], "2026-09-29": [1, 0, 0], "2026-09-30": [1, 0, 0]
-    },
-    "IMPACT": {
-      "2026-09-01": [0, 0, 0], "2026-09-02": [0, 0, 0], "2026-09-03": [0, 0, 0],
-      "2026-09-04": [0, 0, 0], "2026-09-05": [0, 0, 0], "2026-09-06": [0, 0, 0],
-      "2026-09-07": [0, 0, 0], "2026-09-08": [0, 0, 0], "2026-09-09": [0, 0, 0],
-      "2026-09-10": [0, 0, 0], "2026-09-11": [0, 0, 0], "2026-09-12": [0, 0, 0],
-      "2026-09-13": [0, 0, 0], "2026-09-14": [0, 0, 0], "2026-09-15": [0, 0, 0],
-      "2026-09-16": [0, 0, 0], "2026-09-17": [0, 0, 0], "2026-09-18": [0, 0, 0],
-      "2026-09-19": [0, 0, 0], "2026-09-20": [0, 0, 0], "2026-09-21": [0, 0, 0],
-      "2026-09-22": [0, 0, 0], "2026-09-23": [0, 0, 0], "2026-09-24": [1, 1, 5.42],
-      "2026-09-25": [0, 0, 0], "2026-09-26": [1, 1, 5.40], "2026-09-27": [0, 0, 0],
-      "2026-09-28": [1, 1, 5.40], "2026-09-29": [0, 0, 0], "2026-09-30": [0, 0, 0]
-    },
-    "EPC": {
-      "2026-09-01": [0, 0, 0], "2026-09-02": [0, 0, 0], "2026-09-03": [0, 0, 0],
-      "2026-09-04": [0, 0, 0], "2026-09-05": [0, 0, 0], "2026-09-06": [0, 0, 0],
-      "2026-09-07": [0, 0, 0], "2026-09-08": [0, 0, 0], "2026-09-09": [0, 0, 0],
-      "2026-09-10": [0, 0, 0], "2026-09-11": [0, 0, 0], "2026-09-12": [0, 0, 0],
-      "2026-09-13": [0, 0, 0], "2026-09-14": [0, 0, 0], "2026-09-15": [0, 0, 0],
-      "2026-09-16": [0, 0, 0], "2026-09-17": [0, 0, 0], "2026-09-18": [0, 0, 0],
-      "2026-09-19": [0, 0, 0], "2026-09-20": [0, 0, 0], "2026-09-21": [0, 0, 0],
-      "2026-09-22": [0, 0, 0], "2026-09-23": [0, 0, 0], "2026-09-24": [0, 0, 0],
-      "2026-09-25": [0, 0, 0], "2026-09-26": [0, 0, 0], "2026-09-27": [0, 0, 0],
-      "2026-09-28": [0, 0, 0], "2026-09-29": [0, 0, 0], "2026-09-30": [0, 0, 0]
-    },
-    "ACEBET": {
-      "2026-09-01": [0, 0, 0], "2026-09-02": [0, 0, 0], "2026-09-03": [0, 0, 0],
-      "2026-09-04": [0, 0, 0], "2026-09-05": [0, 0, 0], "2026-09-06": [0, 0, 0],
-      "2026-09-07": [0, 0, 0], "2026-09-08": [0, 0, 0], "2026-09-09": [0, 0, 0],
-      "2026-09-10": [0, 0, 0], "2026-09-11": [0, 0, 0], "2026-09-12": [0, 0, 0],
-      "2026-09-13": [0, 0, 0], "2026-09-14": [0, 0, 0], "2026-09-15": [0, 0, 0],
-      "2026-09-16": [0, 0, 0], "2026-09-17": [0, 0, 0], "2026-09-18": [0, 0, 0],
-      "2026-09-19": [0, 0, 0], "2026-09-20": [0, 0, 0], "2026-09-21": [0, 0, 0],
-      "2026-09-22": [0, 0, 0], "2026-09-23": [0, 0, 0], "2026-09-24": [0, 0, 0],
-      "2026-09-25": [0, 0, 0], "2026-09-26": [0, 0, 0], "2026-09-27": [0, 0, 0],
-      "2026-09-28": [0, 0, 0], "2026-09-29": [0, 0, 0], "2026-09-30": [0, 0, 0]
-    }
-  }
-};
-
-/* ADVERTISER SUMMARY (CONSOLIDATED COINSROYALE & IMPACT UPDATED) */
-const ADVERTISER_DATA = [
-  { name: "GAMETIME DIGITAL", signups: 1113, ftd: 46, revenue: 6820, budget: 330, profit: 6490 },
-  { name: "BASHER AGENCY", signups: 87, ftd: 6, revenue: 820, budget: 0, profit: 820 },
-  { name: "ALL IN AFFILIATES", signups: 36, ftd: 3, revenue: 600, budget: 0, profit: 600 },
-  { name: "AFF 66", signups: 10, ftd: 2, revenue: 300, budget: 0, profit: 300 },
-  { name: "PURIFY", signups: 34, ftd: 9, revenue: 180, budget: 75, profit: 105 },
-  { name: "SPLASH", signups: 9, ftd: 1, revenue: 150, budget: 0, profit: 150 },
-  { name: "IMPACT", signups: 3, ftd: 3, revenue: 16.22, budget: 10, profit: 6.22 },
-  { name: "CHANCED", signups: 56, ftd: 0, revenue: 0, budget: 0, profit: 0 },
-  { name: "COINSROYALE", signups: 153, ftd: 9, revenue: 0, budget: 1350, profit: -1350 },
-  { name: "ACEBET", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
-  { name: "EPC", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 }
-];
-
-/* 1. SWEEPSTAKES BRANDS DATA (INCLUDING BABA, ROLLA & COINSBACK) */
-const SWEEPS_BRAND_DATA = [
-  { advertiser: "AFF 66", brand: "SweepJungle", signups: 7, ftd: 2, revenue: 300, budget: 0, profit: 300, origIdx: 0 },
-  { advertiser: "AFF 66", brand: "Sixty6", signups: 3, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 1 },
-  { advertiser: "BASHER AGENCY", brand: "LavishLuck Sweepstakes Casino", signups: 42, ftd: 5, revenue: 700, budget: 0, profit: 700, origIdx: 2 },
-  { advertiser: "BASHER AGENCY", brand: "LuckyZino Sweepstakes Casino", signups: 30, ftd: 1, revenue: 120, budget: 0, profit: 120, origIdx: 3 },
-  { advertiser: "BASHER AGENCY", brand: "WiseSpin Sweeps Casino", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 4 },
-  { advertiser: "BASHER AGENCY", brand: "Luckyvibe", signups: 13, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 5 },
-  { advertiser: "CHANCED", brand: "Chanced Punt", signups: 56, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 6 },
-  { advertiser: "COINSROYALE", brand: "CoinsRoyale", signups: 153, ftd: 9, revenue: 0, budget: 1350, profit: -1350, origIdx: 7 },
-  { advertiser: "GAMETIME DIGITAL", brand: "LuckyBunny", signups: 47, ftd: 10, revenue: 1200, budget: 0, profit: 1200, origIdx: 8 },
-  { advertiser: "GAMETIME DIGITAL", brand: "LavishLuck", signups: 212, ftd: 6, revenue: 1080, budget: 0, profit: 1080, origIdx: 9 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Jackpotgo", signups: 512, ftd: 8, revenue: 1360, budget: 330, profit: 1030, origIdx: 10 },
-  { advertiser: "GAMETIME DIGITAL", brand: "The Boss", signups: 37, ftd: 6, revenue: 1020, budget: 0, profit: 1020, origIdx: 11 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Baba", signups: 11, ftd: 3, revenue: 450, budget: 0, profit: 450, origIdx: 12 },
-  { advertiser: "GAMETIME DIGITAL", brand: "WiseSpin", signups: 20, ftd: 3, revenue: 420, budget: 0, profit: 420, origIdx: 13 },
-  { advertiser: "GAMETIME DIGITAL", brand: "LuckyZino", signups: 9, ftd: 2, revenue: 280, budget: 0, profit: 280, origIdx: 14 },
-  { advertiser: "GAMETIME DIGITAL", brand: "CardCrush", signups: 143, ftd: 2, revenue: 240, budget: 0, profit: 240, origIdx: 15 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Mega Bonanza", signups: 18, ftd: 1, revenue: 160, budget: 0, profit: 160, origIdx: 16 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Sweet Sweep", signups: 7, ftd: 1, revenue: 150, budget: 0, profit: 150, origIdx: 17 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Rolla", signups: 19, ftd: 1, revenue: 125, budget: 0, profit: 125, origIdx: 18 },
-  { advertiser: "GAMETIME DIGITAL", brand: "ChipNWin", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 19 },
-  { advertiser: "GAMETIME DIGITAL", brand: "High5Casino", signups: 15, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 20 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Go Go Gold Win", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 21 },
-  { advertiser: "GAMETIME DIGITAL", brand: "CoinsBack", signups: 3, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 22 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Crown Coins Email", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 23 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Dorados", signups: 2, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 24 },
-  { advertiser: "GAMETIME DIGITAL", brand: "PlayFame SEO", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 25 },
-  { advertiser: "GAMETIME DIGITAL", brand: "TitanTreasure", signups: 3, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 26 },
-  { advertiser: "GAMETIME DIGITAL", brand: "McLuck", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 27 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Spinblitz SEO", signups: 15, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 28 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Zunado", signups: 1, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 29 },
-  { advertiser: "SPLASH", brand: "splashcoins", signups: 9, ftd: 1, revenue: 150, budget: 0, profit: 150, origIdx: 30 }
-];
-
-/* 2. CASINO BRANDS DATA (INCLUDING POLYCASINO & CASINIO) */
-const CASINO_BRAND_DATA = [
-  { advertiser: "ACEBET", brand: "Acebet", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 0 },
-  { advertiser: "ALL IN AFFILIATES", brand: "FS Casino", signups: 16, ftd: 2, revenue: 440, budget: 0, profit: 440, origIdx: 1 },
-  { advertiser: "ALL IN AFFILIATES", brand: "7Bit Casino", signups: 15, ftd: 1, revenue: 160, budget: 0, profit: 160, origIdx: 2 },
-  { advertiser: "ALL IN AFFILIATES", brand: "Casino Smartlink", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 3 },
-  { advertiser: "ALL IN AFFILIATES", brand: "BetRiot", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 4 },
-  { advertiser: "ALL IN AFFILIATES", brand: "Betnjet", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 5 },
-  { advertiser: "ALL IN AFFILIATES", brand: "Ice Casino", signups: 5, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 6 },
-  { advertiser: "ALL IN AFFILIATES", brand: "Smash Casino", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 7 },
-  { advertiser: "ALL IN AFFILIATES", brand: "Lussurio", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 8 },
-  { advertiser: "GAMETIME DIGITAL", brand: "PolyCasino", signups: 8, ftd: 2, revenue: 260, budget: 0, profit: 260, origIdx: 9 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Spinjo CA", signups: 9, ftd: 1, revenue: 75, budget: 0, profit: 75, origIdx: 10 },
-  { advertiser: "GAMETIME DIGITAL", brand: "Casinio", signups: 15, ftd: 0, revenue: 0, budget: 0, profit: 0, origIdx: 11 }
-];
-
-/* 3. OTHER BRANDS DATA (INCLUDING IMPACT) */
-const OTHER_BRAND_DATA = [
-  { advertiser: "IMPACT", brand: "Impact", signups: 3, ftd: 3, revenue: 16.22, budget: 10, profit: 6.22, origIdx: 0 },
-  { advertiser: "PURIFY", brand: "Simply Piano Desktop", signups: 34, ftd: 9, revenue: 180, budget: 75, profit: 105, origIdx: 1 }
-];
-
-/* ALL BRANDS CONSOLIDATED FOR 2X2 CHARTS */
-const ALL_BRAND_DATA = [...SWEEPS_BRAND_DATA, ...CASINO_BRAND_DATA, ...OTHER_BRAND_DATA];
-
-/* INHOUSE BRANDS (SCALEO - UPDATED TO SEP 30) */
-const INHOUSE_DATA = [
-  { brand: "WinningEmpire CA/NZ", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
-  { brand: "Jackpotrabbit___c", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
-  { brand: "Bonusclubs", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
-  { brand: "Winning4Fun", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
-  { brand: "Royalzclub sweeps", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
-  { brand: "Testing offer", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
-  { brand: "WinningEmpire US", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
-  { brand: "Wannnasee USA LP", signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 },
-  { brand: "PrizeFlow  sweeps LP", signups: 0, ftd: 0, revenue: 0, budget: 3, profit: -3 },
-  { brand: "Spin2Win  sweeps LP", signups: 0, ftd: 0, revenue: 0, budget: 30, profit: -30 },
-  { brand: "Pirates LP", signups: 0, ftd: 0, revenue: 0, budget: 162, profit: -162 },
-  { brand: "SuperSlotz sweeps", signups: 0, ftd: 0, revenue: 0, budget: 171, profit: -171 }
-];
-
-/* 30-Day Run-Rate Projection (RR = MTD * 30 / 30 = MTD) */
-const factor = DATA.daysInMonth / DATA.daysElapsed;
-DATA.teams.forEach(t => {
-  const m = t.mtd;
-  t.rr = {
-    budget: Math.round(m.budget * factor),
-    signups: Math.round(m.signups * factor),
-    users: Math.round(m.users * factor),
-    revenue: Math.round(m.revenue * factor),
-    profit: Math.round(m.revenue * factor) - Math.round(m.budget * factor)
-  };
-  t.roi = m.budget > 0 ? '1:' + (m.revenue / m.budget).toFixed(1) : '—';
-});
-
-const gt = DATA.teams.find(t => t.cls === 'total');
-DATA.cards = {
-  registrations: { mtd: gt.mtd.signups, kpi: gt.kpi.signups, rr: gt.rr.signups },
-  ftd: { mtd: gt.mtd.users, kpi: gt.kpi.users, rr: gt.rr.users },
-  revenue: { mtd: gt.mtd.revenue, kpi: gt.kpi.revenue, rr: gt.rr.revenue },
-  profit: { mtd: gt.mtd.profit, kpi: gt.kpi.profit, rr: gt.rr.profit }
-};
-
-const fmtInt = v => Math.round(v).toLocaleString('en-US');
-const fmtMoney = v => {
-  const isNeg = v < 0;
-  const absVal = Math.abs(v);
-  const formatted = absVal % 1 !== 0 ? absVal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : fmtInt(absVal);
-  return (isNeg ? '-$' : '$') + formatted;
-};
-const moneyCls = v => v < 0 ? 'neg' : (v > 0 ? 'pos' : '');
-const kpiCls = (v, kpi, invert) => {
-  if (v < 0) return 'neg';
-  const ok = invert ? v <= kpi : v >= kpi;
-  return ok ? 'pos' : 'neg';
-};
+let DATA = null;
+let ALL_BRAND_DATA = [];
 
 const state = {
-  from: DATA.dateMin, to: DATA.dateMax,
-  advs: new Set(DATA.advertisers),
+  from: '',
+  to: '',
+  advs: new Set(),
   advSortKey: 'revenue',
   advSortAsc: false,
   sweepsSortKey: 'adv_order',
@@ -781,214 +412,216 @@ const state = {
   casinoSortAsc: true,
   otherSortKey: 'adv_order',
   otherSortAsc: true,
-  advPerfMetric: 'signups',
-  brandPerfMetric: 'signups',
   inhouseSortKey: 'budget',
-  inhouseSortAsc: false
+  inhouseSortAsc: false,
+  advPerfMetric: 'signups',
+  brandPerfMetric: 'signups'
 };
 
-/* ---------- Top cards ---------- */
-function renderCards(){
-  const c = DATA.cards;
+/* Formatters */
+const fmtInt = v => Math.round(v).toLocaleString('en-US');
+const fmtMoney = v => {
+  const isNeg = v < 0;
+  const absVal = Math.abs(v);
+  const formatted = absVal % 1 !== 0 
+    ? absVal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) 
+    : fmtInt(absVal);
+  return (isNeg ? '-$' : '$') + formatted;
+};
+const kpiCls = (v, kpi, invert) => {
+  if (v < 0) return 'neg';
+  return (invert ? v <= kpi : v >= kpi) ? 'pos' : 'neg';
+};
+
+/* Load JSON (GitHub Pages Compatible) */
+async function loadMonthlyData(fileName) {
+  const overlay = document.getElementById('loadingOverlay');
+  overlay.style.display = 'flex';
+  try {
+    // Cache buster for GitHub Pages
+    const res = await fetch(`./${fileName}?_cb=${Date.now()}`);
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    DATA = await res.json();
+    
+    // Tag original index for stable 'Advertiser Order' sorting
+    let idx = 0;
+    ['sweepstakes_brands', 'casino_brands', 'other_brands'].forEach(k => {
+      DATA.brand_performance[k].forEach(b => { b.origIdx = idx++; });
+    });
+    ALL_BRAND_DATA = [
+      ...DATA.brand_performance.sweepstakes_brands,
+      ...DATA.brand_performance.casino_brands,
+      ...DATA.brand_performance.other_brands
+    ];
+
+    initState();
+    renderAll();
+  } catch (err) {
+    console.error('Failed to load JSON data:', err);
+    alert(`Could not load ${fileName}. Please ensure the JSON file is in the same directory.`);
+  } finally {
+    overlay.style.display = 'none';
+  }
+}
+
+function initState() {
+  state.from = DATA.metadata.date_from;
+  state.to = DATA.metadata.date_to;
+  
+  const fromInput = document.getElementById('dateFrom');
+  const toInput = document.getElementById('dateTo');
+  
+  fromInput.min = DATA.metadata.date_from;
+  fromInput.max = DATA.metadata.date_to;
+  fromInput.value = state.from;
+
+  toInput.min = DATA.metadata.date_from;
+  toInput.max = DATA.metadata.date_to;
+  toInput.value = state.to;
+
+  state.advs = new Set(DATA.advertiser_report.map(a => a.name));
+
+  document.getElementById('teamMtdHeader').textContent = `MTD - ${DATA.metadata.month.toUpperCase()} ${DATA.metadata.year}`;
+  document.getElementById('teamRrHeader').textContent = DATA.metadata.is_month_closed 
+    ? `FINAL - ${DATA.metadata.month.toUpperCase()} ${DATA.metadata.year}` 
+    : `RR - RUN-RATE TO ${DATA.metadata.days_in_month}`;
+
+  document.getElementById('dailyHint').textContent = `Registrations, FTD and revenue by day (${DATA.metadata.month} 1 - ${DATA.metadata.month} ${DATA.metadata.days_elapsed}).`;
+}
+
+/* ---------- Top Cards ---------- */
+function renderCards() {
+  const c = DATA.kpis_overview;
   const defs = [
-    {lbl:'REGISTRATIONS', val: fmtInt(c.registrations.mtd), accent:'var(--pink)', sub:{kpi:fmtInt(c.registrations.kpi), rr:fmtInt(c.registrations.rr), rrCls: c.registrations.rr >= c.registrations.kpi ? 'green':'red'}},
-    {lbl:'FTD', val: fmtInt(c.ftd.mtd), accent:'var(--pink)', sub:{kpi:fmtInt(c.ftd.kpi), rr:fmtInt(c.ftd.rr), rrCls: c.ftd.rr >= c.ftd.kpi ? 'green':'red'}},
-    {lbl:'REVENUE', val: fmtMoney(c.revenue.mtd), accent:'var(--orange)', sub:{kpi:fmtMoney(c.revenue.kpi), rr:fmtMoney(c.revenue.rr), rrCls: c.revenue.rr >= c.revenue.kpi ? 'green':'red'}},
-    {lbl:'PROFIT', val: fmtMoney(c.profit.mtd), accent:'var(--pink)', sub:{kpi:fmtMoney(c.profit.kpi), rr:fmtMoney(c.profit.rr), rrCls: c.profit.rr >= c.profit.kpi ? 'green':'red'}}
+    { lbl: 'REGISTRATIONS', val: fmtInt(c.registrations.mtd), accent: 'var(--pink)', sub: { kpi: fmtInt(c.registrations.kpi), rr: fmtInt(c.registrations.run_rate), rrCls: c.registrations.run_rate >= c.registrations.kpi ? 'green' : 'red' } },
+    { lbl: 'FTD', val: fmtInt(c.ftd.mtd), accent: 'var(--pink)', sub: { kpi: fmtInt(c.ftd.kpi), rr: fmtInt(c.ftd.run_rate), rrCls: c.ftd.run_rate >= c.ftd.kpi ? 'green' : 'red' } },
+    { lbl: 'REVENUE', val: fmtMoney(c.revenue.mtd), accent: 'var(--orange)', sub: { kpi: fmtMoney(c.revenue.kpi), rr: fmtMoney(c.revenue.run_rate), rrCls: c.revenue.run_rate >= c.revenue.kpi ? 'green' : 'red' } },
+    { lbl: 'PROFIT', val: fmtMoney(c.profit.mtd), accent: 'var(--pink)', sub: { kpi: fmtMoney(c.profit.kpi), rr: fmtMoney(c.profit.run_rate), rrCls: c.profit.run_rate >= c.profit.kpi ? 'green' : 'red' } }
   ];
+
   document.getElementById('cards').innerHTML = defs.map(d => `
     <div class="card">
       <div class="lbl">${d.lbl}</div>
       <div class="val">${d.val}</div>
       <div class="accent" style="background:${d.accent}"></div>
-      ${d.sub ? `<div class="sub"><span>KPI<br>Run rate</span><span style="text-align:right"><b>${d.sub.kpi}</b><br><b class="${d.sub.rrCls}">${d.sub.rr}</b></span></div>` : ''}
+      <div class="sub">
+        <span>KPI<br>${DATA.metadata.is_month_closed ? 'Final' : 'Run rate'}</span>
+        <span style="text-align:right"><b>${d.sub.kpi}</b><br><b class="${d.sub.rrCls}">${d.sub.rr}</b></span>
+      </div>
     </div>`).join('');
 }
 
-/* ---------- Team table ---------- */
-function teamCells(row, section){
-  const k = row.kpi, v = row[section];
-  const cells = [
-    {val: fmtMoney(v.budget), cls: kpiCls(v.budget, k.budget, true)},
-    {val: fmtInt(v.signups), cls: kpiCls(v.signups, k.signups, false)},
-    {val: fmtInt(v.users), cls: kpiCls(v.users, k.users, false)},
-    {val: fmtMoney(v.revenue), cls: kpiCls(v.revenue, k.revenue, false)},
-    {val: fmtMoney(v.profit), cls: kpiCls(v.profit, k.profit, false)}
-  ];
-  if (section !== 'rr') cells.forEach(c => c.cls = '');
-  return cells.map(c => `<td class="num ${c.cls}">${c.val}</td>`).join('');
-}
-function renderTeams(){
-  const tb = document.querySelector('#teamTable tbody');
-  tb.innerHTML = DATA.teams.map(t => `
-    <tr class="${t.cls === 'total' ? 'total-row' : ''}">
-      <td><span class="pill ${t.cls}">${t.name}</span></td>
-      ${teamCells(t,'kpi')}${teamCells(t,'mtd')}${teamCells(t,'rr')}
-      <td class="num">${t.roi}</td>
-    </tr>`).join('');
+/* ---------- Team Table ---------- */
+function renderTeams() {
+  const tbody = document.querySelector('#teamTable tbody');
+  tbody.innerHTML = DATA.team_performance.map(t => {
+    const k = t.kpi, m = t.mtd, r = t.run_rate;
+    return `
+      <tr class="${t.cls === 'total' ? 'total-row' : ''}">
+        <td><span class="pill ${t.cls}">${t.name}</span></td>
+        <td class="num">${fmtMoney(k.budget)}</td>
+        <td class="num">${fmtInt(k.signups)}</td>
+        <td class="num">${fmtInt(k.users)}</td>
+        <td class="num">${fmtMoney(k.revenue)}</td>
+        <td class="num">${fmtMoney(k.profit)}</td>
+        <td class="num">${fmtMoney(m.budget)}</td>
+        <td class="num">${fmtInt(m.signups)}</td>
+        <td class="num">${fmtInt(m.users)}</td>
+        <td class="num">${fmtMoney(m.revenue)}</td>
+        <td class="num">${fmtMoney(m.profit)}</td>
+        <td class="num ${kpiCls(r.budget, k.budget, true)}">${fmtMoney(r.budget)}</td>
+        <td class="num ${kpiCls(r.signups, k.signups, false)}">${fmtInt(r.signups)}</td>
+        <td class="num ${kpiCls(r.users, k.users, false)}">${fmtInt(r.users)}</td>
+        <td class="num ${kpiCls(r.revenue, k.revenue, false)}">${fmtMoney(r.revenue)}</td>
+        <td class="num ${kpiCls(r.profit, k.profit, false)}">${fmtMoney(r.profit)}</td>
+        <td class="num">${t.roi}</td>
+      </tr>`;
+  }).join('');
 }
 
-/* ---------- Daily chart (Sep 1 - Sep 30) ---------- */
+/* ---------- Daily Chart (Calendar Range Aware) ---------- */
 let chDailyInstance = null;
-function dateRange(){
-  const out = [];
-  let [y, m, d] = state.from.split('-').map(Number);
-  const end = state.to;
-  const pad = n => String(n).padStart(2,'0');
-  while (true){
-    const s = y + '-' + pad(m) + '-' + pad(d);
-    if (s > end) break;
-    out.push(s);
-    d++;
-    const dim = new Date(y, m, 0).getDate();
-    if (d > dim){ d = 1; m++; if (m > 12){ m = 1; y++; } }
-  }
-  return out;
-}
-function renderDaily(){
-  const days = dateRange();
+function renderDaily() {
+  const filtered = DATA.daily_performance.filter(d => d.date >= state.from && d.date <= state.to);
+  const labels = filtered.map(d => {
+    const [y, m, day] = d.date.split('-');
+    const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return `${monthNames[+m - 1]} ${+day}`;
+  });
+
   const reg = [], ftd = [], rev = [];
-  days.forEach(day => {
-    let r=0, f=0, v=0;
-    for (const adv of state.advs){
-      const rec = DATA.daily[adv] && DATA.daily[adv][day];
-      if (rec){ r += rec[0]; f += rec[1]; v += rec[2]; }
+  filtered.forEach(d => {
+    let r = 0, f = 0, v = 0;
+    for (const [adv, vals] of Object.entries(d.by_advertiser)) {
+      if (state.advs.has(adv)) {
+        r += vals[0];
+        f += vals[1];
+        v += vals[2];
+      }
     }
     reg.push(r); ftd.push(f); rev.push(v);
   });
-  const n = days.length || 1;
-  const avg = arr => arr.reduce((a,b) => a+b, 0) / n;
+
+  const count = filtered.length || 1;
+  const avg = arr => arr.reduce((a,b) => a+b, 0) / count;
   const f1 = v => (Math.round(v*10)/10).toLocaleString('en-US');
-  const dashed = (label, color, val) => ({label, data: days.map(() => Math.round(val*10)/10),
-    borderColor: color, borderDash:[6,5], borderWidth:2, pointRadius:0, fill:false, tension:0});
-  const solid = (label, color, data) => ({label, data, borderColor: color, backgroundColor: color,
-    borderWidth:2, pointRadius:5, pointHoverRadius:6, fill:false, tension:0});
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const labels = days.map(d => { const [y,m,dd] = d.split('-'); return months[+m - 1] + ' ' + (+dd); });
+
+  const gtTeam = DATA.team_performance.find(t => t.cls === 'total') || DATA.team_performance[DATA.team_performance.length - 1];
+  const kpiDailySignups = gtTeam.kpi.signups / DATA.metadata.days_in_month;
+  const kpiDailyFtd = gtTeam.kpi.users / DATA.metadata.days_in_month;
+  const kpiDailyRev = gtTeam.kpi.revenue / DATA.metadata.days_in_month;
+
+  const dashed = (lbl, col, val) => ({
+    label: lbl, data: filtered.map(() => Math.round(val*10)/10),
+    borderColor: col, borderDash: [6,5], borderWidth: 2, pointRadius: 0, fill: false, tension: 0
+  });
+  const solid = (lbl, col, data) => ({
+    label: lbl, data: data, borderColor: col, backgroundColor: col,
+    borderWidth: 2, pointRadius: 5, pointHoverRadius: 6, fill: false, tension: 0
+  });
 
   if (chDailyInstance) chDailyInstance.destroy();
   chDailyInstance = new Chart(document.getElementById('chDaily'), {
-    type:'line',
-    data:{labels, datasets:[
-      solid('Registrations (Avg: ' + fmtInt(avg(reg)) + '/day)', '#2f6fed', reg),
-      solid('FTD (Avg: ' + f1(avg(ftd)) + '/day)', '#ec4899', ftd),
-      solid('Revenue (Avg: $' + fmtInt(avg(rev)) + '/day)', '#eab308', rev),
-      dashed('KPI SIGNUPS (' + f1(gt.kpi.signups / DATA.daysInMonth) + '/day)', '#2f6fed', gt.kpi.signups / DATA.daysInMonth),
-      dashed('KPI FTD (' + f1(gt.kpi.users / DATA.daysInMonth) + '/day)', '#ec4899', gt.kpi.users / DATA.daysInMonth),
-      dashed('KPI REVENUE ($' + fmtInt(gt.kpi.revenue / DATA.daysInMonth) + '/day)', '#eab308', gt.kpi.revenue / DATA.daysInMonth)
-    ]},
-    options:{responsive:true, maintainAspectRatio:false, interaction:{mode:'index', intersect:false},
-      plugins:{legend:{position:'top', align:'center', labels:{boxWidth:10, usePointStyle:true, pointStyle:'circle', padding:14, font:{size:11}}}},
-      scales:{ y:{title:{display:true, text:'Count'}, grid:{color:'#f0f1f4'}, beginAtZero:true},
-               y1:{position:'right', title:{display:true, text:'Revenue $'}, grid:{drawOnChartArea:false}, beginAtZero:true, ticks:{callback:v=>'$'+fmtInt(v)}},
-               x:{grid:{display:false}} }}
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        solid(`Registrations (Avg: ${fmtInt(avg(reg))}/day)`, '#2f6fed', reg),
+        solid(`FTD (Avg: ${f1(avg(ftd))}/day)`, '#ec4899', ftd),
+        solid(`Revenue (Avg: $${fmtInt(avg(rev))}/day)`, '#eab308', rev),
+        dashed(`KPI SIGNUPS (${f1(kpiDailySignups)}/day)`, '#2f6fed', kpiDailySignups),
+        dashed(`KPI FTD (${f1(kpiDailyFtd)}/day)`, '#ec4899', kpiDailyFtd),
+        dashed(`KPI REVENUE ($${fmtInt(kpiDailyRev)}/day)`, '#eab308', kpiDailyRev)
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'top', align: 'center', labels: { boxWidth: 10, usePointStyle: true, pointStyle: 'circle', padding: 14, font: { size: 11 } } }
+      },
+      scales: {
+        y: { title: { display: true, text: 'Count' }, grid: { color: '#f0f1f4' }, beginAtZero: true },
+        y1: { position: 'right', title: { display: true, text: 'Revenue $' }, grid: { drawOnChartArea: false }, beginAtZero: true, ticks: { callback: v => '$' + fmtInt(v) } },
+        x: { grid: { display: false } }
+      }
+    }
   });
   chDailyInstance.data.datasets[2].yAxisID = 'y1';
   chDailyInstance.data.datasets[5].yAxisID = 'y1';
   chDailyInstance.update();
 }
 
-/* ---------- TABLE 1: ADVERTISER REPORT ---------- */
-function renderAdvTable() {
-  const tbody = document.querySelector('#advTable tbody');
-  const key = state.advSortKey;
-  const asc = state.advSortAsc;
-
-  const sorted = [...ADVERTISER_DATA].sort((a, b) => {
-    let va = a[key], vb = b[key];
-    if (typeof va === 'string') {
-      return asc ? va.localeCompare(vb) : vb.localeCompare(va);
-    }
-    return asc ? va - vb : vb - va;
-  });
-
-  tbody.innerHTML = sorted.map(row => {
-    const s2p = row.ftd > 0 ? '1:' + Math.round(row.signups / row.ftd) : '—';
-    const revCls = row.revenue > 0 ? 'pos' : '';
-    const budCls = row.budget > 0 ? 'pos' : '';
-    const profCls = row.profit > 0 ? 'pos' : (row.profit < 0 ? 'neg' : '');
-
-    return `
-      <tr>
-        <td>${row.name}</td>
-        <td class="num">${row.signups.toLocaleString('en-US')}</td>
-        <td class="num">${row.ftd.toLocaleString('en-US')}</td>
-        <td class="num ${revCls}">${fmtMoney(row.revenue)}</td>
-        <td class="num ${budCls}">${fmtMoney(row.budget)}</td>
-        <td class="num ${profCls}">${fmtMoney(row.profit)}</td>
-        <td class="num">${s2p}</td>
-      </tr>
-    `;
-  }).join('');
-
-  document.querySelectorAll('#advTable thead th').forEach(th => {
-    const sortField = th.dataset.sort;
-    const arrSpan = th.querySelector('.arr');
-    if (sortField) {
-      if (sortField === key) {
-        th.classList.add('active-col');
-        if (arrSpan) arrSpan.textContent = asc ? '▲' : '▼';
-      } else {
-        th.classList.remove('active-col');
-        if (arrSpan) arrSpan.textContent = '';
-      }
-    }
-  });
-
-  document.querySelectorAll('#advSortBtns button').forEach(btn => {
-    const sortField = btn.dataset.sort;
-    const label = sortField.charAt(0).toUpperCase() + sortField.slice(1);
-    if (sortField === key) {
-      btn.classList.add('active');
-      btn.textContent = label + (asc ? ' ▲' : ' ▼');
-    } else {
-      btn.classList.remove('active');
-      btn.textContent = label;
-    }
-  });
-}
-
-function initAdvSort() {
-  document.querySelectorAll('#advTable thead th[data-sort]').forEach(th => {
-    th.addEventListener('click', () => {
-      const field = th.dataset.sort;
-      if (state.advSortKey === field) {
-        state.advSortAsc = !state.advSortAsc;
-      } else {
-        state.advSortKey = field;
-        state.advSortAsc = (field === 'name');
-      }
-      renderAdvTable();
-    });
-  });
-
-  document.querySelectorAll('#advSortBtns button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const field = btn.dataset.sort;
-      if (state.advSortKey === field) {
-        state.advSortAsc = !state.advSortAsc;
-      } else {
-        state.advSortKey = field;
-        state.advSortAsc = false;
-      }
-      renderAdvTable();
-    });
-  });
-}
-
-/* ---------- GENERIC BRAND TABLE RENDERER ---------- */
-function renderCustomBrandTable(tableId, btnsId, dataArray, sortKey, sortAsc) {
-  const tbody = document.querySelector(`#${tableId} tbody`);
-  if (!tbody) return;
+/* ---------- Generic Table Sort & Renderer ---------- */
+function renderTableGeneric(tableId, btnsId, dataArray, sortKey, sortAsc, labelColName, isBrandTable = false) {
+  const table = document.getElementById(tableId);
+  const tbody = table.querySelector('tbody');
+  const tfoot = table.querySelector('tfoot');
 
   const sorted = [...dataArray].sort((a, b) => {
-    if (sortKey === 'adv_order') {
-      return sortAsc ? a.origIdx - b.origIdx : b.origIdx - a.origIdx;
-    }
+    if (sortKey === 'adv_order') return sortAsc ? a.origIdx - b.origIdx : b.origIdx - a.origIdx;
     let va = a[sortKey], vb = b[sortKey];
-    if (typeof va === 'string') {
-      return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
-    }
+    if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
     return sortAsc ? va - vb : vb - va;
   });
 
@@ -1000,53 +633,60 @@ function renderCustomBrandTable(tableId, btnsId, dataArray, sortKey, sortAsc) {
 
     return `
       <tr>
-        <td>${row.advertiser}</td>
-        <td>${row.brand}</td>
+        ${isBrandTable ? `<td>${row.advertiser}</td><td>${row.brand}</td>` : `<td>${row.name || row.brand}</td>`}
         <td class="num">${row.signups.toLocaleString('en-US')}</td>
         <td class="num">${row.ftd.toLocaleString('en-US')}</td>
         <td class="num ${revCls}">${fmtMoney(row.revenue)}</td>
         <td class="num ${budCls}">${fmtMoney(row.budget)}</td>
         <td class="num ${profCls}">${fmtMoney(row.profit)}</td>
         <td class="num">${s2p}</td>
-      </tr>
-    `;
+      </tr>`;
   }).join('');
 
-  document.querySelectorAll(`#${tableId} thead th`).forEach(th => {
-    const sortField = th.dataset.sort;
-    const arrSpan = th.querySelector('.arr');
-    if (sortField) {
-      const isCurrent = (sortKey === 'adv_order' && sortField === 'advertiser') || (sortField === sortKey);
-      if (isCurrent) {
-        th.classList.add('active-col');
-        if (arrSpan) arrSpan.textContent = sortAsc ? '▲' : '▼';
+  // Total footer
+  let totS = 0, totF = 0, totR = 0, totB = 0, totP = 0;
+  dataArray.forEach(r => { totS += r.signups; totF += r.ftd; totR += r.revenue; totB += r.budget; totP += r.profit; });
+  const totS2p = totF > 0 ? '1:' + Math.round(totS / totF) : '—';
+
+  tfoot.innerHTML = `
+    <tr class="total-row">
+      <td colspan="${isBrandTable ? 2 : 1}">Total</td>
+      <td class="num">${totS.toLocaleString('en-US')}</td>
+      <td class="num">${totF.toLocaleString('en-US')}</td>
+      <td class="num ${totR > 0 ? 'pos' : ''}">${fmtMoney(totR)}</td>
+      <td class="num ${totB > 0 ? 'pos' : ''}">${fmtMoney(totB)}</td>
+      <td class="num ${totP > 0 ? 'pos' : (totP < 0 ? 'neg' : '')}">${fmtMoney(totP)}</td>
+      <td class="num">${totS2p}</td>
+    </tr>`;
+
+  // Update header arrows
+  table.querySelectorAll('thead th').forEach(th => {
+    const f = th.dataset.sort;
+    const arr = th.querySelector('.arr');
+    if (f) {
+      const active = (sortKey === 'adv_order' && f === 'advertiser') || (f === sortKey);
+      th.classList.toggle('active-col', active);
+      if (arr) arr.textContent = active ? (sortAsc ? '▲' : '▼') : '';
+    }
+  });
+
+  // Update pill buttons
+  if (btnsId) {
+    document.querySelectorAll(`#${btnsId} button`).forEach(btn => {
+      const f = btn.dataset.sort;
+      const label = (f === 'adv_order') ? 'Advertiser Order' : (f.charAt(0).toUpperCase() + f.slice(1));
+      if (f === sortKey) {
+        btn.classList.add('active');
+        btn.textContent = label + (sortAsc ? ' ▲' : ' ▼');
       } else {
-        th.classList.remove('active-col');
-        if (arrSpan) arrSpan.textContent = '';
+        btn.classList.remove('active');
+        btn.textContent = label;
       }
-    }
-  });
-
-  document.querySelectorAll(`#${btnsId} button`).forEach(btn => {
-    const sortField = btn.dataset.sort;
-    const label = (sortField === 'adv_order') ? 'Advertiser Order' : (sortField.charAt(0).toUpperCase() + sortField.slice(1));
-    if (sortField === sortKey) {
-      btn.classList.add('active');
-      btn.textContent = label + (sortAsc ? ' ▲' : ' ▼');
-    } else {
-      btn.classList.remove('active');
-      btn.textContent = label;
-    }
-  });
+    });
+  }
 }
 
-function renderAllBrandTables() {
-  renderCustomBrandTable('sweepsBrandTable', 'sweepsBrandSortBtns', SWEEPS_BRAND_DATA, state.sweepsSortKey, state.sweepsSortAsc);
-  renderCustomBrandTable('casinoBrandTable', 'casinoBrandSortBtns', CASINO_BRAND_DATA, state.casinoSortKey, state.casinoSortAsc);
-  renderCustomBrandTable('otherBrandTable', 'otherBrandSortBtns', OTHER_BRAND_DATA, state.otherSortKey, state.otherSortAsc);
-}
-
-function initBrandTableSort(tableId, btnsId, stateKeyPrefix, dataArray) {
+function initTableSortEvents(tableId, btnsId, stateKeyPrefix, dataGetter, isBrandTable = false) {
   document.querySelectorAll(`#${tableId} thead th[data-sort]`).forEach(th => {
     th.addEventListener('click', () => {
       let field = th.dataset.sort;
@@ -1055,130 +695,73 @@ function initBrandTableSort(tableId, btnsId, stateKeyPrefix, dataArray) {
         state[`${stateKeyPrefix}SortAsc`] = !state[`${stateKeyPrefix}SortAsc`];
       } else {
         state[`${stateKeyPrefix}SortKey`] = field;
-        state[`${stateKeyPrefix}SortAsc`] = (field === 'adv_order' || field === 'brand');
+        state[`${stateKeyPrefix}SortAsc`] = (field === 'adv_order' || field === 'name' || field === 'brand');
       }
-      renderCustomBrandTable(tableId, btnsId, dataArray, state[`${stateKeyPrefix}SortKey`], state[`${stateKeyPrefix}SortAsc`]);
+      renderTableGeneric(tableId, btnsId, dataGetter(), state[`${stateKeyPrefix}SortKey`], state[`${stateKeyPrefix}SortAsc`], '', isBrandTable);
     });
   });
 
-  document.querySelectorAll(`#${btnsId} button`).forEach(btn => {
-    btn.addEventListener('click', () => {
-      const field = btn.dataset.sort;
-      if (state[`${stateKeyPrefix}SortKey`] === field) {
-        state[`${stateKeyPrefix}SortAsc`] = !state[`${stateKeyPrefix}SortAsc`];
-      } else {
-        state[`${stateKeyPrefix}SortKey`] = field;
-        state[`${stateKeyPrefix}SortAsc`] = (field === 'adv_order');
-      }
-      renderCustomBrandTable(tableId, btnsId, dataArray, state[`${stateKeyPrefix}SortKey`], state[`${stateKeyPrefix}SortAsc`]);
+  if (btnsId) {
+    document.querySelectorAll(`#${btnsId} button`).forEach(btn => {
+      btn.addEventListener('click', () => {
+        const field = btn.dataset.sort;
+        if (state[`${stateKeyPrefix}SortKey`] === field) {
+          state[`${stateKeyPrefix}SortAsc`] = !state[`${stateKeyPrefix}SortAsc`];
+        } else {
+          state[`${stateKeyPrefix}SortKey`] = field;
+          state[`${stateKeyPrefix}SortAsc`] = (field === 'adv_order');
+        }
+        renderTableGeneric(tableId, btnsId, dataGetter(), state[`${stateKeyPrefix}SortKey`], state[`${stateKeyPrefix}SortAsc`], '', isBrandTable);
+      });
     });
-  });
+  }
 }
 
-function initAllBrandSorts() {
-  initBrandTableSort('sweepsBrandTable', 'sweepsBrandSortBtns', 'sweeps', SWEEPS_BRAND_DATA);
-  initBrandTableSort('casinoBrandTable', 'casinoBrandSortBtns', 'casino', CASINO_BRAND_DATA);
-  initBrandTableSort('otherBrandTable', 'otherBrandSortBtns', 'other', OTHER_BRAND_DATA);
-}
+/* ---------- 4 Executive Charts (2x2) ---------- */
+const palette = ['#2f6fed', '#ec4899', '#f59e0b', '#10b981', '#8b5cf6', '#06b6d4', '#f97316', '#64748b', '#94a3b8', '#cbd5e1', '#3b82f6'];
+const brandPalette = ['#2f6fed', '#ec4899', '#f59e0b', '#10b981', '#8b5cf6', '#06b6d4', '#f97316', '#ef4444', '#14b8a6', '#6366f1', '#84cc16', '#a855f7', '#3b82f6', '#d946ef', '#eab308'];
 
-/* ---------- 4 EXECUTIVE CHARTS (2x2) ---------- */
-const palette = [
-  '#2f6fed', '#ec4899', '#f59e0b', '#10b981', '#8b5cf6',
-  '#06b6d4', '#f97316', '#64748b', '#94a3b8', '#cbd5e1', '#3b82f6'
-];
-const brandPalette = [
-  '#2f6fed', '#ec4899', '#f59e0b', '#10b981', '#8b5cf6',
-  '#06b6d4', '#f97316', '#ef4444', '#14b8a6', '#6366f1',
-  '#84cc16', '#a855f7', '#3b82f6', '#d946ef', '#eab308'
-];
-
-let chAdvPerfInst = null;
-let chAdvProfitInst = null;
-let chBrandPerfInst = null;
-let chBrandProfitInst = null;
+let chAdvPerfInst = null, chAdvProfitInst = null, chBrandPerfInst = null, chBrandProfitInst = null;
 
 function renderAdvPerfChart() {
   const m = state.advPerfMetric;
-  const sorted = [...ADVERTISER_DATA].sort((a, b) => b[m] - a[m]);
-  const labels = sorted.map(d => d.name);
-  const values = sorted.map(d => d[m]);
-  const colors = sorted.map((_, i) => palette[i % palette.length]);
-
+  const sorted = [...DATA.advertiser_report].sort((a, b) => b[m] - a[m]);
   if (chAdvPerfInst) chAdvPerfInst.destroy();
   chAdvPerfInst = new Chart(document.getElementById('chAdvPerf'), {
     type: 'bar',
     data: {
-      labels: labels,
-      datasets: [{
-        data: values,
-        backgroundColor: colors,
-        borderRadius: 6,
-        barThickness: 14
-      }]
+      labels: sorted.map(d => d.name),
+      datasets: [{ data: sorted.map(d => d[m]), backgroundColor: sorted.map((_, i) => palette[i % palette.length]), borderRadius: 6, barThickness: 14 }]
     },
     options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: {
-          grid: { color: '#f0f1f4' },
-          beginAtZero: true,
-          ticks: {
-            callback: v => m === 'revenue' ? '$' + v.toLocaleString('en-US') : v.toLocaleString('en-US')
-          }
-        },
-        y: {
-          grid: { display: false },
-          ticks: { font: { size: 11, family: 'Segoe UI, sans-serif' } }
-        }
+        x: { grid: { color: '#f0f1f4' }, beginAtZero: true, ticks: { callback: v => m === 'revenue' ? '$' + v.toLocaleString('en-US') : v.toLocaleString('en-US') } },
+        y: { grid: { display: false }, ticks: { font: { size: 11 } } }
       }
     }
   });
 }
 
 function renderAdvProfitChart() {
-  const sorted = [...ADVERTISER_DATA].sort((a, b) => b.profit - a.profit);
-  const labels = sorted.map(d => d.name);
-  const values = sorted.map(d => d.profit);
-  const colors = sorted.map(d => d.profit >= 0 ? '#10b981' : '#dc2626');
-
+  const sorted = [...DATA.advertiser_report].sort((a, b) => b.profit - a.profit);
   if (chAdvProfitInst) chAdvProfitInst.destroy();
   chAdvProfitInst = new Chart(document.getElementById('chAdvProfit'), {
     type: 'bar',
     data: {
-      labels: labels,
-      datasets: [{
-        data: values,
-        backgroundColor: colors,
-        borderRadius: 6,
-        barThickness: 14
-      }]
+      labels: sorted.map(d => d.name),
+      datasets: [{ data: sorted.map(d => d.profit), backgroundColor: sorted.map(d => d.profit >= 0 ? '#10b981' : '#dc2626'), borderRadius: 6, barThickness: 14 }]
     },
     options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: c => ' Profit: ' + fmtMoney(c.parsed.x)
-          }
-        }
+        tooltip: { callbacks: { label: c => ' Profit: ' + fmtMoney(c.parsed.x) } }
       },
       scales: {
-        x: {
-          grid: { color: '#f0f1f4' },
-          ticks: {
-            callback: v => v < 0 ? '-$' + Math.abs(v).toLocaleString('en-US') : '$' + v.toLocaleString('en-US')
-          }
-        },
-        y: {
-          grid: { display: false },
-          ticks: { font: { size: 11, family: 'Segoe UI, sans-serif' } }
-        }
+        x: { grid: { color: '#f0f1f4' }, ticks: { callback: v => v < 0 ? '-$' + Math.abs(v).toLocaleString('en-US') : '$' + v.toLocaleString('en-US') } },
+        y: { grid: { display: false }, ticks: { font: { size: 11 } } }
       }
     }
   });
@@ -1186,117 +769,48 @@ function renderAdvProfitChart() {
 
 function renderBrandPerfChart() {
   const m = state.brandPerfMetric;
-  const activeBrands = ALL_BRAND_DATA.filter(b => b[m] > 0).sort((a, b) => b[m] - a[m]);
-  const displayBrands = activeBrands.slice(0, 15);
-
+  const active = ALL_BRAND_DATA.filter(b => b[m] > 0).sort((a, b) => b[m] - a[m]).slice(0, 15);
   document.getElementById('brandPerfHint').textContent = `Top active brands by ${m === 'signups' ? 'signups' : (m === 'ftd' ? 'FTD' : 'revenue')}.`;
-
-  const labels = displayBrands.map(d => d.brand);
-  const values = displayBrands.map(d => d[m]);
-  const colors = displayBrands.map((_, i) => brandPalette[i % brandPalette.length]);
 
   if (chBrandPerfInst) chBrandPerfInst.destroy();
   chBrandPerfInst = new Chart(document.getElementById('chBrandPerf'), {
     type: 'bar',
     data: {
-      labels: labels,
-      datasets: [{
-        data: values,
-        backgroundColor: colors,
-        borderRadius: 6,
-        barThickness: 12
-      }]
+      labels: active.map(d => d.brand),
+      datasets: [{ data: active.map(d => d[m]), backgroundColor: active.map((_, i) => brandPalette[i % brandPalette.length]), borderRadius: 6, barThickness: 12 }]
     },
     options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: {
-          grid: { color: '#f0f1f4' },
-          beginAtZero: true,
-          ticks: {
-            callback: v => m === 'revenue' ? '$' + v.toLocaleString('en-US') : v.toLocaleString('en-US')
-          }
-        },
-        y: {
-          grid: { display: false },
-          ticks: { font: { size: 11, family: 'Segoe UI, sans-serif' } }
-        }
+        x: { grid: { color: '#f0f1f4' }, beginAtZero: true, ticks: { callback: v => m === 'revenue' ? '$' + v.toLocaleString('en-US') : v.toLocaleString('en-US') } },
+        y: { grid: { display: false }, ticks: { font: { size: 11 } } }
       }
     }
   });
 }
 
 function renderBrandProfitChart() {
-  const activeProfitBrands = ALL_BRAND_DATA.filter(b => b.profit !== 0).sort((a, b) => b.profit - a.profit);
-  const labels = activeProfitBrands.map(d => d.brand);
-  const values = activeProfitBrands.map(d => d.profit);
-  const colors = activeProfitBrands.map(d => d.profit >= 0 ? '#10b981' : '#dc2626');
-
+  const active = ALL_BRAND_DATA.filter(b => b.profit !== 0).sort((a, b) => b.profit - a.profit);
   if (chBrandProfitInst) chBrandProfitInst.destroy();
   chBrandProfitInst = new Chart(document.getElementById('chBrandProfit'), {
     type: 'bar',
     data: {
-      labels: labels,
-      datasets: [{
-        data: values,
-        backgroundColor: colors,
-        borderRadius: 6,
-        barThickness: 12
-      }]
+      labels: active.map(d => d.brand),
+      datasets: [{ data: active.map(d => d.profit), backgroundColor: active.map(d => d.profit >= 0 ? '#10b981' : '#dc2626'), borderRadius: 6, barThickness: 12 }]
     },
     options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: c => ' Profit: ' + fmtMoney(c.parsed.x)
-          }
-        }
+        tooltip: { callbacks: { label: c => ' Profit: ' + fmtMoney(c.parsed.x) } }
       },
       scales: {
-        x: {
-          grid: { color: '#f0f1f4' },
-          ticks: {
-            callback: v => v < 0 ? '-$' + Math.abs(v).toLocaleString('en-US') : '$' + v.toLocaleString('en-US')
-          }
-        },
-        y: {
-          grid: { display: false },
-          ticks: { font: { size: 11, family: 'Segoe UI, sans-serif' } }
-        }
+        x: { grid: { color: '#f0f1f4' }, ticks: { callback: v => v < 0 ? '-$' + Math.abs(v).toLocaleString('en-US') : '$' + v.toLocaleString('en-US') } },
+        y: { grid: { display: false }, ticks: { font: { size: 11 } } }
       }
     }
   });
-}
-
-function initChartToggles() {
-  const tAdv = document.getElementById('toggleAdvPerf');
-  if (tAdv) {
-    tAdv.querySelectorAll('button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.advPerfMetric = btn.dataset.m;
-        tAdv.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
-        renderAdvPerfChart();
-      });
-    });
-  }
-
-  const tBrand = document.getElementById('toggleBrandPerf');
-  if (tBrand) {
-    tBrand.querySelectorAll('button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.brandPerfMetric = btn.dataset.m;
-        tBrand.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
-        renderBrandPerfChart();
-      });
-    });
-  }
 }
 
 function renderAllCharts2x2() {
@@ -1306,138 +820,109 @@ function renderAllCharts2x2() {
   renderBrandProfitChart();
 }
 
-/* ---------- TABLE 3: INHOUSE BRANDS ---------- */
-function renderInhouseTable() {
-  const tbody = document.querySelector('#inhouseTable tbody');
-  const key = state.inhouseSortKey;
-  const asc = state.inhouseSortAsc;
-
-  const sorted = [...INHOUSE_DATA].sort((a, b) => {
-    let va = a[key], vb = b[key];
-    if (typeof va === 'string') {
-      return asc ? va.localeCompare(vb) : vb.localeCompare(va);
-    }
-    return asc ? va - vb : vb - va;
-  });
-
-  tbody.innerHTML = sorted.map(row => {
-    const s2p = row.ftd > 0 ? '1:' + Math.round(row.signups / row.ftd) : '—';
-    const revCls = row.revenue > 0 ? 'pos' : '';
-    const budCls = row.budget > 0 ? 'pos' : '';
-    const profCls = row.profit > 0 ? 'pos' : (row.profit < 0 ? 'neg' : '');
-
-    return `
-      <tr>
-        <td>${row.brand}</td>
-        <td class="num">${row.signups.toLocaleString('en-US')}</td>
-        <td class="num">${row.ftd.toLocaleString('en-US')}</td>
-        <td class="num ${revCls}">${fmtMoney(row.revenue)}</td>
-        <td class="num ${budCls}">${fmtMoney(row.budget)}</td>
-        <td class="num ${profCls}">${fmtMoney(row.profit)}</td>
-        <td class="num">${s2p}</td>
-      </tr>
-    `;
-  }).join('');
-
-  document.querySelectorAll('#inhouseTable thead th').forEach(th => {
-    const sortField = th.dataset.sort;
-    const arrSpan = th.querySelector('.arr');
-    if (sortField) {
-      if (sortField === key) {
-        th.classList.add('active-col');
-        if (arrSpan) arrSpan.textContent = asc ? '▲' : '▼';
-      } else {
-        th.classList.remove('active-col');
-        if (arrSpan) arrSpan.textContent = '';
-      }
-    }
-  });
-
-  document.querySelectorAll('#inhouseSortBtns button').forEach(btn => {
-    const sortField = btn.dataset.sort;
-    const label = sortField.charAt(0).toUpperCase() + sortField.slice(1);
-    if (sortField === key) {
-      btn.classList.add('active');
-      btn.textContent = label + (asc ? ' ▲' : ' ▼');
-    } else {
-      btn.classList.remove('active');
-      btn.textContent = label;
-    }
-  });
-}
-
-function initInhouseSort() {
-  document.querySelectorAll('#inhouseTable thead th[data-sort]').forEach(th => {
-    th.addEventListener('click', () => {
-      const field = th.dataset.sort;
-      if (state.inhouseSortKey === field) {
-        state.inhouseSortAsc = !state.inhouseSortAsc;
-      } else {
-        state.inhouseSortKey = field;
-        state.inhouseSortAsc = (field === 'brand');
-      }
-      renderInhouseTable();
-    });
-  });
-
-  document.querySelectorAll('#inhouseSortBtns button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const field = btn.dataset.sort;
-      if (state.inhouseSortKey === field) {
-        state.inhouseSortAsc = !state.inhouseSortAsc;
-      } else {
-        state.inhouseSortKey = field;
-        state.inhouseSortAsc = (field === 'brand');
-      }
-      renderInhouseTable();
-    });
-  });
-}
-
-/* ---------- Filters ---------- */
-function renderAdvPanel(){
+/* ---------- Filters & Event Bindings ---------- */
+function renderAdvPanel() {
   const p = document.getElementById('advPanel');
-  p.innerHTML = DATA.advertisers.map(adv => `
-    <label><input type="checkbox" value="${adv}" ${state.advs.has(adv)?'checked':''}> ${adv}</label>`).join('');
+  const advList = DATA.advertiser_report.map(a => a.name);
+  p.innerHTML = advList.map(adv => `
+    <label><input type="checkbox" value="${adv}" ${state.advs.has(adv) ? 'checked' : ''}> ${adv}</label>`).join('');
+  
   p.querySelectorAll('input').forEach(cb => cb.addEventListener('change', () => {
     cb.checked ? state.advs.add(cb.value) : state.advs.delete(cb.value);
-    updateAdvBtn(); renderDaily();
+    updateAdvBtn();
+    renderDaily();
   }));
 }
-function updateAdvBtn(){
-  document.getElementById('advBtn').textContent =
-    state.advs.size === DATA.advertisers.length ? 'All advertisers ▾' : state.advs.size + ' advertisers ▾';
+
+function updateAdvBtn() {
+  const total = DATA.advertiser_report.length;
+  document.getElementById('advBtn').textContent = state.advs.size === total ? 'All advertisers ▾' : `${state.advs.size} advertisers ▾`;
 }
 
-document.getElementById('advBtn').addEventListener('click', e => { e.stopPropagation(); document.getElementById('advPanel').classList.toggle('open'); });
-document.addEventListener('click', e => { if (!e.target.closest('.adv-drop')) document.getElementById('advPanel').classList.remove('open'); });
-document.getElementById('dateFrom').addEventListener('change', e => { state.from = e.target.value || DATA.dateMin; if (state.from > state.to){ state.to = state.from; document.getElementById('dateTo').value = state.to; } renderDaily(); });
-document.getElementById('dateTo').addEventListener('change', e => { state.to = e.target.value || DATA.dateMax; if (state.to < state.from){ state.from = state.to; document.getElementById('dateFrom').value = state.from; } renderDaily(); });
-document.getElementById('btnReset').addEventListener('click', () => {
-  state.from = DATA.dateMin; state.to = DATA.dateMax;
-  document.getElementById('dateFrom').value = DATA.dateMin; document.getElementById('dateTo').value = DATA.dateMax;
-  state.advs = new Set(DATA.advertisers);
-  state.advSortKey = 'revenue';
-  state.advSortAsc = false;
-  state.sweepsSortKey = 'adv_order';
-  state.sweepsSortAsc = true;
-  state.casinoSortKey = 'adv_order';
-  state.casinoSortAsc = true;
-  state.otherSortKey = 'adv_order';
-  state.otherSortAsc = true;
-  state.advPerfMetric = 'signups';
-  state.brandPerfMetric = 'signups';
-  state.inhouseSortKey = 'budget';
-  state.inhouseSortAsc = false;
-  document.querySelectorAll('#toggleAdvPerf button').forEach(b => b.classList.toggle('active', b.dataset.m === 'signups'));
-  document.querySelectorAll('#toggleBrandPerf button').forEach(b => b.classList.toggle('active', b.dataset.m === 'signups'));
-  renderAdvPanel(); updateAdvBtn(); renderDaily(); renderAdvTable(); renderAllBrandTables(); renderAllCharts2x2(); renderInhouseTable();
-});
+function renderAll() {
+  renderCards();
+  renderTeams();
+  renderAdvPanel();
+  updateAdvBtn();
+  renderDaily();
+  renderTableGeneric('advTable', 'advSortBtns', DATA.advertiser_report, state.advSortKey, state.advSortAsc, 'name', false);
+  renderTableGeneric('sweepsBrandTable', 'sweepsBrandSortBtns', DATA.brand_performance.sweepstakes_brands, state.sweepsSortKey, state.sweepsSortAsc, '', true);
+  renderTableGeneric('casinoBrandTable', 'casinoBrandSortBtns', DATA.brand_performance.casino_brands, state.casinoSortKey, state.casinoSortAsc, '', true);
+  renderTableGeneric('otherBrandTable', 'otherBrandSortBtns', DATA.brand_performance.other_brands, state.otherSortKey, state.otherSortAsc, '', true);
+  renderTableGeneric('inhouseTable', 'inhouseSortBtns', DATA.inhouse_brands, state.inhouseSortKey, state.inhouseSortAsc, 'brand', false);
+  renderAllCharts2x2();
+}
 
-renderCards(); renderTeams(); renderAdvPanel(); updateAdvBtn(); renderDaily();
-renderAdvTable(); initAdvSort(); renderAllBrandTables(); initAllBrandSorts();
-renderAllCharts2x2(); initChartToggles();
-renderInhouseTable(); initInhouseSort();
+function setupGlobalListeners() {
+  document.getElementById('advBtn').addEventListener('click', e => {
+    e.stopPropagation();
+    document.getElementById('advPanel').classList.toggle('open');
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.adv-drop')) document.getElementById('advPanel').classList.remove('open');
+  });
+
+  document.getElementById('dateFrom').addEventListener('change', e => {
+    state.from = e.target.value || DATA.metadata.date_from;
+    if (state.from > state.to) {
+      state.to = state.from;
+      document.getElementById('dateTo').value = state.to;
+    }
+    renderDaily();
+  });
+
+  document.getElementById('dateTo').addEventListener('change', e => {
+    state.to = e.target.value || DATA.metadata.date_to;
+    if (state.to < state.from) {
+      state.from = state.to;
+      document.getElementById('dateFrom').value = state.from;
+    }
+    renderDaily();
+  });
+
+  document.getElementById('btnReset').addEventListener('click', () => {
+    initState();
+    updateAdvBtn();
+    renderDaily();
+  });
+
+  document.getElementById('monthSelect').addEventListener('change', e => {
+    loadMonthlyData(e.target.value);
+  });
+
+  // Chart toggles
+  const tAdv = document.getElementById('toggleAdvPerf');
+  tAdv.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.advPerfMetric = btn.dataset.m;
+      tAdv.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+      renderAdvPerfChart();
+    });
+  });
+
+  const tBrand = document.getElementById('toggleBrandPerf');
+  tBrand.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.brandPerfMetric = btn.dataset.m;
+      tBrand.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+      renderBrandPerfChart();
+    });
+  });
+
+  // Init sort events for each table
+  initTableSortEvents('advTable', 'advSortBtns', 'adv', () => DATA.advertiser_report, false);
+  initTableSortEvents('sweepsBrandTable', 'sweepsBrandSortBtns', 'sweeps', () => DATA.brand_performance.sweepstakes_brands, true);
+  initTableSortEvents('casinoBrandTable', 'casinoBrandSortBtns', 'casino', () => DATA.brand_performance.casino_brands, true);
+  initTableSortEvents('otherBrandTable', 'otherBrandSortBtns', 'other', () => DATA.brand_performance.other_brands, true);
+  initTableSortEvents('inhouseTable', 'inhouseSortBtns', 'inhouse', () => DATA.inhouse_brands, false);
+}
+
+// Initial Boot
+document.addEventListener('DOMContentLoaded', () => {
+  setupGlobalListeners();
+  loadMonthlyData('data_september.json');
+});
 </script>
 </body>
 </html>
