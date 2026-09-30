@@ -1,0 +1,796 @@
+{
+  "metadata": {
+    "month": "September",
+    "year": 2026,
+    "month_key": "2026-09",
+    "date_from": "2026-09-01",
+    "date_to": "2026-09-30",
+    "days_in_month": 30,
+    "days_elapsed": 30,
+    "is_month_closed": true
+  },
+  "kpis_overview": {
+    "registrations": {
+      "mtd": 1502,
+      "kpi": 1750,
+      "run_rate": 1502,
+      "status": "neg"
+    },
+    "ftd": {
+      "mtd": 78,
+      "kpi": 360,
+      "run_rate": 78,
+      "status": "neg"
+    },
+    "revenue": {
+      "mtd": 8886.00,
+      "kpi": 24200.00,
+      "run_rate": 8886.00,
+      "status": "neg"
+    },
+    "profit": {
+      "mtd": 5104.00,
+      "kpi": 16500.00,
+      "run_rate": 5104.00,
+      "status": "neg"
+    }
+  },
+  "team_performance": [
+    {
+      "name": "EMAIL",
+      "cls": "email",
+      "kpi": {
+        "budget": 1100.00,
+        "signups": 500,
+        "users": 40,
+        "revenue": 4400.00,
+        "profit": 3300.00
+      },
+      "mtd": {
+        "budget": 940.00,
+        "signups": 468,
+        "users": 25,
+        "revenue": 3920.00,
+        "profit": 2980.00
+      },
+      "run_rate": {
+        "budget": 940.00,
+        "signups": 468,
+        "users": 25,
+        "revenue": 3920.00,
+        "profit": 2980.00
+      },
+      "roi": "1:4.2"
+    },
+    {
+      "name": "MEDIA",
+      "cls": "media",
+      "kpi": {
+        "budget": 5500.00,
+        "signups": 1000,
+        "users": 300,
+        "revenue": 16500.00,
+        "profit": 11000.00
+      },
+      "mtd": {
+        "budget": 2122.00,
+        "signups": 1033,
+        "users": 53,
+        "revenue": 4966.00,
+        "profit": 2844.00
+      },
+      "run_rate": {
+        "budget": 2122.00,
+        "signups": 1033,
+        "users": 53,
+        "revenue": 4966.00,
+        "profit": 2844.00
+      },
+      "roi": "1:2.3"
+    },
+    {
+      "name": "SOCIAL",
+      "cls": "social",
+      "kpi": {
+        "budget": 1100.00,
+        "signups": 250,
+        "users": 20,
+        "revenue": 3300.00,
+        "profit": 2200.00
+      },
+      "mtd": {
+        "budget": 720.00,
+        "signups": 1,
+        "users": 0,
+        "revenue": 0.00,
+        "profit": -720.00
+      },
+      "run_rate": {
+        "budget": 720.00,
+        "signups": 1,
+        "users": 0,
+        "revenue": 0.00,
+        "profit": -720.00
+      },
+      "roi": "1:0.0"
+    },
+    {
+      "name": "Grand total",
+      "cls": "total",
+      "kpi": {
+        "budget": 7700.00,
+        "signups": 1750,
+        "users": 360,
+        "revenue": 24200.00,
+        "profit": 16500.00
+      },
+      "mtd": {
+        "budget": 3782.00,
+        "signups": 1502,
+        "users": 78,
+        "revenue": 8886.00,
+        "profit": 5104.00
+      },
+      "run_rate": {
+        "budget": 3782.00,
+        "signups": 1502,
+        "users": 78,
+        "revenue": 8886.00,
+        "profit": 5104.00
+      },
+      "roi": "1:2.3"
+    }
+  ],
+  "advertiser_report": [
+    { "name": "GAMETIME DIGITAL", "signups": 1113, "ftd": 46, "revenue": 6820.00, "budget": 330.00, "profit": 6490.00, "s2p": "1:24" },
+    { "name": "BASHER AGENCY", "signups": 87, "ftd": 6, "revenue": 820.00, "budget": 0.00, "profit": 820.00, "s2p": "1:15" },
+    { "name": "ALL IN AFFILIATES", "signups": 36, "ftd": 3, "revenue": 600.00, "budget": 0.00, "profit": 600.00, "s2p": "1:12" },
+    { "name": "AFF 66", "signups": 10, "ftd": 2, "revenue": 300.00, "budget": 0.00, "profit": 300.00, "s2p": "1:5" },
+    { "name": "PURIFY", "signups": 34, "ftd": 9, "revenue": 180.00, "budget": 75.00, "profit": 105.00, "s2p": "1:4" },
+    { "name": "SPLASH", "signups": 9, "ftd": 1, "revenue": 150.00, "budget": 0.00, "profit": 150.00, "s2p": "1:9" },
+    { "name": "IMPACT", "signups": 3, "ftd": 3, "revenue": 16.22, "budget": 10.00, "profit": 6.22, "s2p": "1:1" },
+    { "name": "CHANCED", "signups": 56, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+    { "name": "COINSROYALE", "signups": 153, "ftd": 9, "revenue": 0.00, "budget": 1350.00, "profit": -1350.00, "s2p": "1:17" },
+    { "name": "ACEBET", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+    { "name": "EPC", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" }
+  ],
+  "brand_performance": {
+    "sweepstakes_brands": [
+      { "advertiser": "AFF 66", "brand": "SweepJungle", "signups": 7, "ftd": 2, "revenue": 300.00, "budget": 0.00, "profit": 300.00, "s2p": "1:4" },
+      { "advertiser": "AFF 66", "brand": "Sixty6", "signups": 3, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "BASHER AGENCY", "brand": "LavishLuck Sweepstakes Casino", "signups": 42, "ftd": 5, "revenue": 700.00, "budget": 0.00, "profit": 700.00, "s2p": "1:8" },
+      { "advertiser": "BASHER AGENCY", "brand": "LuckyZino Sweepstakes Casino", "signups": 30, "ftd": 1, "revenue": 120.00, "budget": 0.00, "profit": 120.00, "s2p": "1:30" },
+      { "advertiser": "BASHER AGENCY", "brand": "WiseSpin Sweeps Casino", "signups": 2, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "BASHER AGENCY", "brand": "Luckyvibe", "signups": 13, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "CHANCED", "brand": "Chanced Punt", "signups": 56, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "COINSROYALE", "brand": "CoinsRoyale", "signups": 153, "ftd": 9, "revenue": 0.00, "budget": 1350.00, "profit": -1350.00, "s2p": "1:17" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "LuckyBunny", "signups": 47, "ftd": 10, "revenue": 1200.00, "budget": 0.00, "profit": 1200.00, "s2p": "1:5" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "LavishLuck", "signups": 212, "ftd": 6, "revenue": 1080.00, "budget": 0.00, "profit": 1080.00, "s2p": "1:35" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "Jackpotgo", "signups": 512, "ftd": 8, "revenue": 1360.00, "budget": 330.00, "profit": 1030.00, "s2p": "1:64" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "The Boss", "signups": 37, "ftd": 6, "revenue": 1020.00, "budget": 0.00, "profit": 1020.00, "s2p": "1:6" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "Baba", "signups": 11, "ftd": 3, "revenue": 450.00, "budget": 0.00, "profit": 450.00, "s2p": "1:4" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "WiseSpin", "signups": 20, "ftd": 3, "revenue": 420.00, "budget": 0.00, "profit": 420.00, "s2p": "1:7" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "LuckyZino", "signups": 9, "ftd": 2, "revenue": 280.00, "budget": 0.00, "profit": 280.00, "s2p": "1:5" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "CardCrush", "signups": 143, "ftd": 2, "revenue": 240.00, "budget": 0.00, "profit": 240.00, "s2p": "1:72" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "Mega Bonanza", "signups": 18, "ftd": 1, "revenue": 160.00, "budget": 0.00, "profit": 160.00, "s2p": "1:18" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "Sweet Sweep", "signups": 7, "ftd": 1, "revenue": 150.00, "budget": 0.00, "profit": 150.00, "s2p": "1:7" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "Rolla", "signups": 19, "ftd": 1, "revenue": 125.00, "budget": 0.00, "profit": 125.00, "s2p": "1:19" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "ChipNWin", "signups": 2, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "High5Casino", "signups": 15, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "Go Go Gold Win", "signups": 1, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "CoinsBack", "signups": 3, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "Crown Coins Email", "signups": 2, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "Dorados", "signups": 2, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "PlayFame SEO", "signups": 1, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "TitanTreasure", "signups": 3, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "McLuck", "signups": 1, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "Spinblitz SEO", "signups": 15, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "Zunado", "signups": 1, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "SPLASH", "brand": "splashcoins", "signups": 9, "ftd": 1, "revenue": 150.00, "budget": 0.00, "profit": 150.00, "s2p": "1:9" }
+    ],
+    "casino_brands": [
+      { "advertiser": "ACEBET", "brand": "Acebet", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "ALL IN AFFILIATES", "brand": "FS Casino", "signups": 16, "ftd": 2, "revenue": 440.00, "budget": 0.00, "profit": 440.00, "s2p": "1:8" },
+      { "advertiser": "ALL IN AFFILIATES", "brand": "7Bit Casino", "signups": 15, "ftd": 1, "revenue": 160.00, "budget": 0.00, "profit": 160.00, "s2p": "1:15" },
+      { "advertiser": "ALL IN AFFILIATES", "brand": "Casino Smartlink", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "ALL IN AFFILIATES", "brand": "BetRiot", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "ALL IN AFFILIATES", "brand": "Betnjet", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "ALL IN AFFILIATES", "brand": "Ice Casino", "signups": 5, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "ALL IN AFFILIATES", "brand": "Smash Casino", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "ALL IN AFFILIATES", "brand": "Lussurio", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "PolyCasino", "signups": 8, "ftd": 2, "revenue": 260.00, "budget": 0.00, "profit": 260.00, "s2p": "1:4" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "Spinjo CA", "signups": 9, "ftd": 1, "revenue": 75.00, "budget": 0.00, "profit": 75.00, "s2p": "1:9" },
+      { "advertiser": "GAMETIME DIGITAL", "brand": "Casinio", "signups": 15, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00, "s2p": "—" }
+    ],
+    "other_brands": [
+      { "advertiser": "IMPACT", "brand": "Impact", "signups": 3, "ftd": 3, "revenue": 16.22, "budget": 10.00, "profit": 6.22, "s2p": "1:1" },
+      { "advertiser": "PURIFY", "brand": "Simply Piano Desktop", "signups": 34, "ftd": 9, "revenue": 180.00, "budget": 75.00, "profit": 105.00, "s2p": "1:4" }
+    ]
+  },
+  "inhouse_brands": [
+    { "brand": "WinningEmpire CA/NZ", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00 },
+    { "brand": "Jackpotrabbit___c", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00 },
+    { "brand": "Bonusclubs", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00 },
+    { "brand": "Winning4Fun", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00 },
+    { "brand": "Royalzclub sweeps", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00 },
+    { "brand": "Testing offer", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00 },
+    { "brand": "WinningEmpire US", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00 },
+    { "brand": "Wannnasee USA LP", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 0.00, "profit": 0.00 },
+    { "brand": "PrizeFlow  sweeps LP", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 3.00, "profit": -3.00 },
+    { "brand": "Spin2Win  sweeps LP", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 30.00, "profit": -30.00 },
+    { "brand": "Pirates LP", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 162.00, "profit": -162.00 },
+    { "brand": "SuperSlotz sweeps", "signups": 0, "ftd": 0, "revenue": 0.00, "budget": 171.00, "profit": -171.00 }
+  ],
+  "daily_performance": [
+    {
+      "date": "2026-09-01",
+      "registrations": 47,
+      "ftd": 2,
+      "revenue": 250.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [6, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [5, 0, 0.00],
+        "GAMETIME DIGITAL": [26, 2, 250.00],
+        "COINSROYALE": [6, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-02",
+      "registrations": 49,
+      "ftd": 2,
+      "revenue": 260.00,
+      "by_advertiser": {
+        "AFF 66": [3, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [5, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [4, 0, 0.00],
+        "GAMETIME DIGITAL": [28, 1, 260.00],
+        "COINSROYALE": [7, 1, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-03",
+      "registrations": 51,
+      "ftd": 2,
+      "revenue": 260.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [6, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [5, 0, 0.00],
+        "GAMETIME DIGITAL": [27, 2, 260.00],
+        "COINSROYALE": [7, 0, 0.00],
+        "PURIFY": [2, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-04",
+      "registrations": 48,
+      "ftd": 1,
+      "revenue": 170.00,
+      "by_advertiser": {
+        "AFF 66": [3, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [5, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [4, 0, 0.00],
+        "GAMETIME DIGITAL": [26, 1, 170.00],
+        "COINSROYALE": [7, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-05",
+      "registrations": 52,
+      "ftd": 4,
+      "revenue": 200.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [6, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [5, 0, 0.00],
+        "GAMETIME DIGITAL": [27, 2, 180.00],
+        "COINSROYALE": [7, 1, 0.00],
+        "PURIFY": [2, 1, 20.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-06",
+      "registrations": 48,
+      "ftd": 1,
+      "revenue": 170.00,
+      "by_advertiser": {
+        "AFF 66": [3, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [5, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [4, 0, 0.00],
+        "GAMETIME DIGITAL": [26, 1, 170.00],
+        "COINSROYALE": [7, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-07",
+      "registrations": 52,
+      "ftd": 3,
+      "revenue": 190.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [6, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [5, 0, 0.00],
+        "GAMETIME DIGITAL": [27, 1, 170.00],
+        "COINSROYALE": [7, 1, 0.00],
+        "PURIFY": [2, 1, 20.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-08",
+      "registrations": 53,
+      "ftd": 5,
+      "revenue": 370.00,
+      "by_advertiser": {
+        "AFF 66": [3, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [5, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [4, 0, 0.00],
+        "GAMETIME DIGITAL": [28, 3, 350.00],
+        "COINSROYALE": [7, 1, 0.00],
+        "PURIFY": [2, 1, 20.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-09",
+      "registrations": 51,
+      "ftd": 3,
+      "revenue": 350.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [6, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [5, 0, 0.00],
+        "GAMETIME DIGITAL": [28, 3, 350.00],
+        "COINSROYALE": [7, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-10",
+      "registrations": 50,
+      "ftd": 4,
+      "revenue": 365.00,
+      "by_advertiser": {
+        "AFF 66": [3, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [5, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [4, 0, 0.00],
+        "GAMETIME DIGITAL": [27, 2, 345.00],
+        "COINSROYALE": [7, 1, 0.00],
+        "PURIFY": [2, 1, 20.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-11",
+      "registrations": 35,
+      "ftd": 3,
+      "revenue": 80.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [6, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [5, 0, 0.00],
+        "GAMETIME DIGITAL": [10, 1, 60.00],
+        "COINSROYALE": [7, 1, 0.00],
+        "PURIFY": [2, 1, 20.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-12",
+      "registrations": 42,
+      "ftd": 3,
+      "revenue": 80.00,
+      "by_advertiser": {
+        "AFF 66": [5, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [7, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [6, 0, 0.00],
+        "GAMETIME DIGITAL": [13, 1, 60.00],
+        "COINSROYALE": [7, 1, 0.00],
+        "PURIFY": [2, 1, 20.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "registrations": 34,
+      "ftd": 0,
+      "revenue": 30.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [6, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [5, 0, 0.00],
+        "GAMETIME DIGITAL": [10, 0, 30.00],
+        "COINSROYALE": [7, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "registrations": 39,
+      "ftd": 0,
+      "revenue": 30.00,
+      "by_advertiser": {
+        "AFF 66": [5, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [7, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [6, 0, 0.00],
+        "GAMETIME DIGITAL": [12, 0, 30.00],
+        "COINSROYALE": [7, 0, 0.00],
+        "PURIFY": [2, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-15",
+      "registrations": 62,
+      "ftd": 8,
+      "revenue": 545.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [6, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [5, 0, 0.00],
+        "GAMETIME DIGITAL": [36, 6, 525.00],
+        "COINSROYALE": [7, 1, 0.00],
+        "PURIFY": [2, 1, 20.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-16",
+      "registrations": 63,
+      "ftd": 8,
+      "revenue": 545.00,
+      "by_advertiser": {
+        "AFF 66": [5, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [7, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [6, 0, 0.00],
+        "GAMETIME DIGITAL": [35, 6, 525.00],
+        "COINSROYALE": [7, 1, 0.00],
+        "PURIFY": [2, 1, 20.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-17",
+      "registrations": 62,
+      "ftd": 5,
+      "revenue": 525.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [6, 0, 0.00],
+        "SPLASH": [2, 0, 0.00],
+        "BASHER AGENCY": [5, 0, 0.00],
+        "GAMETIME DIGITAL": [37, 5, 525.00],
+        "COINSROYALE": [7, 0, 0.00],
+        "PURIFY": [2, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-18",
+      "registrations": 83,
+      "ftd": 8,
+      "revenue": 900.00,
+      "by_advertiser": {
+        "AFF 66": [5, 1, 150.00],
+        "ALL IN AFFILIATES": [2, 1, 160.00],
+        "CHANCED": [2, 0, 0.00],
+        "SPLASH": [1, 0, 0.00],
+        "BASHER AGENCY": [17, 1, 140.00],
+        "GAMETIME DIGITAL": [47, 3, 430.00],
+        "COINSROYALE": [7, 1, 0.00],
+        "PURIFY": [2, 1, 20.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "registrations": 48,
+      "ftd": 2,
+      "revenue": 270.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [3, 0, 0.00],
+        "SPLASH": [1, 0, 0.00],
+        "BASHER AGENCY": [5, 0, 0.00],
+        "GAMETIME DIGITAL": [30, 2, 270.00],
+        "COINSROYALE": [5, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "registrations": 52,
+      "ftd": 2,
+      "revenue": 280.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [3, 0, 0.00],
+        "SPLASH": [1, 0, 0.00],
+        "BASHER AGENCY": [5, 0, 0.00],
+        "GAMETIME DIGITAL": [32, 2, 280.00],
+        "COINSROYALE": [6, 0, 0.00],
+        "PURIFY": [2, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-21",
+      "registrations": 57,
+      "ftd": 6,
+      "revenue": 480.00,
+      "by_advertiser": {
+        "AFF 66": [5, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [4, 0, 0.00],
+        "SPLASH": [1, 1, 150.00],
+        "BASHER AGENCY": [6, 0, 0.00],
+        "GAMETIME DIGITAL": [35, 3, 310.00],
+        "COINSROYALE": [6, 1, 0.00],
+        "PURIFY": [1, 1, 20.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-22",
+      "registrations": 48,
+      "ftd": 2,
+      "revenue": 320.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [3, 0, 0.00],
+        "SPLASH": [1, 0, 0.00],
+        "BASHER AGENCY": [5, 0, 0.00],
+        "GAMETIME DIGITAL": [28, 2, 320.00],
+        "COINSROYALE": [5, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-23",
+      "registrations": 47,
+      "ftd": 3,
+      "revenue": 320.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [3, 0, 0.00],
+        "SPLASH": [1, 0, 0.00],
+        "BASHER AGENCY": [6, 0, 0.00],
+        "GAMETIME DIGITAL": [27, 3, 320.00],
+        "COINSROYALE": [5, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-24",
+      "registrations": 51,
+      "ftd": 3,
+      "revenue": 285.42,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [3, 0, 0.00],
+        "SPLASH": [1, 0, 0.00],
+        "BASHER AGENCY": [6, 0, 0.00],
+        "GAMETIME DIGITAL": [29, 2, 280.00],
+        "COINSROYALE": [5, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [1, 1, 5.42],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-25",
+      "registrations": 43,
+      "ftd": 3,
+      "revenue": 470.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [3, 0, 0.00],
+        "SPLASH": [1, 0, 0.00],
+        "BASHER AGENCY": [6, 0, 0.00],
+        "GAMETIME DIGITAL": [22, 3, 470.00],
+        "COINSROYALE": [4, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "registrations": 110,
+      "ftd": 4,
+      "revenue": 485.40,
+      "by_advertiser": {
+        "AFF 66": [3, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [3, 0, 0.00],
+        "SPLASH": [1, 0, 0.00],
+        "BASHER AGENCY": [3, 0, 0.00],
+        "GAMETIME DIGITAL": [95, 3, 480.00],
+        "COINSROYALE": [3, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [1, 1, 5.40],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-27",
+      "registrations": 117,
+      "ftd": 4,
+      "revenue": 620.00,
+      "by_advertiser": {
+        "AFF 66": [3, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [3, 0, 0.00],
+        "SPLASH": [1, 0, 0.00],
+        "BASHER AGENCY": [4, 1, 140.00],
+        "GAMETIME DIGITAL": [102, 3, 480.00],
+        "COINSROYALE": [3, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-28",
+      "registrations": 108,
+      "ftd": 4,
+      "revenue": 485.40,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [3, 0, 0.00],
+        "SPLASH": [1, 0, 0.00],
+        "BASHER AGENCY": [4, 0, 0.00],
+        "GAMETIME DIGITAL": [92, 3, 480.00],
+        "COINSROYALE": [2, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [1, 1, 5.40],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "registrations": 126,
+      "ftd": 3,
+      "revenue": 470.00,
+      "by_advertiser": {
+        "AFF 66": [3, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [3, 0, 0.00],
+        "SPLASH": [3, 0, 0.00],
+        "BASHER AGENCY": [15, 0, 0.00],
+        "GAMETIME DIGITAL": [100, 3, 470.00],
+        "COINSROYALE": [1, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    },
+    {
+      "date": "2026-09-30",
+      "registrations": 125,
+      "ftd": 4,
+      "revenue": 610.00,
+      "by_advertiser": {
+        "AFF 66": [4, 0, 0.00],
+        "ALL IN AFFILIATES": [1, 0, 0.00],
+        "CHANCED": [3, 0, 0.00],
+        "SPLASH": [3, 0, 0.00],
+        "BASHER AGENCY": [15, 1, 140.00],
+        "GAMETIME DIGITAL": [97, 3, 470.00],
+        "COINSROYALE": [1, 0, 0.00],
+        "PURIFY": [1, 0, 0.00],
+        "IMPACT": [0, 0, 0.00],
+        "EPC": [0, 0, 0.00],
+        "ACEBET": [0, 0, 0.00]
+      }
+    }
+  ]
+}
