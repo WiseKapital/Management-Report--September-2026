@@ -106,7 +106,7 @@
   .chart-box{position:relative; height:360px;}
 
   #loadingOverlay{
-    display:none; position:fixed; inset:0; background:rgba(255,255,255,.7);
+    display:none; position:fixed; inset:0; background:rgba(255,255,255,.75);
     align-items:center; justify-content:center; z-index:100; font-weight:600; font-size:16px;
   }
 
@@ -151,8 +151,8 @@
         <tr>
           <th style="text-align:left">TEAM</th>
           <th colspan="5" class="grp-blue">KPIS</th>
-          <th colspan="5" class="grp-green" id="teamMtdHeader">MTD</th>
-          <th colspan="5" class="grp-orange" id="teamRrHeader">RUN-RATE</th>
+          <th colspan="5" class="grp-green" id="teamMtdHeader">PERIOD ACTUALS</th>
+          <th colspan="5" class="grp-orange" id="teamRrHeader">PROJECTED RUN-RATE</th>
           <th class="grp-roi"></th>
         </tr>
         <tr class="sub">
@@ -397,8 +397,20 @@
 </div>
 
 <script>
-let DATA = null;
-let ALL_BRAND_DATA = [];
+let RAW_DATA = null;
+
+// Currently active aggregated slices for the selected date range
+let CURRENT = {
+  teams: [],
+  cards: {},
+  advertisers: [],
+  sweepsBrands: [],
+  casinoBrands: [],
+  otherBrands: [],
+  allBrands: [],
+  inhouseBrands: [],
+  daily: []
+};
 
 const state = {
   from: '',
@@ -433,65 +445,217 @@ const kpiCls = (v, kpi, invert) => {
   return (invert ? v <= kpi : v >= kpi) ? 'pos' : 'neg';
 };
 
-/* Load JSON (GitHub Pages Compatible) */
+/* Fetch JSON (GitHub Pages Compatible) */
 async function loadMonthlyData(fileName) {
   const overlay = document.getElementById('loadingOverlay');
   overlay.style.display = 'flex';
   try {
-    // Cache buster for GitHub Pages
     const res = await fetch(`./${fileName}?_cb=${Date.now()}`);
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    DATA = await res.json();
+    RAW_DATA = await res.json();
     
-    // Tag original index for stable 'Advertiser Order' sorting
-    let idx = 0;
-    ['sweepstakes_brands', 'casino_brands', 'other_brands'].forEach(k => {
-      DATA.brand_performance[k].forEach(b => { b.origIdx = idx++; });
-    });
-    ALL_BRAND_DATA = [
-      ...DATA.brand_performance.sweepstakes_brands,
-      ...DATA.brand_performance.casino_brands,
-      ...DATA.brand_performance.other_brands
-    ];
-
     initState();
+    aggregateAllByDateRange();
     renderAll();
   } catch (err) {
     console.error('Failed to load JSON data:', err);
-    alert(`Could not load ${fileName}. Please ensure the JSON file is in the same directory.`);
+    alert(`Could not load ${fileName}. Make sure the JSON file exists in the same directory.`);
   } finally {
     overlay.style.display = 'none';
   }
 }
 
 function initState() {
-  state.from = DATA.metadata.date_from;
-  state.to = DATA.metadata.date_to;
+  state.from = RAW_DATA.metadata.date_from;
+  state.to = RAW_DATA.metadata.date_to;
   
   const fromInput = document.getElementById('dateFrom');
   const toInput = document.getElementById('dateTo');
   
-  fromInput.min = DATA.metadata.date_from;
-  fromInput.max = DATA.metadata.date_to;
+  fromInput.min = RAW_DATA.metadata.date_from;
+  fromInput.max = RAW_DATA.metadata.date_to;
   fromInput.value = state.from;
 
-  toInput.min = DATA.metadata.date_from;
-  toInput.max = DATA.metadata.date_to;
+  toInput.min = RAW_DATA.metadata.date_from;
+  toInput.max = RAW_DATA.metadata.date_to;
   toInput.value = state.to;
 
-  state.advs = new Set(DATA.advertiser_report.map(a => a.name));
-
-  document.getElementById('teamMtdHeader').textContent = `MTD - ${DATA.metadata.month.toUpperCase()} ${DATA.metadata.year}`;
-  document.getElementById('teamRrHeader').textContent = DATA.metadata.is_month_closed 
-    ? `FINAL - ${DATA.metadata.month.toUpperCase()} ${DATA.metadata.year}` 
-    : `RR - RUN-RATE TO ${DATA.metadata.days_in_month}`;
-
-  document.getElementById('dailyHint').textContent = `Registrations, FTD and revenue by day (${DATA.metadata.month} 1 - ${DATA.metadata.month} ${DATA.metadata.days_elapsed}).`;
+  state.advs = new Set(RAW_DATA.catalogs.advertisers);
 }
 
-/* ---------- Top Cards ---------- */
+/* =========================================================================
+   CENTRAL DATE-FILTERING & AGGREGATION ENGINE
+   ========================================================================= */
+function aggregateAllByDateRange() {
+  const from = state.from;
+  const to = state.to;
+
+  // Filter daily records by date range
+  const filteredDays = RAW_DATA.daily_records.filter(d => d.date >= from && d.date <= to);
+  const daysInSlice = filteredDays.length || 1;
+  const fullMonthDays = RAW_DATA.metadata.days_in_month;
+  const scale = daysInSlice / fullMonthDays;
+  const rrFactor = fullMonthDays / daysInSlice;
+
+  CURRENT.daily = filteredDays;
+
+  // 1. TEAMS AGGREGATION
+  const teamTotals = {
+    EMAIL: { budget: 0, signups: 0, users: 0, revenue: 0 },
+    MEDIA: { budget: 0, signups: 0, users: 0, revenue: 0 },
+    SOCIAL: { budget: 0, signups: 0, users: 0, revenue: 0 }
+  };
+
+  filteredDays.forEach(day => {
+    for (const [tName, arr] of Object.entries(day.teams)) {
+      if (teamTotals[tName]) {
+        teamTotals[tName].budget += arr[0];
+        teamTotals[tName].signups += arr[1];
+        teamTotals[tName].users += arr[2];
+        teamTotals[tName].revenue += arr[3];
+      }
+    }
+  });
+
+  const gtKpi = RAW_DATA.teams_kpi["Grand total"];
+  let gtActual = { budget: 0, signups: 0, users: 0, revenue: 0, profit: 0 };
+
+  CURRENT.teams = ["EMAIL", "MEDIA", "SOCIAL"].map(tName => {
+    const act = teamTotals[tName];
+    const profit = act.revenue - act.budget;
+    gtActual.budget += act.budget;
+    gtActual.signups += act.signups;
+    gtActual.users += act.users;
+    gtActual.revenue += act.revenue;
+    gtActual.profit += profit;
+
+    const kpi = RAW_DATA.teams_kpi[tName];
+    const rrBudget = Math.round(act.budget * rrFactor);
+    const rrSignups = Math.round(act.signups * rrFactor);
+    const rrUsers = Math.round(act.users * rrFactor);
+    const rrRev = Math.round(act.revenue * rrFactor);
+    const rrProfit = rrRev - rrBudget;
+
+    return {
+      name: tName,
+      cls: tName.toLowerCase(),
+      kpi: kpi,
+      mtd: { budget: Math.round(act.budget), signups: act.signups, users: act.users, revenue: Math.round(act.revenue), profit: Math.round(profit) },
+      run_rate: { budget: rrBudget, signups: rrSignups, users: rrUsers, revenue: rrRev, profit: rrProfit },
+      roi: act.budget > 0 ? '1:' + (act.revenue / act.budget).toFixed(1) : '—'
+    };
+  });
+
+  // Add Grand Total row
+  const gtRrBudget = Math.round(gtActual.budget * rrFactor);
+  const gtRrSignups = Math.round(gtActual.signups * rrFactor);
+  const gtRrUsers = Math.round(gtActual.users * rrFactor);
+  const gtRrRev = Math.round(gtActual.revenue * rrFactor);
+  const gtRrProfit = gtRrRev - gtRrBudget;
+
+  CURRENT.teams.push({
+    name: "Grand total",
+    cls: "total",
+    kpi: gtKpi,
+    mtd: { budget: Math.round(gtActual.budget), signups: gtActual.signups, users: gtActual.users, revenue: Math.round(gtActual.revenue), profit: Math.round(gtActual.profit) },
+    run_rate: { budget: gtRrBudget, signups: gtRrSignups, users: gtRrUsers, revenue: gtRrRev, profit: gtRrProfit },
+    roi: gtActual.budget > 0 ? '1:' + (gtActual.revenue / gtActual.budget).toFixed(1) : '—'
+  });
+
+  // 2. TOP KPI CARDS
+  CURRENT.cards = {
+    registrations: { mtd: gtActual.signups, kpi: gtKpi.signups, run_rate: gtRrSignups },
+    ftd: { mtd: gtActual.users, kpi: gtKpi.users, run_rate: gtRrUsers },
+    revenue: { mtd: Math.round(gtActual.revenue), kpi: gtKpi.revenue, run_rate: gtRrRev },
+    profit: { mtd: Math.round(gtActual.profit), kpi: gtKpi.profit, run_rate: gtRrProfit }
+  };
+
+  // 3. ADVERTISERS AGGREGATION
+  const advMap = {};
+  RAW_DATA.catalogs.advertisers.forEach(adv => {
+    advMap[adv] = { name: adv, signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 };
+  });
+
+  filteredDays.forEach(day => {
+    for (const [adv, arr] of Object.entries(day.advertisers)) {
+      if (advMap[adv]) {
+        advMap[adv].signups += arr[0];
+        advMap[adv].ftd += arr[1];
+        advMap[adv].revenue += arr[2];
+        advMap[adv].budget += arr[3];
+      }
+    }
+  });
+
+  CURRENT.advertisers = Object.values(advMap).map(a => {
+    a.profit = a.revenue - a.budget;
+    return a;
+  });
+
+  // 4. BRANDS AGGREGATION
+  const brandMap = {};
+  RAW_DATA.catalogs.brands.forEach((b, idx) => {
+    brandMap[b.brand] = {
+      advertiser: b.advertiser,
+      brand: b.brand,
+      category: b.category,
+      origIdx: idx,
+      signups: 0,
+      ftd: 0,
+      revenue: 0,
+      budget: 0,
+      profit: 0
+    };
+  });
+
+  filteredDays.forEach(day => {
+    if (day.brands) {
+      for (const [bName, arr] of Object.entries(day.brands)) {
+        if (brandMap[bName]) {
+          brandMap[bName].signups += arr[0];
+          brandMap[bName].ftd += arr[1];
+          brandMap[bName].revenue += arr[2];
+          brandMap[bName].budget += arr[3];
+        }
+      }
+    }
+  });
+
+  CURRENT.allBrands = Object.values(brandMap).map(b => {
+    b.profit = b.revenue - b.budget;
+    return b;
+  });
+
+  CURRENT.sweepsBrands = CURRENT.allBrands.filter(b => b.category === 'sweepstakes');
+  CURRENT.casinoBrands = CURRENT.allBrands.filter(b => b.category === 'casino');
+  CURRENT.otherBrands = CURRENT.allBrands.filter(b => b.category === 'other');
+
+  // 5. INHOUSE BRANDS AGGREGATION
+  const inhouseMap = {};
+  RAW_DATA.catalogs.inhouse_brands.forEach((ib, idx) => {
+    inhouseMap[ib] = { brand: ib, origIdx: idx, signups: 0, ftd: 0, revenue: 0, budget: 0, profit: 0 };
+  });
+
+  filteredDays.forEach(day => {
+    if (day.inhouse) {
+      for (const [ibName, bud] of Object.entries(day.inhouse)) {
+        if (inhouseMap[ibName]) {
+          inhouseMap[ibName].budget += bud;
+        }
+      }
+    }
+  });
+
+  CURRENT.inhouseBrands = Object.values(inhouseMap).map(ib => {
+    ib.profit = ib.revenue - ib.budget;
+    return ib;
+  });
+}
+
+/* ---------- Render Top Cards ---------- */
 function renderCards() {
-  const c = DATA.kpis_overview;
+  const c = CURRENT.cards;
+  const isMonthClosed = (state.from === RAW_DATA.metadata.date_from && state.to === RAW_DATA.metadata.date_to);
   const defs = [
     { lbl: 'REGISTRATIONS', val: fmtInt(c.registrations.mtd), accent: 'var(--pink)', sub: { kpi: fmtInt(c.registrations.kpi), rr: fmtInt(c.registrations.run_rate), rrCls: c.registrations.run_rate >= c.registrations.kpi ? 'green' : 'red' } },
     { lbl: 'FTD', val: fmtInt(c.ftd.mtd), accent: 'var(--pink)', sub: { kpi: fmtInt(c.ftd.kpi), rr: fmtInt(c.ftd.run_rate), rrCls: c.ftd.run_rate >= c.ftd.kpi ? 'green' : 'red' } },
@@ -505,16 +669,16 @@ function renderCards() {
       <div class="val">${d.val}</div>
       <div class="accent" style="background:${d.accent}"></div>
       <div class="sub">
-        <span>KPI<br>${DATA.metadata.is_month_closed ? 'Final' : 'Run rate'}</span>
+        <span>KPI<br>${isMonthClosed ? 'Final' : 'Run rate'}</span>
         <span style="text-align:right"><b>${d.sub.kpi}</b><br><b class="${d.sub.rrCls}">${d.sub.rr}</b></span>
       </div>
     </div>`).join('');
 }
 
-/* ---------- Team Table ---------- */
+/* ---------- Render Teams Table ---------- */
 function renderTeams() {
   const tbody = document.querySelector('#teamTable tbody');
-  tbody.innerHTML = DATA.team_performance.map(t => {
+  tbody.innerHTML = CURRENT.teams.map(t => {
     const k = t.kpi, m = t.mtd, r = t.run_rate;
     return `
       <tr class="${t.cls === 'total' ? 'total-row' : ''}">
@@ -539,10 +703,10 @@ function renderTeams() {
   }).join('');
 }
 
-/* ---------- Daily Chart (Calendar Range Aware) ---------- */
+/* ---------- Render Daily Chart ---------- */
 let chDailyInstance = null;
 function renderDaily() {
-  const filtered = DATA.daily_performance.filter(d => d.date >= state.from && d.date <= state.to);
+  const filtered = CURRENT.daily;
   const labels = filtered.map(d => {
     const [y, m, day] = d.date.split('-');
     const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -552,7 +716,7 @@ function renderDaily() {
   const reg = [], ftd = [], rev = [];
   filtered.forEach(d => {
     let r = 0, f = 0, v = 0;
-    for (const [adv, vals] of Object.entries(d.by_advertiser)) {
+    for (const [adv, vals] of Object.entries(d.advertisers)) {
       if (state.advs.has(adv)) {
         r += vals[0];
         f += vals[1];
@@ -566,10 +730,10 @@ function renderDaily() {
   const avg = arr => arr.reduce((a,b) => a+b, 0) / count;
   const f1 = v => (Math.round(v*10)/10).toLocaleString('en-US');
 
-  const gtTeam = DATA.team_performance.find(t => t.cls === 'total') || DATA.team_performance[DATA.team_performance.length - 1];
-  const kpiDailySignups = gtTeam.kpi.signups / DATA.metadata.days_in_month;
-  const kpiDailyFtd = gtTeam.kpi.users / DATA.metadata.days_in_month;
-  const kpiDailyRev = gtTeam.kpi.revenue / DATA.metadata.days_in_month;
+  const gtKpi = RAW_DATA.teams_kpi["Grand total"];
+  const kpiDailySignups = gtKpi.signups / RAW_DATA.metadata.days_in_month;
+  const kpiDailyFtd = gtKpi.users / RAW_DATA.metadata.days_in_month;
+  const kpiDailyRev = gtKpi.revenue / RAW_DATA.metadata.days_in_month;
 
   const dashed = (lbl, col, val) => ({
     label: lbl, data: filtered.map(() => Math.round(val*10)/10),
@@ -613,7 +777,7 @@ function renderDaily() {
 }
 
 /* ---------- Generic Table Sort & Renderer ---------- */
-function renderTableGeneric(tableId, btnsId, dataArray, sortKey, sortAsc, labelColName, isBrandTable = false) {
+function renderTableGeneric(tableId, btnsId, dataArray, sortKey, sortAsc, isBrandTable = false) {
   const table = document.getElementById(tableId);
   const tbody = table.querySelector('tbody');
   const tfoot = table.querySelector('tfoot');
@@ -670,7 +834,7 @@ function renderTableGeneric(tableId, btnsId, dataArray, sortKey, sortAsc, labelC
     }
   });
 
-  // Update pill buttons
+  // Update capsule buttons
   if (btnsId) {
     document.querySelectorAll(`#${btnsId} button`).forEach(btn => {
       const f = btn.dataset.sort;
@@ -697,7 +861,7 @@ function initTableSortEvents(tableId, btnsId, stateKeyPrefix, dataGetter, isBran
         state[`${stateKeyPrefix}SortKey`] = field;
         state[`${stateKeyPrefix}SortAsc`] = (field === 'adv_order' || field === 'name' || field === 'brand');
       }
-      renderTableGeneric(tableId, btnsId, dataGetter(), state[`${stateKeyPrefix}SortKey`], state[`${stateKeyPrefix}SortAsc`], '', isBrandTable);
+      renderTableGeneric(tableId, btnsId, dataGetter(), state[`${stateKeyPrefix}SortKey`], state[`${stateKeyPrefix}SortAsc`], isBrandTable);
     });
   });
 
@@ -711,7 +875,7 @@ function initTableSortEvents(tableId, btnsId, stateKeyPrefix, dataGetter, isBran
           state[`${stateKeyPrefix}SortKey`] = field;
           state[`${stateKeyPrefix}SortAsc`] = (field === 'adv_order');
         }
-        renderTableGeneric(tableId, btnsId, dataGetter(), state[`${stateKeyPrefix}SortKey`], state[`${stateKeyPrefix}SortAsc`], '', isBrandTable);
+        renderTableGeneric(tableId, btnsId, dataGetter(), state[`${stateKeyPrefix}SortKey`], state[`${stateKeyPrefix}SortAsc`], isBrandTable);
       });
     });
   }
@@ -725,7 +889,7 @@ let chAdvPerfInst = null, chAdvProfitInst = null, chBrandPerfInst = null, chBran
 
 function renderAdvPerfChart() {
   const m = state.advPerfMetric;
-  const sorted = [...DATA.advertiser_report].sort((a, b) => b[m] - a[m]);
+  const sorted = [...CURRENT.advertisers].sort((a, b) => b[m] - a[m]);
   if (chAdvPerfInst) chAdvPerfInst.destroy();
   chAdvPerfInst = new Chart(document.getElementById('chAdvPerf'), {
     type: 'bar',
@@ -745,7 +909,7 @@ function renderAdvPerfChart() {
 }
 
 function renderAdvProfitChart() {
-  const sorted = [...DATA.advertiser_report].sort((a, b) => b.profit - a.profit);
+  const sorted = [...CURRENT.advertisers].sort((a, b) => b.profit - a.profit);
   if (chAdvProfitInst) chAdvProfitInst.destroy();
   chAdvProfitInst = new Chart(document.getElementById('chAdvProfit'), {
     type: 'bar',
@@ -769,7 +933,7 @@ function renderAdvProfitChart() {
 
 function renderBrandPerfChart() {
   const m = state.brandPerfMetric;
-  const active = ALL_BRAND_DATA.filter(b => b[m] > 0).sort((a, b) => b[m] - a[m]).slice(0, 15);
+  const active = CURRENT.allBrands.filter(b => b[m] > 0).sort((a, b) => b[m] - a[m]).slice(0, 15);
   document.getElementById('brandPerfHint').textContent = `Top active brands by ${m === 'signups' ? 'signups' : (m === 'ftd' ? 'FTD' : 'revenue')}.`;
 
   if (chBrandPerfInst) chBrandPerfInst.destroy();
@@ -791,7 +955,7 @@ function renderBrandPerfChart() {
 }
 
 function renderBrandProfitChart() {
-  const active = ALL_BRAND_DATA.filter(b => b.profit !== 0).sort((a, b) => b.profit - a.profit);
+  const active = CURRENT.allBrands.filter(b => b.profit !== 0).sort((a, b) => b.profit - a.profit);
   if (chBrandProfitInst) chBrandProfitInst.destroy();
   chBrandProfitInst = new Chart(document.getElementById('chBrandProfit'), {
     type: 'bar',
@@ -823,7 +987,7 @@ function renderAllCharts2x2() {
 /* ---------- Filters & Event Bindings ---------- */
 function renderAdvPanel() {
   const p = document.getElementById('advPanel');
-  const advList = DATA.advertiser_report.map(a => a.name);
+  const advList = RAW_DATA.catalogs.advertisers;
   p.innerHTML = advList.map(adv => `
     <label><input type="checkbox" value="${adv}" ${state.advs.has(adv) ? 'checked' : ''}> ${adv}</label>`).join('');
   
@@ -835,21 +999,22 @@ function renderAdvPanel() {
 }
 
 function updateAdvBtn() {
-  const total = DATA.advertiser_report.length;
+  const total = RAW_DATA.catalogs.advertisers.length;
   document.getElementById('advBtn').textContent = state.advs.size === total ? 'All advertisers ▾' : `${state.advs.size} advertisers ▾`;
 }
 
+/* Central Render Trigger */
 function renderAll() {
   renderCards();
   renderTeams();
   renderAdvPanel();
   updateAdvBtn();
   renderDaily();
-  renderTableGeneric('advTable', 'advSortBtns', DATA.advertiser_report, state.advSortKey, state.advSortAsc, 'name', false);
-  renderTableGeneric('sweepsBrandTable', 'sweepsBrandSortBtns', DATA.brand_performance.sweepstakes_brands, state.sweepsSortKey, state.sweepsSortAsc, '', true);
-  renderTableGeneric('casinoBrandTable', 'casinoBrandSortBtns', DATA.brand_performance.casino_brands, state.casinoSortKey, state.casinoSortAsc, '', true);
-  renderTableGeneric('otherBrandTable', 'otherBrandSortBtns', DATA.brand_performance.other_brands, state.otherSortKey, state.otherSortAsc, '', true);
-  renderTableGeneric('inhouseTable', 'inhouseSortBtns', DATA.inhouse_brands, state.inhouseSortKey, state.inhouseSortAsc, 'brand', false);
+  renderTableGeneric('advTable', 'advSortBtns', CURRENT.advertisers, state.advSortKey, state.advSortAsc, false);
+  renderTableGeneric('sweepsBrandTable', 'sweepsBrandSortBtns', CURRENT.sweepsBrands, state.sweepsSortKey, state.sweepsSortAsc, true);
+  renderTableGeneric('casinoBrandTable', 'casinoBrandSortBtns', CURRENT.casinoBrands, state.casinoSortKey, state.casinoSortAsc, true);
+  renderTableGeneric('otherBrandTable', 'otherBrandSortBtns', CURRENT.otherBrands, state.otherSortKey, state.otherSortAsc, true);
+  renderTableGeneric('inhouseTable', 'inhouseSortBtns', CURRENT.inhouseBrands, state.inhouseSortKey, state.inhouseSortAsc, false);
   renderAllCharts2x2();
 }
 
@@ -863,30 +1028,35 @@ function setupGlobalListeners() {
     if (!e.target.closest('.adv-drop')) document.getElementById('advPanel').classList.remove('open');
   });
 
+  // Calendar Date Filtering -> Recalculates ALL Tables and Charts!
   document.getElementById('dateFrom').addEventListener('change', e => {
-    state.from = e.target.value || DATA.metadata.date_from;
+    state.from = e.target.value || RAW_DATA.metadata.date_from;
     if (state.from > state.to) {
       state.to = state.from;
       document.getElementById('dateTo').value = state.to;
     }
-    renderDaily();
+    aggregateAllByDateRange();
+    renderAll();
   });
 
   document.getElementById('dateTo').addEventListener('change', e => {
-    state.to = e.target.value || DATA.metadata.date_to;
+    state.to = e.target.value || RAW_DATA.metadata.date_to;
     if (state.to < state.from) {
       state.from = state.to;
       document.getElementById('dateFrom').value = state.from;
     }
-    renderDaily();
+    aggregateAllByDateRange();
+    renderAll();
   });
 
+  // Reset Filters Button
   document.getElementById('btnReset').addEventListener('click', () => {
     initState();
-    updateAdvBtn();
-    renderDaily();
+    aggregateAllByDateRange();
+    renderAll();
   });
 
+  // Monthly Selector (data_september.json, data_october.json, etc.)
   document.getElementById('monthSelect').addEventListener('change', e => {
     loadMonthlyData(e.target.value);
   });
@@ -911,11 +1081,11 @@ function setupGlobalListeners() {
   });
 
   // Init sort events for each table
-  initTableSortEvents('advTable', 'advSortBtns', 'adv', () => DATA.advertiser_report, false);
-  initTableSortEvents('sweepsBrandTable', 'sweepsBrandSortBtns', 'sweeps', () => DATA.brand_performance.sweepstakes_brands, true);
-  initTableSortEvents('casinoBrandTable', 'casinoBrandSortBtns', 'casino', () => DATA.brand_performance.casino_brands, true);
-  initTableSortEvents('otherBrandTable', 'otherBrandSortBtns', 'other', () => DATA.brand_performance.other_brands, true);
-  initTableSortEvents('inhouseTable', 'inhouseSortBtns', 'inhouse', () => DATA.inhouse_brands, false);
+  initTableSortEvents('advTable', 'advSortBtns', 'adv', () => CURRENT.advertisers, false);
+  initTableSortEvents('sweepsBrandTable', 'sweepsBrandSortBtns', 'sweeps', () => CURRENT.sweepsBrands, true);
+  initTableSortEvents('casinoBrandTable', 'casinoBrandSortBtns', 'casino', () => CURRENT.casinoBrands, true);
+  initTableSortEvents('otherBrandTable', 'otherBrandSortBtns', 'other', () => CURRENT.otherBrands, true);
+  initTableSortEvents('inhouseTable', 'inhouseSortBtns', 'inhouse', () => CURRENT.inhouseBrands, false);
 }
 
 // Initial Boot
