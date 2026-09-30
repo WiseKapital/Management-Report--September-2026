@@ -10,10 +10,10 @@
     "is_month_closed": true
   },
   "teams_kpi": {
-    "EMAIL": { "budget": 1100.00, "signups": 500, "users": 40, "revenue": 4400.00, "profit": 3300.00 },
-    "MEDIA": { "budget": 5500.00, "signups": 1000, "users": 300, "revenue": 16500.00, "profit": 11000.00 },
-    "SOCIAL": { "budget": 1100.00, "signups": 250, "users": 20, "revenue": 3300.00, "profit": 2200.00 },
-    "Grand total": { "budget": 7700.00, "signups": 1750, "users": 360, "revenue": 24200.00, "profit": 16500.00 }
+    "EMAIL": { "budget": 1100.0, "signups": 500, "users": 40, "revenue": 4400.0, "profit": 3300.0 },
+    "MEDIA": { "budget": 5500.0, "signups": 1000, "users": 300, "revenue": 16500.0, "profit": 11000.0 },
+    "SOCIAL": { "budget": 1100.0, "signups": 250, "users": 20, "revenue": 3300.0, "profit": 2200.0 },
+    "Grand total": { "budget": 7700.0, "signups": 1750, "users": 360, "revenue": 24200.0, "profit": 16500.0 }
   },
   "catalogs": {
     "advertisers": [
@@ -100,239 +100,77 @@
     ]
   },
   "daily_records": [
-    {
-      "date": "2026-07-01",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "CoinsRoyale_direct": [4, 0, 0.0, 43.54], "CHANCED": [2, 0, 0.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "CardCrush": [5, 0, 8.0, 0.0], "CoinsRoyale": [4, 0, 0.0, 43.54], "Chanced Punt": [2, 0, 0.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-02",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [4, 0, 0.0, 43.54], "BASHER AGENCY": [3, 0, 27.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LuckyBunny": [2, 1, 40.0, 0.0], "The Boss": [1, 0, 33.0, 0.0], "CoinsRoyale": [4, 0, 0.0, 43.54], "LavishLuck Sweepstakes Casino": [2, 0, 23.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-03",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 3, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "ALL IN AFFILIATES": [2, 0, 20.0, 0.0], "PURIFY": [1, 0, 6.0, 2.41] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "FS Casino": [1, 0, 15.0, 0.0], "Simply Piano Desktop": [1, 0, 6.0, 2.41] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-04",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [5, 1, 0.0, 43.54], "CoinsRoyale": [1, 0, 0.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "CardCrush": [5, 0, 8.0, 0.0], "CoinsRoyale": [5, 1, 0.0, 43.54], "Coins Royale sweeps": [1, 0, 0.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-05",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "BASHER AGENCY": [3, 0, 27.0, 0.0], "SPLASH": [1, 0, 15.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "LuckyZino Sweepstakes Casino": [1, 0, 4.0, 0.0], "splashcoins": [1, 0, 15.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-06",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 3, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [4, 0, 0.0, 43.54], "AFF 66": [1, 0, 30.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "The Boss": [1, 0, 33.0, 0.0], "CoinsRoyale": [4, 0, 0.0, 43.54], "SweepJungle": [1, 0, 30.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-07",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "CHANCED": [2, 0, 0.0, 0.0], "PURIFY": [1, 0, 6.0, 2.41] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "Chanced Punt": [2, 0, 0.0, 0.0], "Simply Piano Desktop": [1, 0, 6.0, 2.41] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-08",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [4, 0, 0.0, 43.54], "ALL IN AFFILIATES": [1, 0, 20.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "CardCrush": [5, 0, 8.0, 0.0], "CoinsRoyale": [4, 0, 0.0, 43.54], "7Bit Casino": [1, 0, 10.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-09",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "BASHER AGENCY": [3, 0, 27.0, 0.0], "IMPACT": [1, 1, 5.4, 1.33] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "LavishLuck Sweepstakes Casino": [2, 0, 23.0, 0.0], "Borrowell": [1, 1, 5.4, 3.33] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51, "PrizeFlow  sweeps LP": 1.0, "Spin2Win  sweeps LP": 10.0 }
-    },
-    {
-      "date": "2026-07-10",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 3, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [5, 1, 0.0, 43.54], "CoinsRoyale": [1, 0, 0.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "The Boss": [1, 0, 33.0, 0.0], "CoinsRoyale": [5, 1, 0.0, 43.54], "Coins Royale sweeps": [1, 0, 0.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-11",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "CHANCED": [2, 0, 0.0, 0.0], "PURIFY": [1, 0, 6.0, 2.41] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "Chanced Punt": [2, 0, 0.0, 0.0], "Simply Piano Desktop": [1, 0, 6.0, 2.41] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-12",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [4, 0, 0.0, 43.54], "SPLASH": [1, 0, 15.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "CardCrush": [5, 0, 8.0, 0.0], "CoinsRoyale": [4, 0, 0.0, 43.54], "splashcoins": [1, 0, 15.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-13",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "BASHER AGENCY": [3, 0, 27.0, 0.0], "AFF 66": [1, 0, 30.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "Luckyvibe": [1, 0, 0.0, 0.0], "SweepJungle": [1, 0, 30.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-14",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 3, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [4, 0, 0.0, 43.54], "ALL IN AFFILIATES": [1, 0, 20.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "The Boss": [1, 0, 33.0, 0.0], "CoinsRoyale": [4, 0, 0.0, 43.54], "Ice Casino": [1, 0, 0.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-15",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "CHANCED": [2, 0, 0.0, 0.0], "PURIFY": [1, 0, 6.0, 2.41] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "Chanced Punt": [2, 0, 0.0, 0.0], "Simply Piano Desktop": [1, 0, 6.0, 2.41] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-16",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [5, 1, 0.0, 43.54], "CoinsRoyale": [1, 0, 0.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "CardCrush": [5, 0, 8.0, 0.0], "CoinsRoyale": [5, 1, 0.0, 43.54], "Coins Royale sweeps": [1, 0, 0.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-17",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "BASHER AGENCY": [3, 0, 27.0, 0.0], "SPLASH": [1, 0, 15.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "LavishLuck Sweepstakes Casino": [2, 0, 23.0, 0.0], "splashcoins": [1, 0, 15.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-18",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 3, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [4, 0, 0.0, 43.54], "ALL IN AFFILIATES": [1, 0, 20.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "The Boss": [1, 0, 33.0, 0.0], "CoinsRoyale": [4, 0, 0.0, 43.54], "FS Casino": [1, 0, 15.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-19",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "CHANCED": [2, 0, 0.0, 0.0], "PURIFY": [1, 0, 6.0, 2.41] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "Chanced Punt": [2, 0, 0.0, 0.0], "Simply Piano Desktop": [1, 0, 6.0, 2.41] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51, "PrizeFlow  sweeps LP": 1.0, "Spin2Win  sweeps LP": 10.0 }
-    },
-    {
-      "date": "2026-07-20",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [4, 0, 0.0, 43.54], "IMPACT": [1, 1, 5.4, 1.33] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "CardCrush": [5, 0, 8.0, 0.0], "CoinsRoyale": [4, 0, 0.0, 43.54], "Borrowell": [1, 1, 5.4, 3.33] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-21",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "BASHER AGENCY": [3, 0, 27.0, 0.0], "AFF 66": [1, 0, 30.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "LuckyZino Sweepstakes Casino": [1, 0, 4.0, 0.0], "Sixty6": [1, 0, 0.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-22",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 3, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [5, 1, 0.0, 43.54], "CoinsRoyale": [1, 0, 0.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "The Boss": [1, 0, 33.0, 0.0], "CoinsRoyale": [5, 1, 0.0, 43.54], "Coins Royale sweeps": [1, 0, 0.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-23",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "CHANCED": [2, 0, 0.0, 0.0], "PURIFY": [1, 0, 6.0, 2.41] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "Chanced Punt": [2, 0, 0.0, 0.0], "Simply Piano Desktop": [1, 0, 6.0, 2.41] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-24",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [4, 0, 0.0, 43.54], "SPLASH": [1, 0, 15.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "CardCrush": [5, 0, 8.0, 0.0], "CoinsRoyale": [4, 0, 0.0, 43.54], "splashcoins": [1, 0, 15.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-25",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "BASHER AGENCY": [3, 0, 27.0, 0.0], "ALL IN AFFILIATES": [1, 0, 20.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "LavishLuck Sweepstakes Casino": [2, 0, 23.0, 0.0], "7Bit Casino": [1, 0, 10.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-26",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 3, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [4, 0, 0.0, 43.54], "CHANCED": [2, 0, 0.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "The Boss": [1, 0, 33.0, 0.0], "CoinsRoyale": [4, 0, 0.0, 43.54], "Chanced Punt": [2, 0, 0.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-27",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "AFF 66": [1, 0, 30.0, 0.0], "PURIFY": [1, 0, 6.0, 2.41] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "SweepJungle": [1, 0, 30.0, 0.0], "Simply Piano Desktop": [1, 0, 6.0, 2.41] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-28",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [5, 1, 0.0, 43.54], "CoinsRoyale": [1, 0, 0.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "CardCrush": [5, 0, 8.0, 0.0], "CoinsRoyale": [5, 1, 0.0, 43.54], "Coins Royale sweeps": [1, 0, 0.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
-    {
-      "date": "2026-07-29",
-      "teams": { "EMAIL": [30.64, 13, 1, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 2, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 1, 220.0, 10.64], "BASHER AGENCY": [3, 0, 27.0, 0.0], "IMPACT": [1, 1, 5.42, 1.34] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "LavishLuck": [7, 0, 35.0, 0.0], "WiseSpin Sweeps Casino": [1, 0, 0.0, 0.0], "Borrowell": [1, 1, 5.42, 3.34] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51, "PrizeFlow  sweeps LP": 1.0, "Spin2Win  sweeps LP": 10.0 }
-    },
-    {
-      "date": "2026-07-30",
-      "teams": { "EMAIL": [30.64, 13, 0, 43.12], "MEDIA": [179.58, 26, 3, 36.61], "SOCIAL": [65.61, 8, 3, 44.74] },
-      "advertisers": { "GAMETIME DIGITAL": [36, 2, 220.0, 10.64], "CoinsRoyale_direct": [4, 0, 0.0, 43.54], "SPLASH": [1, 0, 15.0, 0.0] },
-      "brands": { "Jackpotgo": [17, 0, 44.0, 10.64], "The Boss": [1, 0, 33.0, 0.0], "CoinsRoyale": [4, 0, 0.0, 43.54], "splashcoins": [1, 0, 15.0, 0.0] },
-      "inhouse": { "Pirates LP": 5.22, "SuperSlotz sweeps": 5.51 }
-    },
+    { "date": "2026-07-01", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-02", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-03", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-04", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-05", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-06", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-07", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-08", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-09", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-10", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-11", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-12", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-13", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-14", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-15", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-16", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-17", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-18", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-19", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-20", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-21", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-22", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-23", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-24", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-25", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-26", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-27", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-28", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-29", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
+    { "date": "2026-07-30", "teams": {}, "advertisers": {}, "brands": {}, "inhouse": {} },
     {
       "date": "2026-07-31",
-      "teams": { "EMAIL": [30.80, 11, 0, 43.40], "MEDIA": [179.60, 35, 2, 36.70], "SOCIAL": [65.70, 1, 1, 44.80] },
+      "teams": {
+        "EMAIL": [950.00, 401, 15, 1337.00],
+        "MEDIA": [5567.00, 815, 88, 1135.00],
+        "SOCIAL": [2034.00, 241, 70, 1387.00]
+      },
       "advertisers": {
-        "GAMETIME DIGITAL": [33, 0, 220.0, 10.80],
-        "CoinsRoyale_direct": [4, 5, 0.0, 43.80],
-        "BASHER AGENCY": [12, 6, 175.0, 0.0],
-        "ALL IN AFFILIATES": [30, 3, 500.0, 0.0],
-        "CHANCED": [44, 0, 0.0, 0.0],
-        "PURIFY": [28, 9, 144.0, 60.54],
-        "CoinsRoyale": [16, 0, 0.0, 0.0],
-        "AFF 66": [6, 2, 180.0, 0.0],
-        "SPLASH": [5, 1, 75.0, 0.0]
+        "ACEBET": [0, 0, 0.0, 0.0],
+        "AFF 66": [10, 2, 300.0, 0.0],
+        "ALL IN AFFILIATES": [36, 3, 600.0, 0.0],
+        "BASHER AGENCY": [87, 6, 820.0, 0.0],
+        "CHANCED": [56, 0, 0.0, 0.0],
+        "CoinsRoyale": [21, 0, 0.0, 0.0],
+        "CoinsRoyale_direct": [132, 9, 0.0, 1350.0],
+        "EPC": [0, 0, 0.0, 0.0],
+        "GAMETIME DIGITAL": [1113, 46, 6820.0, 330.0],
+        "IMPACT": [3, 3, 16.22, 4.0],
+        "PURIFY": [34, 9, 180.0, 75.0],
+        "SPLASH": [9, 1, 150.0, 0.0]
       },
       "brands": {
-        "Jackpotgo": [2, 8, 40.0, 10.80],
-        "LuckyBunny": [45, 9, 1160.0, 0.0],
-        "LavishLuck": [17, 6, 10.0, 0.0],
-        "The Boss": [31, 6, 690.0, 0.0],
+        "SweepJungle": [7, 2, 300.0, 0.0],
+        "Sixty6": [3, 0, 0.0, 0.0],
+        "LavishLuck Sweepstakes Casino": [42, 5, 700.0, 0.0],
+        "LuckyZino Sweepstakes Casino": [30, 1, 120.0, 0.0],
+        "Luckyvibe": [13, 0, 0.0, 0.0],
+        "WiseSpin Sweeps Casino": [2, 0, 0.0, 0.0],
+        "Chanced Punt": [56, 0, 0.0, 0.0],
+        "Coins Royale CPL sweeps": [0, 0, 0.0, 0.0],
+        "Coins Royale sweeps": [21, 0, 0.0, 0.0],
+        "Coins Royale Las Vegas": [0, 0, 0.0, 0.0],
+        "CoinsRoyale": [132, 9, 0.0, 1350.0],
+        "LuckyBunny": [47, 10, 1200.0, 0.0],
+        "LavishLuck": [212, 6, 1080.0, 0.0],
+        "Jackpotgo": [512, 8, 1360.0, 330.0],
+        "The Boss": [37, 6, 1020.0, 0.0],
         "Baba": [11, 3, 450.0, 0.0],
         "WiseSpin": [20, 3, 420.0, 0.0],
         "LuckyZino": [9, 2, 280.0, 0.0],
-        "CardCrush": [108, 2, 184.0, 0.0],
+        "CardCrush": [143, 2, 240.0, 0.0],
         "Mega Bonanza": [18, 1, 160.0, 0.0],
         "Sweet Sweep": [7, 1, 150.0, 0.0],
         "Rolla": [19, 1, 125.0, 0.0],
@@ -347,25 +185,32 @@
         "Spinblitz SEO": [15, 0, 0.0, 0.0],
         "TitanTreasure": [3, 0, 0.0, 0.0],
         "Zunado": [1, 0, 0.0, 0.0],
+        "splashcoins": [9, 1, 150.0, 0.0],
+        "Acebet": [0, 0, 0.0, 0.0],
+        "FS Casino": [16, 2, 440.0, 0.0],
+        "7Bit Casino": [15, 1, 160.0, 0.0],
+        "Betnjet": [0, 0, 0.0, 0.0],
+        "BetRiot": [0, 0, 0.0, 0.0],
+        "Ice Casino": [5, 0, 0.0, 0.0],
+        "Casino Smartlink": [0, 0, 0.0, 0.0],
+        "Smash Casino": [0, 0, 0.0, 0.0],
+        "Lussurio": [0, 0, 0.0, 0.0],
         "PolyCasino": [8, 2, 260.0, 0.0],
         "Spinjo CA": [9, 1, 75.0, 0.0],
         "Casinio": [15, 0, 0.0, 0.0],
-        "CoinsRoyale": [4, 5, 0.0, 43.80],
-        "Coins Royale sweeps": [16, 0, 0.0, 0.0],
-        "LavishLuck Sweepstakes Casino": [34, 5, 608.0, 0.0],
-        "LuckyZino Sweepstakes Casino": [28, 1, 112.0, 0.0],
-        "Luckyvibe": [12, 0, 0.0, 0.0],
-        "WiseSpin Sweeps Casino": [1, 0, 0.0, 0.0],
-        "Chanced Punt": [44, 0, 0.0, 0.0],
-        "FS Casino": [14, 2, 410.0, 0.0],
-        "7Bit Casino": [13, 1, 140.0, 0.0],
-        "Ice Casino": [4, 0, 0.0, 0.0],
-        "Simply Piano Desktop": [28, 9, 144.0, 60.54],
-        "SweepJungle": [4, 2, 210.0, 0.0],
-        "Sixty6": [2, 0, 0.0, 0.0],
-        "splashcoins": [5, 1, 75.0, 0.0]
+        "Borrowell": [3, 3, 16.22, 10.0],
+        "Freecash": [0, 0, 0.0, 0.0],
+        "MOLOTOV": [0, 0, 0.0, 0.0],
+        "Verv Inc.": [0, 0, 0.0, 0.0],
+        "Sesame Care": [0, 0, 0.0, 0.0],
+        "Simply Piano Desktop": [34, 9, 180.0, 75.0]
       },
-      "inhouse": { "Pirates LP": 5.40, "SuperSlotz sweeps": 5.70 }
+      "inhouse": {
+        "SuperSlotz sweeps": 171.0,
+        "Pirates LP": 162.0,
+        "Spin2Win  sweeps LP": 30.0,
+        "PrizeFlow  sweeps LP": 3.0
+      }
     }
   ]
 }
