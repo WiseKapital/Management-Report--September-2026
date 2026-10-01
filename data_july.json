@@ -233,6 +233,12 @@
     },
     {
       "date": "2026-07-31",
+      "chart_advertisers": {
+        "GAMETIME DIGITAL": [42, 2, 230.0, 11.0],
+        "CoinsRoyale_direct": [5, 1, 0.0, 44.0],
+        "BASHER AGENCY": [3, 0, 28.0, 0.0],
+        "ALL IN AFFILIATES": [1, 0, 20.0, 0.0]
+      },
       "teams": {
         "EMAIL": [950.0, 401, 15, 1337.0],
         "MEDIA": [5567.0, 815, 88, 1135.0],
