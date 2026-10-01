@@ -531,18 +531,19 @@ const state = {
   brandPerfMetric: 'signups'
 };
 
-/* Formatters */
-const fmtInt = v => Math.round(v).toLocaleString('en-US');
+/* =========================================================================
+   FORMATTERS ESTRICTOS A NÚMEROS ENTEROS (SIN DECIMALES)
+   ========================================================================= */
+const fmtInt = v => Math.round(Number(v) || 0).toLocaleString('en-US');
+
 const fmtMoney = v => {
-  const isNeg = v < 0;
-  const absVal = Math.abs(v);
-  const formatted = absVal % 1 !== 0 
-    ? absVal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) 
-    : fmtInt(absVal);
-  return (isNeg ? '-$' : '$') + formatted;
+  const rounded = Math.round(Number(v) || 0);
+  if (rounded === 0) return '$0';
+  const isNeg = rounded < 0;
+  return (isNeg ? '-$' : '$') + Math.abs(rounded).toLocaleString('en-US');
 };
 
-// REGLA: Si RR >= KPI es verde ('pos'), si no es rojo ('neg') para todas las métricas (incluyendo BUDGET)
+// REGLA: Si RR >= KPI es verde ('pos'), si no es rojo ('neg') para todas las métricas
 const kpiCls = (v, kpi) => {
   if (v < 0) return 'neg';
   return v >= kpi ? 'pos' : 'neg';
@@ -602,7 +603,6 @@ async function fetchMonth(year, monthNum) {
   const fileName = `data_${monthName}.json`;
 
   try {
-    // LLAMADA ANTI-CACHE ESTRICTA: Evita caché de peticiones exitosas o fallidas
     const res = await fetch(`./${fileName}?_nocache=${Date.now()}_${Math.random()}`, {
       cache: 'no-store',
       headers: {
@@ -619,13 +619,11 @@ async function fetchMonth(year, monthNum) {
   } catch (err) {
     console.warn(`File ${fileName} not found. Generating default zero month.`, err);
     const zeroData = generateZeroMonth(year, monthNum);
-    // IMPORTANTE: NO guardamos en LOADED_MONTHS para que en cuanto subas el JSON se descargue de inmediato
     return zeroData;
   }
 }
 
 async function ensureDataRangeLoaded(fromStr, toStr) {
-  // Aseguramos cargar septiembre para tener el catálogo de anunciantes y marcas como base
   try {
     await fetchMonth(2026, 9);
   } catch(e) {}
@@ -655,7 +653,6 @@ async function filterAndRenderAll() {
 
   await ensureDataRangeLoaded(state.from, state.to);
 
-  // Combinar registros estrictamente entre state.from y state.to
   const allLoadedRecords = [];
   const mergedCatalogs = {
     advertisers: new Set(),
@@ -686,7 +683,6 @@ async function filterAndRenderAll() {
 
   const daysCount = allLoadedRecords.length || 1;
 
-  // Calcular la cantidad total de días del periodo seleccionado y meses involucrados
   const [fromY, fromM] = state.from.split('-').map(Number);
   const [toY, toM] = state.to.split('-').map(Number);
   let totalPeriodDays = 0;
@@ -700,7 +696,7 @@ async function filterAndRenderAll() {
     if (m > 12) { m = 1; y++; }
   }
 
-  // SUMA DINÁMICA DE KPIS: Se suman los KPIs de todos los meses abarcados en el rango
+  // SUMA DINÁMICA DE KPIS EN ENTEROS
   const aggregatedKpi = {
     "EMAIL": { budget: 0, signups: 0, users: 0, revenue: 0, profit: 0 },
     "MEDIA": { budget: 0, signups: 0, users: 0, revenue: 0, profit: 0 },
@@ -728,11 +724,8 @@ async function filterAndRenderAll() {
   CURRENT.baseKpi = baseKpi;
   CURRENT.totalPeriodDays = totalPeriodDays;
 
-  // Si se seleccionó el periodo completo (mes cerrado), el factor es 1.0 (FINAL)
   const isFullPeriod = (daysCount >= totalPeriodDays);
   const rrFactor = isFullPeriod ? 1.0 : (totalPeriodDays / daysCount);
-
-  // Las tablas y tarjetas SIEMPRE suman todos los días que caen dentro del rango seleccionado
   const recordsForTables = allLoadedRecords;
 
   // 1. Teams Aggregation
@@ -777,9 +770,15 @@ async function filterAndRenderAll() {
       name: tName,
       cls: tName.toLowerCase(),
       kpi: kpi,
-      mtd: { budget: Math.round(act.budget), signups: act.signups, users: act.users, revenue: Math.round(act.revenue), profit: Math.round(profit) },
+      mtd: { 
+        budget: Math.round(act.budget), 
+        signups: Math.round(act.signups), 
+        users: Math.round(act.users), 
+        revenue: Math.round(act.revenue), 
+        profit: Math.round(profit) 
+      },
       run_rate: { budget: rrBudget, signups: rrSignups, users: rrUsers, revenue: rrRev, profit: rrProfit },
-      roi: act.budget > 0 ? '1:' + (act.revenue / act.budget).toFixed(1) : '—'
+      roi: act.budget > 0 ? '1:' + Math.round(act.revenue / act.budget) : '—'
     };
   });
 
@@ -794,17 +793,23 @@ async function filterAndRenderAll() {
     name: "Grand total",
     cls: "total",
     kpi: gtKpi,
-    mtd: { budget: Math.round(gtActual.budget), signups: gtActual.signups, users: gtActual.users, revenue: Math.round(gtActual.revenue), profit: Math.round(gtActual.profit) },
+    mtd: { 
+      budget: Math.round(gtActual.budget), 
+      signups: Math.round(gtActual.signups), 
+      users: Math.round(gtActual.users), 
+      revenue: Math.round(gtActual.revenue), 
+      profit: Math.round(gtActual.profit) 
+    },
     run_rate: { budget: gtRrBudget, signups: gtRrSignups, users: gtRrUsers, revenue: gtRrRev, profit: gtRrProfit },
-    roi: gtActual.budget > 0 ? '1:' + (gtActual.revenue / gtActual.budget).toFixed(1) : '—'
+    roi: gtActual.budget > 0 ? '1:' + Math.round(gtActual.revenue / gtActual.budget) : '—'
   });
 
   // 2. Top KPI Cards
   CURRENT.cards = {
-    registrations: { mtd: gtActual.signups, kpi: gtKpi.signups, run_rate: gtRrSignups },
-    ftd: { mtd: gtActual.users, kpi: gtKpi.users, run_rate: gtRrUsers },
-    revenue: { mtd: Math.round(gtActual.revenue), kpi: gtKpi.revenue, run_rate: gtRrRev },
-    profit: { mtd: Math.round(gtActual.profit), kpi: gtKpi.profit, run_rate: gtRrProfit }
+    registrations: { mtd: Math.round(gtActual.signups), kpi: Math.round(gtKpi.signups), run_rate: gtRrSignups },
+    ftd: { mtd: Math.round(gtActual.users), kpi: Math.round(gtKpi.users), run_rate: gtRrUsers },
+    revenue: { mtd: Math.round(gtActual.revenue), kpi: Math.round(gtKpi.revenue), run_rate: gtRrRev },
+    profit: { mtd: Math.round(gtActual.profit), kpi: Math.round(gtKpi.profit), run_rate: gtRrProfit }
   };
 
   // 3. Advertisers Aggregation
@@ -945,7 +950,6 @@ function renderCalendarGrid() {
   const minKey = MIN_DATE.slice(0, 7);
   const maxKey = MAX_DATE.slice(0, 7);
 
-  // Deshabilitar navegación a meses anteriores a MIN_DATE o futuros a MAX_DATE
   document.getElementById('calPrev').disabled = (viewKey <= minKey);
   document.getElementById('calNext').disabled = (viewKey >= maxKey);
 
@@ -970,7 +974,6 @@ function renderCalendarGrid() {
     cell.className = 'cal-cell';
     cell.textContent = day;
 
-    // Deshabilita días fuera del rango permitido y cualquier día posterior a HOY
     const isDisabled = (dateStr < MIN_DATE || dateStr > MAX_DATE);
     const isSelected = (state.activePicker === 'from' && dateStr === state.from) ||
                        (state.activePicker === 'to' && dateStr === state.to);
@@ -1074,20 +1077,19 @@ function renderDaily() {
 
   const count = filtered.length || 1;
   const avg = arr => arr.reduce((a,b) => a+b, 0) / count;
-  const f1 = v => (Math.round(v*10)/10).toLocaleString('en-US');
+  const f1 = v => Math.round(v).toLocaleString('en-US');
 
-  // KPI diario promedio según el total de días del periodo y la suma de KPIs
   const gtKpi = (CURRENT.baseKpi && CURRENT.baseKpi["Grand total"]) 
     ? CURRENT.baseKpi["Grand total"] 
     : { signups: 1750, users: 360, revenue: 24200 };
 
   const periodDays = CURRENT.totalPeriodDays || 30;
-  const kpiDailySignups = gtKpi.signups / periodDays;
-  const kpiDailyFtd = gtKpi.users / periodDays;
-  const kpiDailyRev = gtKpi.revenue / periodDays;
+  const kpiDailySignups = Math.round(gtKpi.signups / periodDays);
+  const kpiDailyFtd = Math.round(gtKpi.users / periodDays);
+  const kpiDailyRev = Math.round(gtKpi.revenue / periodDays);
 
   const dashed = (lbl, col, val) => ({
-    label: lbl, data: filtered.map(() => Math.round(val*10)/10),
+    label: lbl, data: filtered.map(() => val),
     borderColor: col, borderDash: [6,5], borderWidth: 2, pointRadius: 0, fill: false, tension: 0
   });
   const solid = (lbl, col, data) => ({
@@ -1104,8 +1106,8 @@ function renderDaily() {
         solid(`Registrations (Avg: ${fmtInt(avg(reg))}/day)`, '#2f6fed', reg),
         solid(`FTD (Avg: ${f1(avg(ftd))}/day)`, '#ec4899', ftd),
         solid(`Revenue (Avg: $${fmtInt(avg(rev))}/day)`, '#eab308', rev),
-        dashed(`KPI SIGNUPS (${f1(kpiDailySignups)}/day)`, '#2f6fed', kpiDailySignups),
-        dashed(`KPI FTD (${f1(kpiDailyFtd)}/day)`, '#ec4899', kpiDailyFtd),
+        dashed(`KPI SIGNUPS (${fmtInt(kpiDailySignups)}/day)`, '#2f6fed', kpiDailySignups),
+        dashed(`KPI FTD (${fmtInt(kpiDailyFtd)}/day)`, '#ec4899', kpiDailyFtd),
         dashed(`KPI REVENUE ($${fmtInt(kpiDailyRev)}/day)`, '#eab308', kpiDailyRev)
       ]
     },
@@ -1116,7 +1118,7 @@ function renderDaily() {
         legend: { position: 'top', align: 'center', labels: { boxWidth: 10, usePointStyle: true, pointStyle: 'circle', padding: 14, font: { size: 11 } } }
       },
       scales: {
-        y: { title: { display: true, text: 'Count' }, grid: { color: '#f0f1f4' }, beginAtZero: true },
+        y: { title: { display: true, text: 'Count' }, grid: { color: '#f0f1f4' }, beginAtZero: true, ticks: { callback: v => fmtInt(v) } },
         y1: { position: 'right', title: { display: true, text: 'Revenue $' }, grid: { drawOnChartArea: false }, beginAtZero: true, ticks: { callback: v => '$' + fmtInt(v) } },
         x: { grid: { display: false } }
       }
@@ -1148,8 +1150,8 @@ function renderTableGeneric(tableId, btnsId, dataArray, sortKey, sortAsc, isBran
     return `
       <tr>
         ${isBrandTable ? `<td>${row.advertiser}</td><td>${row.brand}</td>` : `<td>${row.name || row.brand}</td>`}
-        <td class="num">${row.signups.toLocaleString('en-US')}</td>
-        <td class="num">${row.ftd.toLocaleString('en-US')}</td>
+        <td class="num">${fmtInt(row.signups)}</td>
+        <td class="num">${fmtInt(row.ftd)}</td>
         <td class="num ${revCls}">${fmtMoney(row.revenue)}</td>
         <td class="num ${budCls}">${fmtMoney(row.budget)}</td>
         <td class="num ${profCls}">${fmtMoney(row.profit)}</td>
@@ -1164,8 +1166,8 @@ function renderTableGeneric(tableId, btnsId, dataArray, sortKey, sortAsc, isBran
   tfoot.innerHTML = `
     <tr class="total-row">
       <td colspan="${isBrandTable ? 2 : 1}">Total</td>
-      <td class="num">${totS.toLocaleString('en-US')}</td>
-      <td class="num">${totF.toLocaleString('en-US')}</td>
+      <td class="num">${fmtInt(totS)}</td>
+      <td class="num">${fmtInt(totF)}</td>
       <td class="num ${totR > 0 ? 'pos' : ''}">${fmtMoney(totR)}</td>
       <td class="num ${totB > 0 ? 'pos' : ''}">${fmtMoney(totB)}</td>
       <td class="num ${totP > 0 ? 'pos' : (totP < 0 ? 'neg' : '')}">${fmtMoney(totP)}</td>
@@ -1242,13 +1244,13 @@ function renderAdvPerfChart() {
     type: 'bar',
     data: {
       labels: sorted.map(d => d.name),
-      datasets: [{ data: sorted.map(d => d[m]), backgroundColor: sorted.map((_, i) => palette[i % palette.length]), borderRadius: 6, barThickness: 14 }]
+      datasets: [{ data: sorted.map(d => Math.round(d[m])), backgroundColor: sorted.map((_, i) => palette[i % palette.length]), borderRadius: 6, barThickness: 14 }]
     },
     options: {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { grid: { color: '#f0f1f4' }, beginAtZero: true, ticks: { callback: v => m === 'revenue' ? '$' + v.toLocaleString('en-US') : v.toLocaleString('en-US') } },
+        x: { grid: { color: '#f0f1f4' }, beginAtZero: true, ticks: { callback: v => m === 'revenue' ? '$' + fmtInt(v) : fmtInt(v) } },
         y: { grid: { display: false }, ticks: { font: { size: 11 } } }
       }
     }
@@ -1262,7 +1264,7 @@ function renderAdvProfitChart() {
     type: 'bar',
     data: {
       labels: sorted.map(d => d.name),
-      datasets: [{ data: sorted.map(d => d.profit), backgroundColor: sorted.map(d => d.profit >= 0 ? '#10b981' : '#dc2626'), borderRadius: 6, barThickness: 14 }]
+      datasets: [{ data: sorted.map(d => Math.round(d.profit)), backgroundColor: sorted.map(d => d.profit >= 0 ? '#10b981' : '#dc2626'), borderRadius: 6, barThickness: 14 }]
     },
     options: {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false,
@@ -1271,7 +1273,7 @@ function renderAdvProfitChart() {
         tooltip: { callbacks: { label: c => ' Profit: ' + fmtMoney(c.parsed.x) } }
       },
       scales: {
-        x: { grid: { color: '#f0f1f4' }, ticks: { callback: v => v < 0 ? '-$' + Math.abs(v).toLocaleString('en-US') : '$' + v.toLocaleString('en-US') } },
+        x: { grid: { color: '#f0f1f4' }, ticks: { callback: v => v < 0 ? '-$' + fmtInt(Math.abs(v)) : '$' + fmtInt(v) } },
         y: { grid: { display: false }, ticks: { font: { size: 11 } } }
       }
     }
@@ -1288,13 +1290,13 @@ function renderBrandPerfChart() {
     type: 'bar',
     data: {
       labels: active.map(d => d.brand),
-      datasets: [{ data: active.map(d => d[m]), backgroundColor: active.map((_, i) => brandPalette[i % brandPalette.length]), borderRadius: 6, barThickness: 12 }]
+      datasets: [{ data: active.map(d => Math.round(d[m])), backgroundColor: active.map((_, i) => brandPalette[i % brandPalette.length]), borderRadius: 6, barThickness: 12 }]
     },
     options: {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { grid: { color: '#f0f1f4' }, beginAtZero: true, ticks: { callback: v => m === 'revenue' ? '$' + v.toLocaleString('en-US') : v.toLocaleString('en-US') } },
+        x: { grid: { color: '#f0f1f4' }, beginAtZero: true, ticks: { callback: v => m === 'revenue' ? '$' + fmtInt(v) : fmtInt(v) } },
         y: { grid: { display: false }, ticks: { font: { size: 11 } } }
       }
     }
@@ -1308,7 +1310,7 @@ function renderBrandProfitChart() {
     type: 'bar',
     data: {
       labels: active.map(d => d.brand),
-      datasets: [{ data: active.map(d => d.profit), backgroundColor: active.map(d => d.profit >= 0 ? '#10b981' : '#dc2626'), borderRadius: 6, barThickness: 12 }]
+      datasets: [{ data: active.map(d => Math.round(d.profit)), backgroundColor: active.map(d => d.profit >= 0 ? '#10b981' : '#dc2626'), borderRadius: 6, barThickness: 12 }]
     },
     options: {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false,
@@ -1317,7 +1319,7 @@ function renderBrandProfitChart() {
         tooltip: { callbacks: { label: c => ' Profit: ' + fmtMoney(c.parsed.x) } }
       },
       scales: {
-        x: { grid: { color: '#f0f1f4' }, ticks: { callback: v => v < 0 ? '-$' + Math.abs(v).toLocaleString('en-US') : '$' + v.toLocaleString('en-US') } },
+        x: { grid: { color: '#f0f1f4' }, ticks: { callback: v => v < 0 ? '-$' + fmtInt(Math.abs(v)) : '$' + fmtInt(v) } },
         y: { grid: { display: false }, ticks: { font: { size: 11 } } }
       }
     }
@@ -1408,7 +1410,6 @@ function setupGlobalListeners() {
     document.getElementById('advPanel').classList.toggle('open');
   });
 
-  // Limpiar memoria para forzar recarga en vivo de los JSON
   document.getElementById('btnReset').addEventListener('click', () => {
     for (const key in LOADED_MONTHS) delete LOADED_MONTHS[key];
     state.from = FIRST_DAY_OF_MONTH;
