@@ -618,7 +618,7 @@ async function ensureDataRangeLoaded(fromStr, toStr) {
 }
 
 /* =========================================================================
-   DATE-FILTERING & RECALCULATION ENGINE (CON LÓGICA DE CIERRE EXACTO)
+   DATE-FILTERING & RECALCULATION ENGINE (SUMA DINÁMICA EXACTA)
    ========================================================================= */
 async function filterAndRenderAll() {
   const overlay = document.getElementById('loadingOverlay');
@@ -626,7 +626,7 @@ async function filterAndRenderAll() {
 
   await ensureDataRangeLoaded(state.from, state.to);
 
-  // Combine records strictly between state.from and state.to
+  // Combinar registros estrictamente entre state.from y state.to
   const allLoadedRecords = [];
   const mergedCatalogs = {
     advertisers: new Set(),
@@ -657,7 +657,7 @@ async function filterAndRenderAll() {
 
   const daysCount = allLoadedRecords.length || 1;
 
-  // Calculate full month length dynamically (handles 30 vs 31 days)
+  // Calcular la cantidad total de días del periodo seleccionado
   const [fromY, fromM] = state.from.split('-').map(Number);
   const [toY, toM] = state.to.split('-').map(Number);
   let totalPeriodDays = 0;
@@ -668,15 +668,12 @@ async function filterAndRenderAll() {
     if (m > 12) { m = 1; y++; }
   }
 
-  // Si la fecha final es fin de mes (30 o 31) o se seleccionó el mes completo:
-  const isEndOfMonth = (state.to.slice(8) >= "30");
-  const isFullPeriod = (daysCount >= totalPeriodDays) || isEndOfMonth;
+  // Si se seleccionó el periodo completo (mes cerrado), el factor es 1.0 (FINAL)
+  const isFullPeriod = (daysCount >= totalPeriodDays);
   const rrFactor = isFullPeriod ? 1.0 : (totalPeriodDays / daysCount);
 
-  // SI SE MIRA EL FIN DE MES O MES COMPLETO, LAS TABLAS LEEN EL CONSOLIDADO DEL ÚLTIMO DÍA (DÍA 31)
-  const recordsForTables = (isFullPeriod && allLoadedRecords.length > 0)
-    ? [allLoadedRecords[allLoadedRecords.length - 1]]
-    : allLoadedRecords;
+  // Las tablas y tarjetas SIEMPRE suman todos los días que caen dentro del rango seleccionado
+  const recordsForTables = allLoadedRecords;
 
   // 1. Teams Aggregation
   const teamTotals = {
@@ -1009,9 +1006,7 @@ function renderDaily() {
   const reg = [], ftd = [], rev = [];
   filtered.forEach(d => {
     let r = 0, f = 0, v = 0;
-    // SI EXISTE CHART_ADVERTISERS (PARA LA GRÁFICA), LO USA PARA EVITAR EL PICO
-    const advSource = d.chart_advertisers || d.advertisers || {};
-    for (const [adv, vals] of Object.entries(advSource)) {
+    for (const [adv, vals] of Object.entries(d.advertisers || {})) {
       if (state.advs.has(adv)) {
         r += vals[0];
         f += vals[1];
