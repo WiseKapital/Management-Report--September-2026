@@ -127,9 +127,9 @@
   table{width:100%; border-collapse:collapse; font-size:13px;}
   th,td{padding:10px 12px; text-align:right; white-space:nowrap;}
   th:first-child,td:first-child{text-align:left;}
-  .grp-blue{background:var(--blue); color:#fff;}
-  .grp-green{background:#1f9d55; color:#fff;}
-  .grp-orange{background:#b26a00; color:#fff;}
+  .grp-blue{background:var(--blue); color:#fff; text-align:center;}
+  .grp-green{background:#1f9d55; color:#fff; text-align:center;}
+  .grp-orange{background:#b26a00; color:#fff; text-align:center;}
   .grp-roi{background:#fff;}
   thead .sub th{color:var(--muted); font-size:10px; text-transform:uppercase; letter-spacing:.4px; font-weight:600; border-bottom:1px solid var(--line);}
   tbody td{border-bottom:1px solid var(--line);}
@@ -223,8 +223,8 @@
         <tr>
           <th style="text-align:left">TEAM</th>
           <th colspan="5" class="grp-blue">KPIS</th>
-          <th colspan="5" class="grp-green" id="teamMtdHeader">PERIOD ACTUALS</th>
-          <th colspan="5" class="grp-orange" id="teamRrHeader">PROJECTED RUN-RATE</th>
+          <th colspan="5" class="grp-green" id="teamMtdHeader">MTD</th>
+          <th colspan="5" class="grp-orange" id="teamRrHeader">RUN RATE</th>
           <th class="grp-roi"></th>
         </tr>
         <tr class="sub">
@@ -836,7 +836,7 @@ async function filterAndRenderAll() {
   }
 
   // Update header text
-  document.getElementById('teamRrHeader').textContent = isFullPeriod ? 'FINAL' : 'PROJECTED RUN-RATE';
+  document.getElementById('teamRrHeader').textContent = isFullPeriod ? 'RUN RATE' : 'PROJECTED RUN-RATE';
 
   renderAll();
   overlay.style.display = 'none';
@@ -961,7 +961,7 @@ function renderCards() {
       <div class="val">${d.val}</div>
       <div class="accent" style="background:${d.accent}"></div>
       <div class="sub">
-        <span>KPI<br>${isMonthClosed ? 'Final' : 'Run rate'}</span>
+        <span>KPI<br>${isMonthClosed ? 'RR' : 'Run rate'}</span>
         <span style="text-align:right"><b>${d.sub.kpi}</b><br><b class="${d.sub.rrCls}">${d.sub.rr}</b></span>
       </div>
     </div>`).join('');
