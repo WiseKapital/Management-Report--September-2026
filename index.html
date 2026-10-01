@@ -502,7 +502,9 @@ let CURRENT = {
   otherBrands: [],
   allBrands: [],
   inhouseBrands: [],
-  daily: []
+  daily: [],
+  baseKpi: {},
+  totalPeriodDays: 30
 };
 
 const state = {
@@ -546,7 +548,7 @@ const toDisplayDate = iso => {
 };
 
 /* =========================================================================
-   DYNAMIC JSON FETCHER & AUTOMATIC FALLBACK (DATOS EN 0 SI NO EXISTE)
+   DYNAMIC JSON FETCHER & AUTOMATIC FALLBACK
    ========================================================================= */
 function generateZeroMonth(year, monthNum) {
   const monthName = MONTH_NAMES[monthNum - 1];
@@ -630,7 +632,7 @@ async function ensureDataRangeLoaded(fromStr, toStr) {
 }
 
 /* =========================================================================
-   DATE-FILTERING & RECALCULATION ENGINE (SUMA DINÁMICA EXACTA)
+   DATE-FILTERING & RECALCULATION ENGINE (SUMA DINÁMICA MULTI-MES)
    ========================================================================= */
 async function filterAndRenderAll() {
   const overlay = document.getElementById('loadingOverlay');
@@ -669,16 +671,47 @@ async function filterAndRenderAll() {
 
   const daysCount = allLoadedRecords.length || 1;
 
-  // Calcular la cantidad total de días del periodo seleccionado
+  // Calcular la cantidad total de días del periodo seleccionado y meses involucrados
   const [fromY, fromM] = state.from.split('-').map(Number);
   const [toY, toM] = state.to.split('-').map(Number);
   let totalPeriodDays = 0;
   let y = fromY, m = fromM;
+  const monthsInRange = [];
+
   while (y < toY || (y === toY && m <= toM)) {
     totalPeriodDays += new Date(y, m, 0).getDate();
+    monthsInRange.push(`${y}-${pad(m)}`);
     m++;
     if (m > 12) { m = 1; y++; }
   }
+
+  // SUMA DINÁMICA DE KPIS: Se suman los KPIs de todos los meses abarcados en el rango
+  const aggregatedKpi = {
+    "EMAIL": { budget: 0, signups: 0, users: 0, revenue: 0, profit: 0 },
+    "MEDIA": { budget: 0, signups: 0, users: 0, revenue: 0, profit: 0 },
+    "SOCIAL": { budget: 0, signups: 0, users: 0, revenue: 0, profit: 0 },
+    "Grand total": { budget: 0, signups: 0, users: 0, revenue: 0, profit: 0 }
+  };
+
+  monthsInRange.forEach(mKey => {
+    const mData = LOADED_MONTHS[mKey];
+    const [yVal, mVal] = mKey.split('-').map(Number);
+    const mKpi = (mData && mData.teams_kpi) ? mData.teams_kpi : generateZeroMonth(yVal, mVal).teams_kpi;
+
+    ["EMAIL", "MEDIA", "SOCIAL", "Grand total"].forEach(tName => {
+      if (mKpi[tName]) {
+        aggregatedKpi[tName].budget += Number(mKpi[tName].budget) || 0;
+        aggregatedKpi[tName].signups += Number(mKpi[tName].signups) || 0;
+        aggregatedKpi[tName].users += Number(mKpi[tName].users) || 0;
+        aggregatedKpi[tName].revenue += Number(mKpi[tName].revenue) || 0;
+        aggregatedKpi[tName].profit += Number(mKpi[tName].profit) || 0;
+      }
+    });
+  });
+
+  const baseKpi = aggregatedKpi;
+  CURRENT.baseKpi = baseKpi;
+  CURRENT.totalPeriodDays = totalPeriodDays;
 
   // Si se seleccionó el periodo completo (mes cerrado), el factor es 1.0 (FINAL)
   const isFullPeriod = (daysCount >= totalPeriodDays);
@@ -706,11 +739,6 @@ async function filterAndRenderAll() {
       }
     }
   });
-
-  const refMonthKey = state.to.slice(0, 7);
-  const baseKpi = (LOADED_MONTHS[refMonthKey] && LOADED_MONTHS[refMonthKey].teams_kpi) 
-    ? LOADED_MONTHS[refMonthKey].teams_kpi 
-    : generateZeroMonth(CURRENT_YEAR, now.getMonth() + 1).teams_kpi;
 
   const gtActual = { budget: 0, signups: 0, users: 0, revenue: 0, profit: 0 };
 
@@ -1033,14 +1061,15 @@ function renderDaily() {
   const avg = arr => arr.reduce((a,b) => a+b, 0) / count;
   const f1 = v => (Math.round(v*10)/10).toLocaleString('en-US');
 
-  const refKey = state.to.slice(0, 7);
-  const gtKpi = (LOADED_MONTHS[refKey] && LOADED_MONTHS[refKey].teams_kpi) 
-    ? LOADED_MONTHS[refKey].teams_kpi["Grand total"] 
+  // KPI diario promedio según el total de días del periodo y la suma de KPIs
+  const gtKpi = (CURRENT.baseKpi && CURRENT.baseKpi["Grand total"]) 
+    ? CURRENT.baseKpi["Grand total"] 
     : { signups: 1750, users: 360, revenue: 24200 };
 
-  const kpiDailySignups = gtKpi.signups / 30;
-  const kpiDailyFtd = gtKpi.users / 30;
-  const kpiDailyRev = gtKpi.revenue / 30;
+  const periodDays = CURRENT.totalPeriodDays || 30;
+  const kpiDailySignups = gtKpi.signups / periodDays;
+  const kpiDailyFtd = gtKpi.users / periodDays;
+  const kpiDailyRev = gtKpi.revenue / periodDays;
 
   const dashed = (lbl, col, val) => ({
     label: lbl, data: filtered.map(() => Math.round(val*10)/10),
