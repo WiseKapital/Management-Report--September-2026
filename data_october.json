@@ -1,0 +1,305 @@
+{
+  "metadata": {
+    "month": "October",
+    "year": 2026,
+    "month_key": "2026-10",
+    "date_from": "2026-10-01",
+    "date_to": "2026-10-31",
+    "days_in_month": 31,
+    "days_elapsed": 1,
+    "is_month_closed": false
+  },
+  "teams_kpi": {
+    "EMAIL": {
+      "budget": 1100.0,
+      "signups": 450,
+      "users": 40,
+      "revenue": 4400.0,
+      "profit": 3300.0
+    },
+    "MEDIA": {
+      "budget": 5500.0,
+      "signups": 1000,
+      "users": 300,
+      "revenue": 16500.0,
+      "profit": 11000.0
+    },
+    "SOCIAL": {
+      "budget": 1120.0,
+      "signups": 83,
+      "users": 9,
+      "revenue": 1350.0,
+      "profit": 230.0
+    },
+    "Grand total": {
+      "budget": 7720.0,
+      "signups": 1533,
+      "users": 349,
+      "revenue": 22250.0,
+      "profit": 14530.0
+    }
+  },
+  "catalogs": {
+    "advertisers": [
+      "ACEBET",
+      "AFF 66",
+      "ALL IN AFFILIATES",
+      "BASHER AGENCY",
+      "CHANCED",
+      "CoinsRoyale",
+      "EPC",
+      "GAMETIME DIGITAL",
+      "IMPACT",
+      "PURIFY",
+      "SPLASH"
+    ],
+    "brands": [
+      {
+        "advertiser": "AFF 66",
+        "brand": "SweepJungle",
+        "category": "sweepstakes"
+      },
+      {
+        "advertiser": "CHANCED",
+        "brand": "Chanced Punt",
+        "category": "sweepstakes"
+      },
+      {
+        "advertiser": "COINSROYALE",
+        "brand": "Coins Royale sweeps",
+        "category": "sweepstakes"
+      },
+      {
+        "advertiser": "COINSROYALE",
+        "brand": "CoinsRoyale",
+        "category": "sweepstakes"
+      },
+      {
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Rolling Riches",
+        "category": "sweepstakes"
+      },
+      {
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "Baba",
+        "category": "sweepstakes"
+      },
+      {
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "CoinsBack",
+        "category": "sweepstakes"
+      },
+      {
+        "advertiser": "GAMETIME DIGITAL",
+        "brand": "McLuck",
+        "category": "sweepstakes"
+      },
+      {
+        "advertiser": "SPLASH",
+        "brand": "splashcoins",
+        "category": "sweepstakes"
+      },
+      {
+        "advertiser": "ACEBET",
+        "brand": "Acebet",
+        "category": "casino"
+      },
+      {
+        "advertiser": "ALL IN AFFILIATES",
+        "brand": "Betnjet",
+        "category": "casino"
+      },
+      {
+        "advertiser": "IMPACT",
+        "brand": "Borrowell",
+        "category": "other"
+      },
+      {
+        "advertiser": "IMPACT",
+        "brand": "MOLOTOV",
+        "category": "other"
+      }
+    ],
+    "inhouse_brands": [
+      "SuperSlotz sweeps",
+      "Wannnasee USA LP"
+    ]
+  },
+  "daily_records": [
+    {
+      "date": "2026-10-01",
+      "teams": {
+        "EMAIL": [
+          980,
+          6,
+          1,
+          150
+        ],
+        "MEDIA": [
+          0,
+          1,
+          1,
+          150
+        ],
+        "SOCIAL": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "advertisers": {
+        "ACEBET": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "AFF 66": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "ALL IN AFFILIATES": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "BASHER AGENCY": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "CHANCED": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "CoinsRoyale": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "EPC": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "GAMETIME DIGITAL": [
+          4,
+          1,
+          150.0,
+          0.0
+        ],
+        "IMPACT": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "PURIFY": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "SPLASH": [
+          3,
+          1,
+          150.0,
+          0.0
+        ]
+      },
+      "brands": {
+        "SweepJungle": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "Chanced Punt": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "Coins Royale sweeps": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "CoinsRoyale": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "Rolling Riches": [
+          0,
+          1,
+          150.0,
+          0.0
+        ],
+        "Baba": [
+          1,
+          0,
+          0.0,
+          0.0
+        ],
+        "CoinsBack": [
+          2,
+          0,
+          0.0,
+          0.0
+        ],
+        "McLuck": [
+          1,
+          0,
+          0.0,
+          0.0
+        ],
+        "splashcoins": [
+          3,
+          1,
+          150.0,
+          0.0
+        ],
+        "Acebet": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "Betnjet": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "Borrowell": [
+          0,
+          0,
+          0.0,
+          0.0
+        ],
+        "MOLOTOV": [
+          0,
+          0,
+          0.0,
+          0.0
+        ]
+      },
+      "inhouse": {
+        "SuperSlotz sweeps": 0.0,
+        "Wannnasee USA LP": 0.0
+      }
+    }
+  ]
+}
