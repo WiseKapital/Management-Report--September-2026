@@ -538,10 +538,13 @@ const fmtMoney = v => {
     : fmtInt(absVal);
   return (isNeg ? '-$' : '$') + formatted;
 };
-const kpiCls = (v, kpi, invert) => {
+
+// REGLA UNIVERSAL: Si RR >= KPI es verde ('pos'), si no es rojo ('neg') para todas las métricas (incluyendo BUDGET)
+const kpiCls = (v, kpi) => {
   if (v < 0) return 'neg';
-  return (invert ? v <= kpi : v >= kpi) ? 'pos' : 'neg';
+  return v >= kpi ? 'pos' : 'neg';
 };
+
 const toDisplayDate = iso => {
   const [y, m, d] = iso.split('-');
   return `${m}/${d}/${y}`;
@@ -1025,11 +1028,11 @@ function renderTeams() {
         <td class="num">${fmtInt(m.users)}</td>
         <td class="num">${fmtMoney(m.revenue)}</td>
         <td class="num">${fmtMoney(m.profit)}</td>
-        <td class="num ${kpiCls(r.budget, k.budget, true)}">${fmtMoney(r.budget)}</td>
-        <td class="num ${kpiCls(r.signups, k.signups, false)}">${fmtInt(r.signups)}</td>
-        <td class="num ${kpiCls(r.users, k.users, false)}">${fmtInt(r.users)}</td>
-        <td class="num ${kpiCls(r.revenue, k.revenue, false)}">${fmtMoney(r.revenue)}</td>
-        <td class="num ${kpiCls(r.profit, k.profit, false)}">${fmtMoney(r.profit)}</td>
+        <td class="num ${kpiCls(r.budget, k.budget)}">${fmtMoney(r.budget)}</td>
+        <td class="num ${kpiCls(r.signups, k.signups)}">${fmtInt(r.signups)}</td>
+        <td class="num ${kpiCls(r.users, k.users)}">${fmtInt(r.users)}</td>
+        <td class="num ${kpiCls(r.revenue, k.revenue)}">${fmtMoney(r.revenue)}</td>
+        <td class="num ${kpiCls(r.profit, k.profit)}">${fmtMoney(r.profit)}</td>
         <td class="num">${t.roi}</td>
       </tr>`;
   }).join('');
