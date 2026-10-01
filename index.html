@@ -618,7 +618,7 @@ async function ensureDataRangeLoaded(fromStr, toStr) {
 }
 
 /* =========================================================================
-   DATE-FILTERING & RECALCULATION ENGINE (WITH 30/31-DAY RUN-RATE FIX)
+   DATE-FILTERING & RECALCULATION ENGINE (CON LÓGICA DE CIERRE EXACTO)
    ========================================================================= */
 async function filterAndRenderAll() {
   const overlay = document.getElementById('loadingOverlay');
@@ -668,11 +668,12 @@ async function filterAndRenderAll() {
     if (m > 12) { m = 1; y++; }
   }
 
-  // If the user selected the full month/period, factor is exactly 1.0 (actuals = final)
-  const isFullPeriod = (daysCount >= totalPeriodDays);
+  // Si la fecha final es fin de mes (30 o 31) o se seleccionó el mes completo:
+  const isEndOfMonth = (state.to.slice(8) >= "30");
+  const isFullPeriod = (daysCount >= totalPeriodDays) || isEndOfMonth;
   const rrFactor = isFullPeriod ? 1.0 : (totalPeriodDays / daysCount);
 
-  // SI SE SELECCIONA EL MES COMPLETO, LAS TABLAS Y TARJETAS TOMAN DIRECTAMENTE EL DÍA 31
+  // SI SE MIRA EL FIN DE MES O MES COMPLETO, LAS TABLAS LEEN EL CONSOLIDADO DEL ÚLTIMO DÍA (DÍA 31)
   const recordsForTables = (isFullPeriod && allLoadedRecords.length > 0)
     ? [allLoadedRecords[allLoadedRecords.length - 1]]
     : allLoadedRecords;
