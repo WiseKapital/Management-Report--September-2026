@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Management and advertisers report</title>
 <style>
   :root{
@@ -490,7 +493,7 @@ const FIRST_DAY_OF_MONTH = `${CURRENT_YEAR}-${CURRENT_MONTH}-01`;
 const MIN_DATE = "2026-07-01";
 const MAX_DATE = TODAY;
 
-// Cache for loaded JSONs
+// Cache en memoria para la sesión activa
 const LOADED_MONTHS = {};
 
 let CURRENT = {
@@ -539,7 +542,7 @@ const fmtMoney = v => {
   return (isNeg ? '-$' : '$') + formatted;
 };
 
-// REGLA UNIVERSAL: Si RR >= KPI es verde ('pos'), si no es rojo ('neg') para todas las métricas (incluyendo BUDGET)
+// REGLA: Si RR >= KPI es verde ('pos'), si no es rojo ('neg') para todas las métricas (incluyendo BUDGET)
 const kpiCls = (v, kpi) => {
   if (v < 0) return 'neg';
   return v >= kpi ? 'pos' : 'neg';
@@ -551,7 +554,7 @@ const toDisplayDate = iso => {
 };
 
 /* =========================================================================
-   DYNAMIC JSON FETCHER & AUTOMATIC FALLBACK
+   DYNAMIC JSON FETCHER & AUTOMATIC FALLBACK (ANTI-CACHE ACTIVO)
    ========================================================================= */
 function generateZeroMonth(year, monthNum) {
   const monthName = MONTH_NAMES[monthNum - 1];
@@ -599,7 +602,16 @@ async function fetchMonth(year, monthNum) {
   const fileName = `data_${monthName}.json`;
 
   try {
-    const res = await fetch(`./${fileName}?_cb=${Date.now()}`);
+    // LLAMADA ANTI-CACHE ESTRICTA: Evita caché de peticiones exitosas o fallidas
+    const res = await fetch(`./${fileName}?_nocache=${Date.now()}_${Math.random()}`, {
+      cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
+    });
+
     if (!res.ok) throw new Error(`Not found (${res.status})`);
     const data = await res.json();
     LOADED_MONTHS[monthKey] = data;
@@ -607,7 +619,7 @@ async function fetchMonth(year, monthNum) {
   } catch (err) {
     console.warn(`File ${fileName} not found. Generating default zero month.`, err);
     const zeroData = generateZeroMonth(year, monthNum);
-    LOADED_MONTHS[monthKey] = zeroData;
+    // IMPORTANTE: NO guardamos en LOADED_MONTHS para que en cuanto subas el JSON se descargue de inmediato
     return zeroData;
   }
 }
@@ -1396,7 +1408,9 @@ function setupGlobalListeners() {
     document.getElementById('advPanel').classList.toggle('open');
   });
 
+  // Limpiar memoria para forzar recarga en vivo de los JSON
   document.getElementById('btnReset').addEventListener('click', () => {
+    for (const key in LOADED_MONTHS) delete LOADED_MONTHS[key];
     state.from = FIRST_DAY_OF_MONTH;
     state.to = MAX_DATE;
     updateDateDisplay();
